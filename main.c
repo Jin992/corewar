@@ -55,6 +55,7 @@ int main(int argc, char **argv)
 	size_t cycle = 0;
 	local.players_qnt = 3;
 	ft_memset(local.memory, 0, MEM_SIZE);
+	ft_memset(local.memory_color, 0, MEM_SIZE);
 	get_players(argv, &local);
 	load_players_to_memory(&local);
 	vm_init(&local);

@@ -10,7 +10,7 @@
 #include <fcntl.h>
 #include "lib/includes/libft.h"
 #include "lib/includes/ft_printf.h"
-
+#include "operations.h"
 #define		MAX_FIELD_X		64
 #define		MAX_FIELD_Y		64
 #define REVERSE_4_BYTES(x) ((((x) & 0xFF) << 24) | ((((x) & 0xFF00) << 8)) | ((((x) & 0xFF0000) >> 8)) | (((x) & 0xFF000000) >> 24))
@@ -20,6 +20,8 @@
 typedef struct	s_process
 {
 	int					pc;
+	int 				timer;
+	void 				(*op)();
 	int 				color;
 	char				reg[REG_NUMBER][REG_SIZE];
 	bool				carry;
@@ -48,6 +50,8 @@ typedef struct	s_VM
 	int					nbr_live;
 	int					max_checks;
 	u_int8_t 			memory[MEM_SIZE];
+	u_int8_t 			memory_color[MEM_SIZE];
+
 	t_process			*processes;
 	t_players			player[4];
 }				t_VM;

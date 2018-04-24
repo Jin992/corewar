@@ -34,7 +34,10 @@ void	load_players_to_memory(t_VM *machine)
 	{
 		i = j * (MEM_SIZE / machine->players_qnt) - 1;
 		while (++i < machine->player[j].exec_size + (j * (MEM_SIZE / machine->players_qnt)))
+		{
 			machine->memory[i] = (u_int8_t) machine->player[j].player_exec[i - (j * (MEM_SIZE / machine->players_qnt))];
+			machine->memory_color[i] = (u_int8_t)(j + 1);
+		}
 		j++;
 	}
 }
