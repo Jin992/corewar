@@ -39,11 +39,7 @@ typedef struct	s_process
 {
 	int					pc;
 	int 				timer;
-<<<<<<< HEAD
 	void				(*op)();
-=======
-	void 				(*op)();
->>>>>>> fed2ac9de9e747251b85609e5abbe739d230a555
 	int 				color;
 	char				reg[REG_NUMBER][REG_SIZE];
 	bool				carry;

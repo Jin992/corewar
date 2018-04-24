@@ -36,15 +36,10 @@ void	load_players_to_memory(t_VM *machine)
 		i = j * (MEM_SIZE / machine->players_qnt) - 1;
 		proces_create(j, i + 1, machine);
 		while (++i < machine->player[j].exec_size + (j * (MEM_SIZE / machine->players_qnt)))
-<<<<<<< HEAD
-			machine->memory[i] = (u_int8_t)
-			machine->player[j].player_exec[i - (j * (MEM_SIZE / machine->players_qnt))];
-=======
 		{
 			machine->memory[i] = (u_int8_t) machine->player[j].player_exec[i - (j * (MEM_SIZE / machine->players_qnt))];
 			machine->memory_color[i] = (u_int8_t)(j + 1);
 		}
->>>>>>> fed2ac9de9e747251b85609e5abbe739d230a555
 		j++;
 	}
 }
