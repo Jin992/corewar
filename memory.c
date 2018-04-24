@@ -1,6 +1,7 @@
 //
 // Created by Evgen ARTESHCHUK on 4/23/18.
 //
+
 #include "vm.h"
 
 void	print_memory( u_int8_t *memory, size_t cycle)
@@ -33,8 +34,10 @@ void	load_players_to_memory(t_VM *machine)
 	while (j < machine->players_qnt)
 	{
 		i = j * (MEM_SIZE / machine->players_qnt) - 1;
+		proces_create(j, i + 1, machine);
 		while (++i < machine->player[j].exec_size + (j * (MEM_SIZE / machine->players_qnt)))
-			machine->memory[i] = (u_int8_t) machine->player[j].player_exec[i - (j * (MEM_SIZE / machine->players_qnt))];
+			machine->memory[i] = (u_int8_t)
+			machine->player[j].player_exec[i - (j * (MEM_SIZE / machine->players_qnt))];
 		j++;
 	}
 }
