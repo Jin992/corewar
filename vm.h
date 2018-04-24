@@ -39,7 +39,11 @@ typedef struct	s_process
 {
 	int					pc;
 	int 				timer;
+<<<<<<< HEAD
 	void				(*op)();
+=======
+	void 				(*op)();
+>>>>>>> fed2ac9de9e747251b85609e5abbe739d230a555
 	int 				color;
 	char				reg[REG_NUMBER][REG_SIZE];
 	bool				carry;
@@ -69,6 +73,8 @@ typedef struct	s_VM
 	int 				time;
 	int					max_checks;
 	u_int8_t 			memory[MEM_SIZE];
+	u_int8_t 			memory_color[MEM_SIZE];
+
 	t_process			*processes;
 	t_players			player[4];
 }				t_VM;
