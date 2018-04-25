@@ -10,7 +10,7 @@
 #include <fcntl.h>
 #include "lib/includes/libft.h"
 #include "lib/includes/ft_printf.h"
-#include "operations.h"
+#include "Operations/operations.h"
 #define		MAX_FIELD_X		64
 #define		MAX_FIELD_Y		64
 #define REVERSE_4_BYTES(x) ((((x) & 0xFF) << 24) | ((((x) & 0xFF00) << 8)) | ((((x) & 0xFF0000) >> 8)) | (((x) & 0xFF000000) >> 24))

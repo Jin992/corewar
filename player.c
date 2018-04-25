@@ -26,7 +26,6 @@ static void	init_player(char *player, t_players *player_st)
 		else if (cnt > 143 + COMMENT_LENGTH)
 			player_st->player_exec[cnt - (144 + COMMENT_LENGTH)] = buff;
 		cnt++;
-
 	}
 	player_st->exec_size = REVERSE_4_BYTES(*(int32_t *)exec_size);
 	close(fd_in);

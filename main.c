@@ -11,7 +11,6 @@ int main(int argc, char **argv)
 		usage();
 		return (0);
 	}
-	size_t cycle = 0;
 	local.players_qnt = argc - 1;
 	local.processes = NULL;
 	ft_memset(local.memory, 0, MEM_SIZE);
