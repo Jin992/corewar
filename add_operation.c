@@ -10,8 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
-#include "vm.h"
+#include "includes/vm.h"
 
 void		add_operation(t_VM *machine, t_process *cur)
 {

@@ -19,10 +19,10 @@
 #define IS_IND
 #define IS_REG
 
-#include "../lib/includes/libft.h"
-#include "../vm.h"
-typedef struct	s_VM t_VM;
-typedef struct	s_process t_process;
+#include "vm.h"
+
+typedef struct s_VM t_VM;
+typedef struct s_process t_process;
 void	add_operation(t_VM *machine, t_process *cur);
 void	aff_operation();
 void	and_operation();

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vm.h"
+#include "includes/vm.h"
 
 void	proces_create(int color, int pc, t_VM *machine)
 {

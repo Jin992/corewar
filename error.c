@@ -1,7 +1,7 @@
 //
 // Created by Evgen ARTESHCHUK on 4/23/18.
 //
-#include "vm.h"
+#include "includes/vm.h"
 
 void	usage()
 {

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vm.h"
+#include "includes/vm.h"
 
 void	live_operation(t_VM *machine, t_process *cur)
 {

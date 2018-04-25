@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "vm.h"
+#include "includes/vm.h"
 
 
 int main(int argc, char **argv)

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vm.h"
+#include "includes/vm.h"
 
 static void (*operations[16])() = {&add_operation, 
 		&aff_operation, &and_operation,
