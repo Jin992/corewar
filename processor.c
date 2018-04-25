@@ -12,7 +12,7 @@
 
 #include "includes/vm.h"
 #include <stdio.h> 
-static const void (*operations[17])(t_VM *machine, t_process *cur) = { NULL,
+static void (*operations[17])(t_VM *machine, t_process *cur) = { NULL,
  			&live_operation, &ld_operation, &st_operation,
 			&add_operation, &sub_operation, &and_operation,
 			&or_operation, &xor_operation, &zjmp_operation,
