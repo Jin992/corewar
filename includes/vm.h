@@ -43,7 +43,10 @@ typedef struct	s_process
 	int 				color;
 	char				reg[REG_NUMBER][REG_SIZE];
 	bool				carry;
+	bool 				death;
+	int 				cycle_to_die;
 	struct s_process	*next;
+	struct s_process	*prev;
 }				t_process;
 
 typedef struct	s_player
@@ -83,4 +86,5 @@ void	usage();
 
 void	proces_create(int color, int pc, t_VM *machine);
 void	processor(t_VM *machine);
+void	proces_clone(t_VM *machine, t_process *clone);
 #endif //COREWAR_VM_H
