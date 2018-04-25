@@ -12,7 +12,7 @@
 
 #include "../includes/operations.h"
 
-void ld_operation()
+void ld_operation(t_VM *machine, t_process *cur)
 {
 	ft_printf("ld_operation\n");
 }

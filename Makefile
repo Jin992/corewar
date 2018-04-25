@@ -43,7 +43,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ) $(OPJ)
 	make -C $(LIBFT)
-	$(CC) -g $(FLAGS) $(OBJ) $(OPJ) -L $(LIBFT) -lft -o $(NAME)
+	$(CC) -g $(FLAGS) $(OBJ) $(OPJ) -L $(LIBFT) -lft -o $(NAME) -lncurses
 
 %.o: %.c $(HEAD)
 	$(CC) $(FLAGS) -c $<
