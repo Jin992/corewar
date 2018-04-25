@@ -10,7 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/operations.h"
+
 void ld_operation()
 {
 	ft_printf("ld_operation\n");

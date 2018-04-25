@@ -43,13 +43,13 @@ all: $(NAME)
 
 $(NAME): $(OBJ) $(OPJ)
 	make -C $(LIBFT)
-	$(CC) -g $(FLAGS) $(OBJ) $(OP) -L $(LIBFT) -lft -o $(NAME)
+	$(CC) -g $(FLAGS) $(OBJ) $(OPJ) -L $(LIBFT) -lft -o $(NAME)
 
 %.o: %.c $(HEAD)
 	$(CC) $(FLAGS) -c $<
 
 clean:
-	rm -f $(OBJ) $(OP)
+	rm -f $(OBJ) $(OPJ)
 	make clean -C $(LIBFT)
 
 fclean: clean

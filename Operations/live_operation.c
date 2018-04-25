@@ -10,8 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include "../vm.h"
+#include "../includes/operations.h"
 
 void	live_operation(t_VM *machine, t_process *cur)
 {

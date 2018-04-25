@@ -10,8 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
+#include "../includes/operations.h"
 void	zjmp_operation()
 {
 	ft_printf("zjmp_operation\n");

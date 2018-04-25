@@ -9,7 +9,9 @@
 /*   Updated: 2018/04/24 15:34:11 by ayavorsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "libft.h"
+
+#include "../includes/operations.h"
+
 void	fork_operation()
 {
 	ft_printf("fork_operation\n");
