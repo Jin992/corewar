@@ -12,7 +12,7 @@
 
 #include "../includes/operations.h"
 
-void	fork_operation()
+void	fork_operation(t_VM *machine, t_process *cur) // proces_clone(t_VM *machine, t_process *clone)
 {
-	ft_printf("fork_operation\n");
+	// cur->pc += 3;
 }
