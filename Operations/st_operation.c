@@ -31,9 +31,8 @@ void st_operation(t_VM *machine, t_process *cur)
 		mvwprintw(machine->main_field, 0, 80, "start spot for t_ind %.2x\n", t_ind );
 		while (++i < 4)
 		{
-			machine->memory[(cur->pc + t_ind) + i] = cur->reg[*(u_int8_t *) &machine->memory[cur->pc + 2]][i];
+			machine->memory[((cur->pc + t_ind) + i) % MEM_SIZE] = cur->reg[*(u_int8_t *) &machine->memory[cur->pc + 2]][i];
 			mvwprintw(machine->main_field, 1, 80, "im in reg ind \n");
-
 		}
 		cur->pc += 5;
 	}
