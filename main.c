@@ -19,7 +19,7 @@ int main(int argc, char **argv)
 	get_players(argv, &local);//Валідація
 	load_players_to_memory(&local);//Валідація
 	// if (local.processes)
-		processor(&local);//покищо без валідацї
+	processor(&local);//покищо без валідацї
 	// while(local.processes)
 	// {
 	// 	printf("pos = %d\n", local.processes->pc);

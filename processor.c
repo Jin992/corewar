@@ -71,11 +71,12 @@ void	move_procese(t_VM *machine)
 
 void	processor(t_VM *machine)
 {
+	init_ncurses(machine);
 	machine->time = 0;
 	while (1)
 	{
 		move_procese(machine);
 		// machine->time--;
-		// print_memory(machine, 0);
+		print_memory(machine, 0);
 	}
 }
