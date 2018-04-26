@@ -5,14 +5,15 @@
 #include "includes/vm.h"
 
 //void	print_memory( u_int8_t *memory)
-void init_ncurses(void)
+void init_ncurses(t_VM *machine)
 {
- initscr();
- noecho();
- curs_set(0);
- keypad(stdscr, TRUE);
- nodelay(stdscr, TRUE);
- start_color();
+ 	initscr();
+ 	noecho();
+ 	curs_set(0);
+	keypad(stdscr, TRUE);
+ 	nodelay(stdscr, TRUE);
+ 	start_color();
+	machine->main_field = newwin(100 + 2, 100 + 2, 0, 0);
 }
 
 int	it_is_proces(t_VM *machine, int i)
@@ -35,16 +36,10 @@ void	print_memory( t_VM *machine, size_t cycle)
 	int i;
 	int x;
 	int y;
-	int row_label;
 
 	u_int8_t *memory = machine->memory;
 	y = 0;
 	i = 0;
-	row_label = -64;
-	init_ncurses();
-	WINDOW* main_field = newwin(100 + 2, 100 + 2, 0, 0);
-	wrefresh(main_field);
-	// werase(main_field);
 	while (y++ < MAX_FIELD_Y)
 	{
 		x = 0;
@@ -53,17 +48,17 @@ void	print_memory( t_VM *machine, size_t cycle)
 			{
 				if (it_is_proces(machine, i) == 1)
 				{
-					mvwprintw(main_field, y, x, "*");
+					mvwprintw(machine->main_field, y, x, "*");
 					i++;
 				}
 				else
 				{
-					mvwprintw(main_field, y, x, "%d", machine->memory[i]);
+					mvwprintw(machine->main_field, y, x, "%x", machine->memory[i]);
 					i++;
 				}
 			}
 	}
-	while (wgetch(main_field) != 32)
+	while (wgetch(machine->main_field) != 32)
 	;
 }
 

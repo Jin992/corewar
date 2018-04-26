@@ -61,6 +61,8 @@ struct					s_VM
 	u_int8_t 			memory[MEM_SIZE]; // память(карта)
 	u_int8_t 			memory_color[MEM_SIZE]; // кому яка клітинка належить(0 нікого)
 
+
+	WINDOW* main_field;
 	t_process			*processes; // ПРОцеси які зараз діють(каретки)
 	t_players			player[4];
 };
@@ -70,7 +72,7 @@ void	print_memory( t_VM *machine, size_t cycle);
 
 void	load_players_to_memory(t_VM *machine);
 void	usage();
-
+void init_ncurses(t_VM *machine);
 void		proces_create(int color, int pc, t_VM *machine);
 void		processor(t_VM *machine);
 void		proces_clone(t_VM *machine, t_process *clone);
