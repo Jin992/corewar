@@ -27,21 +27,23 @@
 
 typedef struct s_VM t_VM;
 typedef struct s_process t_process;
-void	add_operation(t_VM *machine, t_process *cur);
-void	aff_operation();
-void	and_operation();
-void	fork_operation();
-void	ld_operation(t_VM *machine, t_process *cur);
-void	ldi_operation();
-void	lfork_operation();
+
 void	live_operation(t_VM *machine, t_process *cur);
-void 	lld_operation();
-void	lldi_operation();
-void 	or_operation();
-void	st_operation(t_VM *machine, t_process *cur);
-void 	sti_operation();
-void 	sub_operation(t_VM *machine, t_process *cur)
-void	xor_operation();
-void	zjmp_operation();
+void	add_operation(t_VM *machine, t_process *cur);
+void	fork_operation(t_VM *machine, t_process *cur);
+void	aff_operation(t_VM *machine, t_process *cur);
+void	and_operation(t_VM *machine, t_process *cur);
+void 	ld_operation(t_VM *machine, t_process *cur);
+void	ldi_operation(t_VM *machine, t_process *cur);
+void	lfork_operation(t_VM *machine, t_process *cur);
+void 	lld_operation(t_VM *machine, t_process *cur);
+void	lldi_operation(t_VM *machine, t_process *cur);
+void 	or_operation(t_VM *machine, t_process *cur);
+void 	st_operation(t_VM *machine, t_process *cur);
+void 	sti_operation(t_VM *machine, t_process *cur);
+void 	sub_operation(t_VM *machine, t_process *cur);
+void	xor_operation(t_VM *machine, t_process *cur);
+void	zjmp_operation(t_VM *machine, t_process *cur);
+
 
 #endif

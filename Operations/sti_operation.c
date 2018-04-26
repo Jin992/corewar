@@ -12,7 +12,7 @@
 
 #include "../includes/operations.h"
 
-void sti_operation()
+void sti_operation(t_VM *machine, t_process *cur)
 {
 	ft_printf("sti_operationt\n");
 }

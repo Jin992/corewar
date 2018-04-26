@@ -12,7 +12,7 @@
 
 #include "../includes/operations.h"
 
-void	xor_operation()
+void	xor_operation(t_VM *machine, t_process *cur)
 {
 	ft_printf("xor_operation\n");
 }

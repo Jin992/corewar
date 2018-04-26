@@ -19,6 +19,7 @@ void	live_operation(t_VM *machine, t_process *cur)
 	player = *(u_int16_t *)&machine->memory[cur->pc + 1];
 	machine->player[player].last_live = machine->cycle;
 	machine->player[player].live_cur_period++;
+	machine->winner = player;
 	ft_printf("live_operation Player: %d\n", player);
 	cur->pc += 5;
 }

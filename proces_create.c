@@ -22,7 +22,6 @@ void	proces_init(int color, int pc, t_process *new)
 	new->prev = NULL;
 	new->carry = 0;
 	new->op = NULL;
-	new->cycle_to_die = CYCLE_TO_DIE;
 }
 
 void	proces_create(int color, int pc, t_VM *machine)
@@ -50,7 +49,6 @@ void	proces_init_clone(t_process *new, t_process *clone)
 	new->timer = clone->timer;
 	new->color = clone->color;
 	new->carry = clone->carry;
-	new->cycle_to_die = clone->cycle_to_die;
 }
 
 void	proces_clone(t_VM *machine, t_process *clone)
@@ -69,5 +67,42 @@ void	proces_clone(t_VM *machine, t_process *clone)
 			tmp = tmp->next;
 		tmp->next = new;
 		tmp->next->prev = tmp;
+	}
+}
+
+void		kill_this_proccess(t_process **kill_me) //доробити
+{
+	t_process *die;
+
+	if (!(kill_me))
+		return ;
+	else if (!((*kill_me)->prev) && !((*kill_me)->next))
+	{
+		ft_printf("1\n");
+		free(*kill_me);
+		*kill_me = NULL;
+	}
+	else if (!((*kill_me)->prev) && (*kill_me)->next)
+	{
+		die = *kill_me;
+		*kill_me = (*kill_me)->next;
+		(*kill_me)->prev = NULL;
+		ft_printf("2\n");
+		free(die);
+	}
+	else if (!((*kill_me)->prev) && (*kill_me)->next)
+	{
+		die = *kill_me;
+		*kill_me = (*kill_me)->next;
+		(*kill_me)->prev = NULL;
+		ft_printf("3\n");
+		free(die);
+	}
+	else
+	{
+		die = *kill_me;
+		*kill_me = (*kill_me)->next;
+		(*kill_me)->prev = die->prev;
+		free(die);
 	}
 }

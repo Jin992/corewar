@@ -12,7 +12,7 @@
 
 #include "../includes/operations.h"
 
-void or_operation()
+void or_operation(t_VM *machine, t_process *cur)
 {
 	ft_printf("or_operation\n");
 }

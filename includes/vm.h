@@ -11,45 +11,29 @@
 #include "../lib/includes/libft.h"
 #include "../lib/includes/ft_printf.h"
 #include "operations.h"
+#include <ncurses.h>
 #define		MAX_FIELD_X		64
 #define		MAX_FIELD_Y		64
 #define REVERSE_4_BYTES(x) ((((x) & 0xFF) << 24) | ((((x) & 0xFF00) << 8)) | ((((x) & 0xFF0000) >> 8)) | (((x) & 0xFF000000) >> 24))
 #define REVERSE_2_BYTES(x) (((x) << 8) | ((x) >> 8))
 
+typedef struct	s_players t_players;
+typedef struct	s_process t_process;
+typedef struct	s_VM 		t_VM;
 
-//Operations Opcode
-#define LIVE 1
-#define LD 2
-#define	ST 3
-#define ADD 4
-#define SUB 5
-#define AND 6
-#define OR 7
-#define XOR 8
-#define ZJMP 9
-#define LDI 10
-#define STI 11
-#define FORK 12
-#define LLD 13
-#define LLDI 14
-#define LFORK 15
-#define AFF 16
-
-typedef struct	s_process
+struct					s_process
 {
-	int					pc;
-	int 				timer;
-	void				(*op)();
-	int 				color;
-	u_int8_t			reg[REG_NUMBER][REG_SIZE];
+	int					pc; // їхне положення на карті
+	int 				timer; // цикли дов викоання дії
+	void				(*op)(t_VM *machine, t_process *cur); // operation
+	int 				color; // хто створив каретку і коли належить поточна operation
+	char				reg[REG_NUMBER][REG_SIZE];
 	bool				carry;
-	bool 				death;
-	int 				cycle_to_die;
 	struct s_process	*next;
 	struct s_process	*prev;
-}				t_process;
+};
 
-typedef struct	s_player
+struct					s_players
 {
 	int					player_nbr;
 	int					last_live;
@@ -59,32 +43,36 @@ typedef struct	s_player
 	char				name[PROG_NAME_LENGTH];
 	char				comment[COMMENT_LENGTH];
 	unsigned char 		player_exec[MEM_SIZE / 6];
-}				t_players;
+};
 
-typedef struct	s_VM
+struct					s_VM
 {
 	int					cycle;
+	int 				proceses_live;
 	int					cycle_limit;
 	int					players_qnt;
 	int					cycle_to_die;
 	int					cycle_delta;
 	int					nbr_live;
+	int 				winner; // Хто останній сказав живий
+	int 				number_of_processes; //поточнка кількість процесів
 	int 				time;
 	int					max_checks;
-	u_int8_t 			memory[MEM_SIZE];
-	u_int8_t 			memory_color[MEM_SIZE];
+	u_int8_t 			memory[MEM_SIZE]; // память(карта)
+	u_int8_t 			memory_color[MEM_SIZE]; // кому яка клітинка належить(0 нікого)
 
-	t_process			*processes;
+	t_process			*processes; // ПРОцеси які зараз діють(каретки)
 	t_players			player[4];
-}				t_VM;
+};
 
 void	get_players(char **argv, t_VM *machine);
-void	print_memory( u_int8_t *memory);
+void	print_memory( t_VM *machine, size_t cycle);
 
 void	load_players_to_memory(t_VM *machine);
 void	usage();
 
-void	proces_create(int color, int pc, t_VM *machine);
-void	processor(t_VM *machine);
-void	proces_clone(t_VM *machine, t_process *clone);
+void		proces_create(int color, int pc, t_VM *machine);
+void		processor(t_VM *machine);
+void		proces_clone(t_VM *machine, t_process *clone);
+void		kill_this_proccess(t_process **kill_me);
 #endif //COREWAR_VM_H
