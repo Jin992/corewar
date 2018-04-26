@@ -41,7 +41,7 @@ typedef struct	s_process
 	int 				timer;
 	void				(*op)();
 	int 				color;
-	char				reg[REG_NUMBER][REG_SIZE];
+	u_int8_t			reg[REG_NUMBER][REG_SIZE];
 	bool				carry;
 	bool 				death;
 	int 				cycle_to_die;
@@ -79,7 +79,7 @@ typedef struct	s_VM
 }				t_VM;
 
 void	get_players(char **argv, t_VM *machine);
-void	print_memory( u_int8_t *memory, size_t cycle);
+void	print_memory( u_int8_t *memory);
 
 void	load_players_to_memory(t_VM *machine);
 void	usage();

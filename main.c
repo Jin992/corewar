@@ -18,8 +18,8 @@ int main(int argc, char **argv)
 	get_players(argv, &local);
 	load_players_to_memory(&local);
 	processor(&local);
-	
-//	print_memory(local.memory, cycle++);
+	ld_operation(&local, local.processes);
+	//print_memory(local.memory);
 
 	return 0;
 }

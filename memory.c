@@ -4,7 +4,7 @@
 
 #include "includes/vm.h"
 
-void	print_memory( u_int8_t *memory, size_t cycle)
+void	print_memory( u_int8_t *memory)
 {
 	int i;
 	int x;
