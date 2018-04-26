@@ -43,20 +43,23 @@ void	print_memory( t_VM *machine, size_t cycle)
 	while (y++ < MAX_FIELD_Y)
 	{
 		x = 0;
-		while (x++ < MAX_FIELD_X)
+		while (x < MAX_FIELD_X)
+		{
 			if (i < MEM_SIZE)
 			{
 				if (it_is_proces(machine, i) == 1)
 				{
-					mvwprintw(machine->main_field, y, x, "*");
+					mvwprintw(machine->main_field, y, x, " * ");
 					i++;
 				}
 				else
 				{
-					mvwprintw(machine->main_field, y, x, "%x", machine->memory[i]);
+					mvwprintw(machine->main_field, y, x, "%.2x ", machine->memory[i]);
 					i++;
 				}
 			}
+			x += 3;
+		}
 	}
 	while (wgetch(machine->main_field) != 32)
 	;
