@@ -25,6 +25,6 @@ int main(int argc, char **argv)
 	// 	printf("pos = %d\n", local.processes->pc);
 	//  local.processes = local.processes->next;
 	// }
-	// print_memory(&local, 0);
+	print_memory(&local, 0);
 	return 0;
 }

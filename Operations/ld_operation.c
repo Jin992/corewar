@@ -6,7 +6,7 @@
 /*   By: ayavorsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/24 15:32:18 by ayavorsk          #+#    #+#             */
-/*   Updated: 2018/04/24 15:32:21 by ayavorsk         ###   ########.fr       */
+/*   Updated: 2018/04/26 12:46:45 by jdoeorsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void ld_operation(t_VM *machine, t_process *cur)
 	{
 		while (++i < 4)
 			cur->reg[*(u_int8_t *)&machine->memory[cur->pc + 6]][i] = machine->memory[(cur->pc + 1) + i];
-		printf("it works memory cell %d\nRegitser 1 %d %d %d %d", *(u_int8_t *)&machine->memory[cur->pc + 6], cur->reg[1][0], cur->reg[1][1], cur->reg[1][2], cur->reg[1][3]);
+		printf("it works memory cell %d\nRegitser 1: [%hhu %hhu %hhu %hhu]\n", *(u_int8_t *)&machine->memory[cur->pc + 6], cur->reg[1][0], cur->reg[1][1], cur->reg[1][2], cur->reg[1][3]);
 		cur->pc += 7;
 	}
 	else if (IS_IND_S((u_int8_t)machine->memory[cur->pc + 1]) && IS_REG_M((u_int8_t)machine->memory[cur->pc + 1]))
