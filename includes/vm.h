@@ -60,7 +60,7 @@ struct					s_VM
 	int					max_checks;
 	u_int8_t 			memory[MEM_SIZE]; // память(карта)
 	u_int8_t 			memory_color[MEM_SIZE]; // кому яка клітинка належить(0 нікого)
-
+		WINDOW* menu;
 
 	WINDOW* main_field;
 	t_process			*processes; // ПРОцеси які зараз діють(каретки)
