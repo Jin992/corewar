@@ -28,6 +28,7 @@ struct					s_process
 	void				(*op)(t_VM *machine, t_process *cur); // operation
 	int 				color; // хто створив каретку і коли належить поточна operation
 	char				reg[REG_NUMBER][REG_SIZE];
+	int 				im_alive;
 	bool				carry;
 	struct s_process	*next;
 	struct s_process	*prev;
@@ -52,7 +53,6 @@ struct					s_VM
 	int					cycle_limit;
 	int					players_qnt;
 	int					cycle_to_die;
-	int					cycle_delta;
 	int					nbr_live;
 	int 				winner; // Хто останній сказав живий
 	int 				number_of_processes; //поточнка кількість процесів
