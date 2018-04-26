@@ -13,15 +13,15 @@
 #ifndef OPERATIONS_H
 # define OPERATIONS_H
 
-#define IS_DIR_S(x)(x >> 6 == 0X02 ) ? 1 : 0
-#define IS_DIR_M(x)((((x << 2) & 0X80) >> 6) == 0X02) ? 1 : 0
-#define IS_DIR_E(x)((((x << 4) & 0X80) >> 6) == 0X02) ? 1: 0
-#define IS_IND_S(x)(x >> 6 == 0X03 ) ? 1 : 0
-#define IS_IND_M(x)((((x << 2) & 0XC0) >> 6) == 0X03) ? 1 : 0
-#define IS_IND_E(x)((((x << 4) & 0XC0) >> 6) == 0X03) ? 1: 0
-#define IS_REG_S(x)(x >> 6 == 0X01) ? 1 : 0
-#define IS_REG_M(x)((((x << 2) & 0X40) >> 6) == 0X01) ? 1 : 0
-#define IS_REG_E(x)((((x << 4) & 0X40) >> 6) == 0X01) ? 1: 0
+#define IS_DIR_S(x)((x & 0XC0) == 0X80)
+#define IS_DIR_M(x)((x & 0X30) == 0X20)
+#define IS_DIR_E(x)((x & 0X0C) == 0X08)
+#define IS_IND_S(x)((x & 0XC0) == 0XC0)
+#define IS_IND_M(x)((x & 0X30) == 0X30)
+#define IS_IND_E(x)((x & 0X0C) == 0X0C)
+#define IS_REG_S(x)((x & 0XC0) == 0X40)
+#define IS_REG_M(x)((x & 0X30) == 0X10)
+#define IS_REG_E(x)((x & 0X0C) == 0X04)
 
 #include "vm.h"
 

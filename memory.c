@@ -13,7 +13,7 @@ void init_ncurses(t_VM *machine)
 	keypad(stdscr, TRUE);
  	nodelay(stdscr, TRUE);
  	start_color();
-	machine->main_field = newwin(100 + 2, 100 + 2, 0, 0);
+	machine->main_field = newwin(200 + 2, 200 + 2, 0, 0);
 }
 
 int	it_is_proces(t_VM *machine, int i)

@@ -22,8 +22,8 @@ void ld_operation(t_VM *machine, t_process *cur)
 	if (IS_DIR_S(machine->memory[cur->pc + 1]) && IS_REG_M(machine->memory[cur->pc + 1]))
 	{
 		while (++i < 4)
-			cur->reg[*(u_int8_t *)&machine->memory[cur->pc + 6]][i] = machine->memory[(cur->pc + 1) + i];
-		mvwprintw(machine->main_field, 0, 80, "it works memory cell %dRegitser 1: [%hhu %hhu %hhu %hhu]\n", *(u_int8_t *)&machine->memory[cur->pc + 6], cur->reg[1][0], cur->reg[1][1], cur->reg[1][2], cur->reg[1][3]);
+			cur->reg[*(u_int8_t *)&machine->memory[cur->pc + 6]][i] = machine->memory[(cur->pc + 2) + i];
+		mvwprintw(machine->main_field, 0, 80, "T_DIR memory cell %d Regitser 1: [%hhu %hhu %hhu %hhu]\n", *(u_int8_t *)&machine->memory[cur->pc + 6], cur->reg[2][0], cur->reg[2][1], cur->reg[2][2], cur->reg[2][3]);
 		cur->pc += 7;
 	}
 	else if (IS_IND_S((u_int8_t)machine->memory[cur->pc + 1]) && IS_REG_M((u_int8_t)machine->memory[cur->pc + 1]))
@@ -34,6 +34,7 @@ void ld_operation(t_VM *machine, t_process *cur)
 			cur->reg[*(u_int16_t *)&machine->memory[cur->pc + 4]][i] = machine->memory[(cur->pc + t_ind) + i];
 		cur->pc += 5;
 	}
-	// cur->pc++;
+    else
+        cur->pc++;
 	mvwprintw(machine->main_field, 1, 80,"ld_operation\n");
 }
