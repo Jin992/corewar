@@ -13,7 +13,8 @@ void init_ncurses(t_VM *machine)
 	keypad(stdscr, TRUE);
  	nodelay(stdscr, TRUE);
  	start_color();
-	machine->main_field = newwin(200 + 2, 200 + 2, 0, 0);
+	machine->main_field = newwin(500, 500, 0, 0);
+	machine->menu = newwin(500, 500, 0, 0);
 }
 
 int	it_is_proces(t_VM *machine, int i)
@@ -43,7 +44,7 @@ void	print_memory( t_VM *machine, size_t cycle)
 	while (y++ < MAX_FIELD_Y)
 	{
 		x = 0;
-		while (x < MAX_FIELD_X)
+		while (x < (MAX_FIELD_X * 3))
 		{
 			if (i < MEM_SIZE)
 			{
