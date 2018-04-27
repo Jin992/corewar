@@ -16,17 +16,12 @@ int main(int argc, char **argv)
 	local.proceses_live = 0;
 	local.cycle_to_die = CYCLE_TO_DIE;
 	local.period = CYCLE_TO_DIE;
+	local.max_check = 0;
 	ft_memset(local.memory, 0, MEM_SIZE);
 	ft_memset(local.memory_color, 0, MEM_SIZE);
 	get_players(argv, &local);//Валідація
 	load_players_to_memory(&local);//Валідація
-	// if (local.processes)
 	processor(&local);//покищо без валідацї
-	// while(local.processes)
-	// {
-	// 	printf("pos = %d\n", local.processes->pc);
-	//  local.processes = local.processes->next;
-	// }
 	// print_memory(&local, 0);
 	return 0;
 }

@@ -53,7 +53,6 @@ void 	check_processe(t_VM *machine)
 			if (tmp->im_alive == 0)
 			{
 				mvwprintw(machine->menu, 10, 0,"DIE");
-				
 				wrefresh(machine->menu); // dell proces
 				kill_this_proccess(&machine->processes);
 			}
@@ -65,15 +64,17 @@ void 	check_processe(t_VM *machine)
 				tmp = tmp->next;
 			}
 		}
-		if (machine->nbr_live >= 21)
+		if (machine->nbr_live >= NBR_LIVE || machine->max_check == MAX_CHECKS)
 		{
 			machine->cycle_to_die -= CYCLE_DELTA;
 			machine->nbr_live = 0;
+			machine->max_check = 0;
 		}
+		else
+			machine->max_check++;
 		machine->nbr_live = 0;
 		machine->period = machine->cycle_to_die;
 	}
-	
 }
 
 void	move_procese(t_VM *machine)
@@ -96,7 +97,6 @@ void	move_procese(t_VM *machine)
 		else
 			process_cycle(tmp, machine);
 		tmp = tmp->next;
-		// getchar();
 	}
 }
 
@@ -109,10 +109,10 @@ void	processor(t_VM *machine)
 		move_procese(machine);
 		print_memory(machine, 0);
 		check_processe(machine);
-		// 
 		mvwprintw(machine->menu, 25, 0, "period %d", machine->period);
-		mvwprintw(machine->menu, 26, 0, "cycle to die %d",machine->cycle_to_die);
-		mvwprintw(machine->menu, 27, 0, "nbr_live %d",machine->nbr_live);
+		mvwprintw(machine->menu, 26, 0, "cycle to die %d", machine->cycle_to_die);
+		mvwprintw(machine->menu, 27, 0, "nbr_live %d", machine->nbr_live);
+		mvwprintw(machine->menu, 28, 0, "nbr cheks %d", machine->max_check);
 		wrefresh(machine->menu);
 		werase(machine->menu);
 		machine->cycle++;
@@ -123,4 +123,6 @@ void	processor(t_VM *machine)
 	wrefresh(machine->main_field);
 	while (wgetch(machine->main_field) != 32)
 	;
+delwin(machine->main_field);
+delwin(machine->menu);
 }
