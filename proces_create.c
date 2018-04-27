@@ -12,6 +12,21 @@
 
 #include "includes/vm.h"
 
+void 	player_index_to_int8(int color, t_process *new)
+{
+	int			i;
+	u_int8_t	bytes[4];
+
+	i = -1;
+	color = (color + 1) * -1;
+	bytes[0] = (color >> 24) & 0xFF;
+	bytes[1] = (color >> 16) & 0xFF;
+	bytes[2] = (color >> 8) & 0xFF;
+	bytes[3] = color & 0xFF;
+	while (++i < REG_SIZE)
+		new->reg[0][i] = bytes[i];
+}
+
 void	proces_init(int color, int pc, t_process *new)
 {
 	new->color = color;
@@ -23,6 +38,7 @@ void	proces_init(int color, int pc, t_process *new)
 	new->carry = 0;
 	new->op = NULL;
 	new->im_alive = 0;
+	player_index_to_int8(color, new);
 }
 
 void	proces_create(int color, int pc, t_VM *machine)
@@ -44,12 +60,28 @@ void	proces_create(int color, int pc, t_VM *machine)
 	}
 }
 
+void	reg_copy(t_process *new, t_process *clone)
+{
+	int i;
+	int j;
+
+	i = 0;
+	while (i < REG_NUMBER)
+	{
+		j = -1;
+		while (++j < REG_SIZE)
+			new->reg[i][j] = clone->reg[i][j];
+		i++;
+	}
+}
+
 void	proces_init_clone(t_process *new, t_process *clone)
 {
 	new->pc = clone->pc;
 	new->timer = clone->timer;
 	new->color = clone->color;
 	new->carry = clone->carry;
+	reg_copy(new, clone);
 	// new->im_alive->
 }
 

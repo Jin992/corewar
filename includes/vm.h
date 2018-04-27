@@ -28,7 +28,7 @@ struct					s_process
 	int 				timer; // цикли дов викоання дії
 	void				(*op)(t_VM *machine, t_process *cur); // operation
 	int 				color; // хто створив каретку і коли належить поточна operation
-	char				reg[REG_NUMBER][REG_SIZE];
+	u_int8_t			reg[REG_NUMBER][REG_SIZE];
 	int 				im_alive;
 	bool				carry;
 	struct s_process	*next;
