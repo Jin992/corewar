@@ -18,27 +18,19 @@ void st_operation(t_VM *machine, t_process *cur)
 	u_int16_t t_ind;
 
 	i = -1;
-	if (IS_REG_S(machine->memory[cur->pc + 1]) && IS_REG_M(machine->memory[cur->pc + 1]))
+	if (IS_REG_S(machine->memory[(cur->pc + 1) % MEM_SIZE]) && IS_REG_M(machine->memory[(cur->pc + 1) % MEM_SIZE]))
 	{
 		while (++i < 4)
-			cur->reg[machine->memory[cur->pc + 3]][i] = cur->reg[machine->memory[cur->pc + 2]][i];
+			cur->reg[machine->memory[(cur->pc + 3) % MEM_SIZE]][i] = cur->reg[machine->memory[(cur->pc + 2) % MEM_SIZE]][i];
 		cur->pc += 4;
-		//mvwprintw(machine->menu, 0, 250, "im in reg reg \n");
 	}
-	else if (IS_REG_S(machine->memory[cur->pc + 1]) && IS_IND_M(machine->memory[cur->pc + 1]))
+	else if (IS_REG_S(machine->memory[(cur->pc + 1) % MEM_SIZE]) && IS_IND_M(machine->memory[(cur->pc + 1) % MEM_SIZE]))
 	{
-		t_ind = REVERSE_2_BYTES(*(u_int16_t *)&machine->memory[cur->pc + 3]) % IDX_MOD;
-		//mvwprintw(machine->menu, 1, 250, "start spot for t_ind %.2x\n", t_ind );
+		t_ind = REVERSE_2_BYTES(*(u_int16_t *)&machine->memory[(cur->pc + 3) % MEM_SIZE]) % IDX_MOD;
 		while (++i < 4)
-		{
-			machine->memory[((cur->pc + t_ind) + i) % MEM_SIZE] = cur->reg[machine->memory[cur->pc + 2]][i];
-			//mvwprintw(machine->main_field, 2, 250, "im cur i : %d : print pos %d\n", cur->pc+i, ((cur->pc + t_ind) + i) % MEM_SIZE);
-		}
+			machine->memory[((cur->pc + t_ind) + i) % MEM_SIZE] = cur->reg[machine->memory[(cur->pc + 2) % MEM_SIZE]][i];
 		cur->pc += 5;
 	}
     else
         cur->pc++;
-	mvwprintw(machine->menu, 3, 250, "st_operation\n");
-	wrefresh(machine->menu);
-	werase(machine->menu);
 }

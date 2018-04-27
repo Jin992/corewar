@@ -19,22 +19,22 @@ void sub_operation(t_VM *machine, t_process *cur)
 	u_int32_t 	res;
 
 	ft_bzero(bytes, 4);
-	if (IS_REG_S(machine->memory[cur->pc + 1]) && IS_REG_M(machine->memory[cur->pc + 1]) && IS_REG_E(machine->memory[cur->pc + 1]))
+	if (IS_REG_S(machine->memory[(cur->pc + 1) % MEM_SIZE]) && IS_REG_M(machine->memory[(cur->pc + 1) % MEM_SIZE]) && IS_REG_E(machine->memory[(cur->pc + 1) % MEM_SIZE]))
 	{
-		if (machine->memory[cur->pc + 2] > 15 || machine->memory[cur->pc  + 3] > 15 || machine->memory[cur->pc + 4] > 15)
+		if (machine->memory[cur->pc + 2] > 15 || machine->memory[(cur->pc  + 3) % MEM_SIZE] > 15 || machine->memory[(cur->pc + 4) % MEM_SIZE] > 15)
 		{
 			cur->pc += 5;
 			return ;
 		}
-		res = REVERSE_4_BYTES(*(u_int32_t*)&cur->reg[machine->memory[cur->pc + 2]]) - REVERSE_4_BYTES(*(u_int32_t*)&cur->reg[machine->memory[cur->pc + 3]]);
+		res = REVERSE_4_BYTES(*(u_int32_t*)&cur->reg[machine->memory[cur->pc + 2]]) - REVERSE_4_BYTES(*(u_int32_t*)&cur->reg[machine->memory[(cur->pc + 3) % MEM_SIZE]]);
 		bytes[0] = (res >> 24) & 0xFF;
 		bytes[1] = (res >> 16) & 0xFF;
 		bytes[2] = (res >> 8) & 0xFF;
 		bytes[3] = res & 0xFF;
 		i = -1;
 		while (++i < REG_SIZE)
-			cur->reg[machine->memory[cur->pc + 4]][i] = bytes[i];
-		if (REVERSE_4_BYTES(*(u_int32_t*)&cur->reg[machine->memory[cur->pc + 4]]) == 0)
+			cur->reg[machine->memory[(cur->pc + 4) % MEM_SIZE]][i] = bytes[i];
+		if (REVERSE_4_BYTES(*(u_int32_t*)&cur->reg[machine->memory[(cur->pc + 4) % MEM_SIZE]]) == 0)
 			cur->carry = 1;
 		else
 			cur->carry = 0;

@@ -38,6 +38,4 @@ void ld_operation(t_VM *machine, t_process *cur)
 	}
     else
         cur->pc++;
-	wrefresh(machine->menu);
-	werase(machine->menu);
 }
