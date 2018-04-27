@@ -40,15 +40,46 @@ void	wrong_process_id(t_process *tmp)
 		tmp->pc = 0;
 }
 
-//void 	die_processe(t_VM *machine)//Коли процес помирє
-// Видаляємо його зі списку
-//
-//
-//
+void 	check_processe(t_VM *machine)
+{
+	t_process *tmp;
+
+	tmp = machine->processes;
+	machine->period--;
+	if (machine->period <= 0)
+	{
+		while (tmp)
+		{
+			if (tmp->im_alive == 0)
+			{
+				mvwprintw(machine->menu, 10, 0,"DIE");
+				
+				wrefresh(machine->menu); // dell proces
+				kill_this_proccess(&machine->processes);
+			}
+			if (tmp)
+			{
+				tmp->im_alive = 0;
+				mvwprintw(machine->menu, 11, 0,"ALIVE");
+				wrefresh(machine->menu);
+				tmp = tmp->next;
+			}
+		}
+		if (machine->nbr_live >= 21)
+		{
+			machine->cycle_to_die -= CYCLE_DELTA;
+			machine->nbr_live = 0;
+		}
+		machine->nbr_live = 0;
+		machine->period = machine->cycle_to_die;
+	}
+	
+}
+
 void	move_procese(t_VM *machine)
 {
-	int i = 0;
 	t_process *tmp;
+
 	tmp = machine->processes;
 	while (tmp)
 	{
@@ -72,11 +103,24 @@ void	move_procese(t_VM *machine)
 void	processor(t_VM *machine)
 {
 	init_ncurses(machine);
-	machine->time = 0;
-	while (1)
+
+	while (machine->processes)
 	{
 		move_procese(machine);
-		// machine->time--;
 		print_memory(machine, 0);
+		check_processe(machine);
+		// 
+		mvwprintw(machine->menu, 25, 0, "period %d", machine->period);
+		mvwprintw(machine->menu, 26, 0, "cycle to die %d",machine->cycle_to_die);
+		mvwprintw(machine->menu, 27, 0, "nbr_live %d",machine->nbr_live);
+		wrefresh(machine->menu);
+		werase(machine->menu);
+		machine->cycle++;
 	}
+
+	werase(machine->main_field);
+	mvwprintw(machine->main_field, 0, 0, "Winner Player %d", machine->winner);
+	wrefresh(machine->main_field);
+	while (wgetch(machine->main_field) != 32)
+	;
 }

@@ -13,8 +13,12 @@ void init_ncurses(t_VM *machine)
 	keypad(stdscr, TRUE);
  	nodelay(stdscr, TRUE);
  	start_color();
+
 	machine->main_field = newwin(500, 500, 0, 0);
-	machine->menu = newwin(500, 500, 0, 0);
+	cbreak();
+// wtimeout(machine->main_field, 0);
+// wtimeout(machine->menu, 0);
+	machine->menu = newwin(500, 500, 0, 250);
 }
 
 int	it_is_proces(t_VM *machine, int i)
@@ -41,7 +45,8 @@ void	print_memory( t_VM *machine, size_t cycle)
 	u_int8_t *memory = machine->memory;
 	y = 0;
 	i = 0;
-	while (y++ < MAX_FIELD_Y)
+	 wrefresh(machine->main_field);
+	while (y++ < (MAX_FIELD_Y * 3))
 	{
 		x = 0;
 		while (x < (MAX_FIELD_X * 3))
@@ -62,8 +67,8 @@ void	print_memory( t_VM *machine, size_t cycle)
 			x += 3;
 		}
 	}
-	while (wgetch(machine->main_field) != 32)
-	;
+	// while (wgetch(machine->main_field) != 32)
+	// ;
 }
 
 void	load_players_to_memory(t_VM *machine)

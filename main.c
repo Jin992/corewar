@@ -14,6 +14,8 @@ int main(int argc, char **argv)
 	local.players_qnt = argc - 1;
 	local.processes = NULL;
 	local.proceses_live = 0;
+	local.cycle_to_die = CYCLE_TO_DIE;
+	local.period = CYCLE_TO_DIE;
 	ft_memset(local.memory, 0, MEM_SIZE);
 	ft_memset(local.memory_color, 0, MEM_SIZE);
 	get_players(argv, &local);//Валідація
@@ -25,6 +27,6 @@ int main(int argc, char **argv)
 	// 	printf("pos = %d\n", local.processes->pc);
 	//  local.processes = local.processes->next;
 	// }
-	print_memory(&local, 0);
+	// print_memory(&local, 0);
 	return 0;
 }

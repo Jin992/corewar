@@ -22,6 +22,7 @@ void	proces_init(int color, int pc, t_process *new)
 	new->prev = NULL;
 	new->carry = 0;
 	new->op = NULL;
+	new->im_alive = 0;
 }
 
 void	proces_create(int color, int pc, t_VM *machine)
@@ -49,6 +50,7 @@ void	proces_init_clone(t_process *new, t_process *clone)
 	new->timer = clone->timer;
 	new->color = clone->color;
 	new->carry = clone->carry;
+	// new->im_alive->
 }
 
 void	proces_clone(t_VM *machine, t_process *clone)
@@ -78,7 +80,6 @@ void		kill_this_proccess(t_process **kill_me) //доробити
 		return ;
 	else if (!((*kill_me)->prev) && !((*kill_me)->next))
 	{
-		ft_printf("1\n");
 		free(*kill_me);
 		*kill_me = NULL;
 	}
@@ -87,7 +88,6 @@ void		kill_this_proccess(t_process **kill_me) //доробити
 		die = *kill_me;
 		*kill_me = (*kill_me)->next;
 		(*kill_me)->prev = NULL;
-		ft_printf("2\n");
 		free(die);
 	}
 	else if (!((*kill_me)->prev) && (*kill_me)->next)
@@ -95,7 +95,6 @@ void		kill_this_proccess(t_process **kill_me) //доробити
 		die = *kill_me;
 		*kill_me = (*kill_me)->next;
 		(*kill_me)->prev = NULL;
-		ft_printf("3\n");
 		free(die);
 	}
 	else

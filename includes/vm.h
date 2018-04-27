@@ -12,6 +12,7 @@
 #include "../lib/includes/ft_printf.h"
 #include "operations.h"
 #include <ncurses.h>
+
 #define		MAX_FIELD_X		64
 #define		MAX_FIELD_Y		64
 #define REVERSE_4_BYTES(x) ((((x) & 0xFF) << 24) | ((((x) & 0xFF00) << 8)) | ((((x) & 0xFF0000) >> 8)) | (((x) & 0xFF000000) >> 24))
@@ -53,16 +54,15 @@ struct					s_VM
 	int					cycle_limit;
 	int					players_qnt;
 	int					cycle_to_die;
+	int 				period;
 	int					nbr_live;
 	int 				winner; // Хто останній сказав живий
 	int 				number_of_processes; //поточнка кількість процесів
-	int 				time;
 	int					max_checks;
 	u_int8_t 			memory[MEM_SIZE]; // память(карта)
 	u_int8_t 			memory_color[MEM_SIZE]; // кому яка клітинка належить(0 нікого)
-		WINDOW* menu;
-
-	WINDOW* main_field;
+	WINDOW				*menu;
+	WINDOW				*main_field;
 	t_process			*processes; // ПРОцеси які зараз діють(каретки)
 	t_players			player[4];
 };
