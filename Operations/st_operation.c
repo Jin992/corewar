@@ -31,7 +31,7 @@ void st_operation(t_VM *machine, t_process *cur)
 		mvwprintw(machine->menu, 1, 250, "start spot for t_ind %.2x\n", t_ind );
 		while (++i < 4)
 		{
-			machine->memory[((cur->pc + t_ind +505) + i) % MEM_SIZE] = cur->reg[*(u_int8_t *) &machine->memory[cur->pc + 2]][i];
+			machine->memory[((cur->pc + t_ind) + i) % MEM_SIZE] = cur->reg[*(u_int8_t *) &machine->memory[cur->pc + 2]][i];
 			mvwprintw(machine->main_field, 2, 250, "im cur i : %d : print pos %d\n", cur->pc+i, ((cur->pc + t_ind) + i) % MEM_SIZE);
 		}
 		cur->pc += 5;

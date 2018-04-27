@@ -27,6 +27,9 @@ void 	player_index_to_int8(int color, t_process *new)
 	bytes[3] = color & 0xFF;
 	while (++i < REG_SIZE)
 		new->reg[0][i] = bytes[i];
+    i = 0;
+    while (++i < REG_NUMBER)
+        ft_bzero(new->reg[i], REG_SIZE);
 }
 
 void	proces_init(int color, int pc, t_process *new)
