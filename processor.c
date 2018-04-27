@@ -121,12 +121,35 @@ void	print_player(t_VM *machine)
 	// wrefresh(machine->menu);
 }
 
+void    visualize_proc_regs(t_VM *machine)
+{
+    int i;
+    int j;
+    int cnt;
+
+    i = 0;
+
+    while (i < REG_NUMBER)
+    {
+        j = 0;
+        cnt = 0;
+        mvwprintw(machine->menu, 20, 20, "Process %d registers: ", 0);
+        while ( j < (REG_SIZE * 3))
+        {
+            mvwprintw(machine->menu, 21 + i, 20 + j, "%.2x ", machine->processes[0].reg[i][cnt]);
+            j += 3;
+            cnt++;
+        }
+        i++;
+    }
+}
+
 void	processor(t_VM *machine)
 {
 
-
 	while (machine->processes)
 	{
+        visualize_proc_regs(machine);
 		move_procese(machine);
 		print_player(machine);
 		print_memory(machine, 0);

@@ -34,7 +34,7 @@ void	live_operation(t_VM *machine, t_process *cur)
         cur->im_alive = 1;
 		machine->winner = player;
         if (cur->pc + 4 < MEM_SIZE )
-            cur->pc += 4;
+            cur->pc += 5;
         else
             cur->pc = (cur->pc + 4) % MEM_SIZE;
 	}

@@ -23,20 +23,21 @@ void ld_operation(t_VM *machine, t_process *cur)
 	{
 		while (++i < 4)
 			cur->reg[*(u_int8_t *)&machine->memory[cur->pc + 6]][i] = machine->memory[(cur->pc + 2) + i];
-		mvwprintw(machine->menu, 0, 250, "T_DIR memory cell %d Regitser 1: [%hhu %hhu %hhu %hhu]\n", *(u_int8_t *)&machine->memory[cur->pc + 6], cur->reg[2][0], cur->reg[2][1], cur->reg[2][2], cur->reg[2][3]);
+//		mvwprintw(machine->menu, 0, 250, "T_DIR memory cell %d Regitser 1: [%hhu %hhu %hhu %hhu]\n", *(u_int8_t *)&machine->memory[cur->pc + 6], cur->reg[2][0], cur->reg[2][1], cur->reg[2][2], cur->reg[2][3]);
 		cur->pc += 7;
 	}
 	else if (IS_IND_S((u_int8_t)machine->memory[cur->pc + 1]) && IS_REG_M((u_int8_t)machine->memory[cur->pc + 1]))
 	{
 		t_ind = REVERSE_2_BYTES(*(u_int16_t *)&machine->memory[cur->pc + 2]) % IDX_MOD;
-		mvwprintw(machine->menu, 1, 250, "start spot for t_ind %d\n", (int)t_ind );
+        mvwprintw(machine->menu, 30, 0, "ind %d\n", machine->memory[cur->pc + 4] );
+//		mvwprintw(machine->menu, 1, 250, "start spot for t_ind %d\n", (int)t_ind );
 		while (++i < 4)
-			cur->reg[*(u_int16_t *)&machine->memory[cur->pc + 4]][i] = machine->memory[(cur->pc + t_ind) + i];
+			cur->reg[machine->memory[cur->pc + 4]][i] = machine->memory[(cur->pc + t_ind) + i];
 		cur->pc += 5;
 	}
     else
         cur->pc++;
-	mvwprintw(machine->menu, 2, 250,"ld_operation\n");
+//	mvwprintw(machine->menu, 2, 250,"ld_operation\n");
 	wrefresh(machine->menu);
 	werase(machine->menu);
 }
