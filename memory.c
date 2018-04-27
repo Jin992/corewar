@@ -65,8 +65,8 @@ void	print_memory( t_VM *machine, size_t cycle)
 			x += 3;
 		}
 	}
-//	 while (wgetch(machine->main_field) != 32)
-//	 ;
+	 while (wgetch(machine->main_field) != 32)
+	 ;
 }
 
 void	load_players_to_memory(t_VM *machine)
