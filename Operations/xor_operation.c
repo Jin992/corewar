@@ -14,5 +14,5 @@
 
 void	xor_operation(t_VM *machine, t_process *cur)
 {
-	ft_printf("xor_operation\n");
+	cur->pc++;
 }

@@ -21,7 +21,7 @@ void sub_operation(t_VM *machine, t_process *cur)
 	ft_bzero(bytes, 4);
 	if (IS_REG_S(machine->memory[cur->pc + 1]) && IS_REG_M(machine->memory[cur->pc + 1]) && IS_REG_E(machine->memory[cur->pc + 1]))
 	{
-		if (machine->memory[cur->pc + 2] > 15 || machine->memory[cur->pc + 3] > 15 || machine->memory[cur->pc + 4] > 15)
+		if (machine->memory[cur->pc + 2] > 15 || machine->memory[cur->pc  + 3] > 15 || machine->memory[cur->pc + 4] > 15)
 		{
 			cur->pc += 5;
 			return ;

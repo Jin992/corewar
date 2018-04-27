@@ -68,14 +68,13 @@ struct					s_VM
 	t_players			player[4];
 };
 
-void	get_players(char **argv, t_VM *machine);
-void	print_memory( t_VM *machine, size_t cycle);
-
-void	load_players_to_memory(t_VM *machine);
-void	usage();
-void init_ncurses(t_VM *machine);
+void	    get_players(char **argv, t_VM *machine);
+void	    print_memory( t_VM *machine, size_t cycle);
+void	    load_players_to_memory(t_VM *machine);
+void        usage();
+void        init_ncurses(t_VM *machine);
 void		proces_create(int color, int pc, t_VM *machine);
 void		processor(t_VM *machine);
-void		proces_clone(t_VM *machine, t_process *clone);
+void		proces_clone(t_VM *machine, t_process *clone, int pc);
 void		kill_this_proccess(t_process **kill_me);
 #endif //COREWAR_VM_H

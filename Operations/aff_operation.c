@@ -14,5 +14,5 @@
 
 void	aff_operation(t_VM *machine, t_process *cur)
 {
-	ft_printf("aff_operation\n");
+	cur->pc++;
 }

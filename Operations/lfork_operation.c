@@ -14,5 +14,5 @@
 
 void	lfork_operation(t_VM *machine, t_process *cur)
 {
-	ft_printf("lfork_operation\n");
+	cur->pc++;
 }

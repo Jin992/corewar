@@ -14,5 +14,5 @@
 
 void sti_operation(t_VM *machine, t_process *cur)
 {
-	ft_printf("sti_operationt\n");
+	cur->pc++;
 }

@@ -14,5 +14,5 @@
 
 void	lldi_operation(t_VM *machine, t_process *cur)
 {
-	ft_printf("lldi_operation\n");
+	cur->pc++;
 }

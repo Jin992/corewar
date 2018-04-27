@@ -14,6 +14,6 @@
 
 void	and_operation(t_VM *machine, t_process *cur)
 {
-	ft_printf("and_operation\n");
+	cur->pc++;
 
 }

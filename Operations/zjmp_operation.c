@@ -13,5 +13,5 @@
 #include "../includes/operations.h"
 void	zjmp_operation(t_VM *machine, t_process *cur)
 {
-	ft_printf("zjmp_operation\n");
+	cur->pc++;
 }

@@ -14,5 +14,5 @@
 
 void or_operation(t_VM *machine, t_process *cur)
 {
-	ft_printf("or_operation\n");
+	cur->pc++;
 }

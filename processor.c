@@ -158,7 +158,7 @@ void	processor(t_VM *machine)
 		mvwprintw(machine->menu, 26, 0, "cycle to die %d", machine->cycle_to_die);
 		mvwprintw(machine->menu, 27, 0, "nbr_live %d", machine->nbr_live);
 		mvwprintw(machine->menu, 28, 0, "nbr cheks %d", machine->max_check);
-
+        mvwprintw(machine->menu, 29, 0, "processes live %d", machine->proceses_live);
 		wrefresh(machine->menu);
 		werase(machine->menu);
 		machine->cycle++;

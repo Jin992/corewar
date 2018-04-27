@@ -82,9 +82,9 @@ void	reg_copy(t_process *new, t_process *clone)
 	}
 }
 
-void	proces_init_clone(t_process *new, t_process *clone)
+void	proces_init_clone(t_process *new, t_process *clone, int pc)
 {
-	new->pc = clone->pc;
+	new->pc = pc;
 	new->timer = clone->timer;
 	new->color = clone->color;
 	new->carry = clone->carry;
@@ -92,13 +92,14 @@ void	proces_init_clone(t_process *new, t_process *clone)
 	// new->im_alive->
 }
 
-void	proces_clone(t_VM *machine, t_process *clone)
+void	proces_clone(t_VM *machine, t_process *clone, int pc)
 {
 	t_process *new;
 	t_process *tmp;
 
 	new = (t_process*)malloc(sizeof(t_process) * 1);
-	proces_init_clone(new, clone);
+	proces_init_clone(new, clone, pc);
+    machine->proceses_live++;
 	if (!(machine->processes))
 		machine->processes = new;
 	else
