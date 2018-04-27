@@ -99,6 +99,19 @@ void	move_procese(t_VM *machine)
 		tmp = tmp->next;
 	}
 }
+void	print_player(t_VM *machine)
+{
+	int i = 0;
+	while (i < machine->players_qnt)
+	{
+		mvwprintw(machine->menu, 1 + i, 0, "%.2x", machine->processes[i].reg[0][0]);
+		mvwprintw(machine->menu, 1 + i, 3, "%.2x", machine->processes[i].reg[0][1]);
+		mvwprintw(machine->menu, 1 + i, 6, "%.2x", machine->processes[i].reg[0][2]);
+		mvwprintw(machine->menu, 1 + i, 9, "%.2x", machine->processes[i].reg[0][3]);
+		i++;
+	}
+	wrefresh(machine->menu);
+}
 
 void	processor(t_VM *machine)
 {
@@ -113,6 +126,7 @@ void	processor(t_VM *machine)
 		mvwprintw(machine->menu, 26, 0, "cycle to die %d", machine->cycle_to_die);
 		mvwprintw(machine->menu, 27, 0, "nbr_live %d", machine->nbr_live);
 		mvwprintw(machine->menu, 28, 0, "nbr cheks %d", machine->max_check);
+		print_player(machine);
 		wrefresh(machine->menu);
 		werase(machine->menu);
 		machine->cycle++;
