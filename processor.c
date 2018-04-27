@@ -110,6 +110,14 @@ void	print_player(t_VM *machine)
 		mvwprintw(machine->menu, 1 + i, 9, "%.2x", machine->processes[i].reg[0][3]);
 		i++;
 	}
+	i = 0;
+	int line = 10;
+	while (i < machine->players_qnt)
+	{
+		mvwprintw(machine->menu, line++, 0, " Player %d : live curent period %d ", i, machine->player[0].live_cur_period);
+		mvwprintw(machine->menu, line++, 0, " Player %d : last_live %d ", i, machine->player[0].last_live);
+		i++;
+	}
 	// wrefresh(machine->menu);
 }
 
