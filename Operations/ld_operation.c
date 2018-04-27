@@ -29,7 +29,10 @@ void ld_operation(t_VM *machine, t_process *cur)
 	else if (IS_IND_S((u_int8_t)machine->memory[cur->pc + 1]) && IS_REG_M((u_int8_t)machine->memory[cur->pc + 1]))
 	{
 		t_ind = REVERSE_2_BYTES(*(u_int16_t *)&machine->memory[cur->pc + 2]) % IDX_MOD;
-        mvwprintw(machine->menu, 30, 0, "ind %d\n", machine->memory[cur->pc + 4] );
+        if (*(u_int32_t *)&cur->reg[machine->memory[cur->pc + 4]] == 0)
+            cur->carry = 1;
+        mvwprintw(machine->menu, 30, 0, "Carry %d", cur->carry );
+        mvwprintw(machine->menu, 31, 0, "ind %d", machine->memory[cur->pc + 4] );
 //		mvwprintw(machine->menu, 1, 250, "start spot for t_ind %d\n", (int)t_ind );
 		while (++i < 4)
 			cur->reg[machine->memory[cur->pc + 4]][i] = machine->memory[(cur->pc + t_ind) + i];
