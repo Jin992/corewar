@@ -20,7 +20,7 @@ static void (*operations[17])(t_VM *machine, t_process *cur) = { NULL,
 			&lld_operation, &lldi_operation, &lfork_operation, 
 			&aff_operation};
 
-static const int op_cycles[16] = { 10, 5, 5, 10, 10, 6, 6, 6, 
+static const int op_cycles[17] = { 0, 10, 5, 5, 10, 10, 6, 6, 6,
 	20, 25, 25, 800, 10, 50, 1000,2 };
 
 void	process_cycle(t_process *tmp, t_VM *machine)

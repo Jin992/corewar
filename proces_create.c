@@ -12,6 +12,8 @@
 
 #include "includes/vm.h"
 
+
+
 void 	player_index_to_int8(int color, t_process *new)
 {
 	int			i;
