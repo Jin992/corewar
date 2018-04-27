@@ -123,7 +123,7 @@ void	print_player(t_VM *machine)
 
 void	processor(t_VM *machine)
 {
-	init_ncurses(machine);
+
 
 	while (machine->processes)
 	{

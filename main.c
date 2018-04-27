@@ -11,6 +11,7 @@ int main(int argc, char **argv)
 		usage();
 		return (0);
 	}
+	init_ncurses(&local);
 	local.players_qnt = argc - 1;
 	local.processes = NULL;
 	local.proceses_live = 0;

@@ -80,6 +80,7 @@ void	load_players_to_memory(t_VM *machine)
 		i = j * (MEM_SIZE / machine->players_qnt) - 1;
 		proces_create(j, i + 1, machine);
 		machine->proceses_live++;
+        //mvwprintw(machine->main_field, 50 + j, 270, " %d  ", j);
 		while (++i < machine->player[j].exec_size + (j * (MEM_SIZE / machine->players_qnt)))
 		{
 			machine->memory[i] = (u_int8_t) machine->player[j].player_exec[i - (j * (MEM_SIZE / machine->players_qnt))];

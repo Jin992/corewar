@@ -18,6 +18,8 @@ void 	player_index_to_int8(int color, t_process *new)
 	u_int8_t	bytes[4];
 
 	i = -1;
+    ft_bzero(new->reg, 4);
+    ft_bzero(bytes, 4);
 	color = (color + 1) * -1;
 	bytes[0] = (color >> 24) & 0xFF;
 	bytes[1] = (color >> 16) & 0xFF;
