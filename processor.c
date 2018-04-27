@@ -102,7 +102,7 @@ void	move_procese(t_VM *machine)
 void	print_player(t_VM *machine)
 {
 	int i = 0;
-	while (i < machine->players_qnt)
+	while (i < machine->proceses_live)
 	{
 		mvwprintw(machine->menu, 1 + i, 0, "%.2x", machine->processes[i].reg[0][0]);
 		mvwprintw(machine->menu, 1 + i, 3, "%.2x", machine->processes[i].reg[0][1]);
