@@ -110,7 +110,7 @@ void	print_player(t_VM *machine)
 		mvwprintw(machine->menu, 1 + i, 9, "%.2x", machine->processes[i].reg[0][3]);
 		i++;
 	}
-	wrefresh(machine->menu);
+	// wrefresh(machine->menu);
 }
 
 void	processor(t_VM *machine)
@@ -120,13 +120,14 @@ void	processor(t_VM *machine)
 	while (machine->processes)
 	{
 		move_procese(machine);
+		print_player(machine);
 		print_memory(machine, 0);
 		check_processe(machine);
 		mvwprintw(machine->menu, 25, 0, "period %d", machine->period);
 		mvwprintw(machine->menu, 26, 0, "cycle to die %d", machine->cycle_to_die);
 		mvwprintw(machine->menu, 27, 0, "nbr_live %d", machine->nbr_live);
 		mvwprintw(machine->menu, 28, 0, "nbr cheks %d", machine->max_check);
-		print_player(machine);
+
 		wrefresh(machine->menu);
 		werase(machine->menu);
 		machine->cycle++;
