@@ -40,6 +40,7 @@ void	get_players(char **argv, t_VM *machine)
 	{
 		machine->player[cnt - 1].last_live = 0;
 		machine->player[cnt - 1].live_cur_period = 0;
+		machine->player[cnt - 1].player_nbr = ((cnt - 1 )+ 1) * -1;
 		init_player(argv[cnt], &machine->player[cnt - 1]);
 	}
 }
