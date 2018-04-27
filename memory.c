@@ -16,9 +16,7 @@ void init_ncurses(t_VM *machine)
 
 	machine->main_field = newwin(500, 500, 0, 0);
 	cbreak();
-// wtimeout(machine->main_field, 0);
-// wtimeout(machine->menu, 0);
-	machine->menu = newwin(500, 500, 0, 250);
+	machine->menu = newwin(50, 500, 0, 250);
 }
 
 int	it_is_proces(t_VM *machine, int i)

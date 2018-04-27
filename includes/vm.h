@@ -55,6 +55,7 @@ struct					s_VM
 	int					players_qnt;
 	int					cycle_to_die;
 	int 				period;
+	int 				max_check;
 	int					nbr_live;
 	int 				winner; // Хто останній сказав живий
 	int 				number_of_processes; //поточнка кількість процесів
