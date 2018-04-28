@@ -52,15 +52,11 @@ void 	check_processe(t_VM *machine)
 		{
 			if (tmp->im_alive == 0)
 			{
-				mvwprintw(machine->menu, 10, 0,"DIE");
-				wrefresh(machine->menu); // dell proces
 				kill_this_proccess(&machine->processes);
 			}
 			if (tmp)
 			{
 				tmp->im_alive = 0;
-				mvwprintw(machine->menu, 11, 0,"ALIVE");
-				wrefresh(machine->menu);
 				tmp = tmp->next;
 			}
 		}
@@ -99,76 +95,31 @@ void	move_procese(t_VM *machine)
 		tmp = tmp->next;
 	}
 }
-void	print_player(t_VM *machine)
-{
-	int i = 0;
-	while (i < machine->proceses_live)
-	{
-		mvwprintw(machine->menu, 1 + i, 0, "%.2x", machine->processes[i].reg[0][0]);
-		mvwprintw(machine->menu, 1 + i, 3, "%.2x", machine->processes[i].reg[0][1]);
-		mvwprintw(machine->menu, 1 + i, 6, "%.2x", machine->processes[i].reg[0][2]);
-		mvwprintw(machine->menu, 1 + i, 9, "%.2x", machine->processes[i].reg[0][3]);
-		i++;
-	}
-	i = 0;
-	int line = 10;
-	while (i < machine->players_qnt)
-	{
-		mvwprintw(machine->menu, line++, 0, " Player %d : live curent period %d ", machine->player[i].player_nbr, machine->player[i].live_cur_period);
-		mvwprintw(machine->menu, line++, 0, " Player %d : last_live %d ", machine->player[i].player_nbr, machine->player[i].last_live);
-		i++;
-	}
-	// wrefresh(machine->menu);
-}
-
-void    visualize_proc_regs(t_VM *machine)
-{
-    int i;
-    int j;
-    int cnt;
-
-    i = 0;
-
-    while (i < REG_NUMBER)
-    {
-        j = 0;
-        cnt = 0;
-        mvwprintw(machine->menu, 20, 20, "Process %d registers: ", 0);
-        while ( j < (REG_SIZE * 3))
-        {
-            mvwprintw(machine->menu, 21 + i, 20 + j, "%.2x ", machine->processes[0].reg[i][cnt]);
-            j += 3;
-            cnt++;
-        }
-        i++;
-    }
-}
 
 void	processor(t_VM *machine)
 {
-
+	int count;
+	ft_start_ncurses(machine);
+	
+	count = 0;
+	machine->space = 0;
 	while (machine->processes)
 	{
-        visualize_proc_regs(machine);
-		move_procese(machine);
-		print_player(machine);
-		print_memory(machine, 0);
-		check_processe(machine);
-		mvwprintw(machine->menu, 25, 0, "period %d", machine->period);
-		mvwprintw(machine->menu, 26, 0, "cycle to die %d", machine->cycle_to_die);
-		mvwprintw(machine->menu, 27, 0, "nbr_live %d", machine->nbr_live);
-		mvwprintw(machine->menu, 28, 0, "nbr cheks %d", machine->max_check);
-        mvwprintw(machine->menu, 29, 0, "processes live %d", machine->proceses_live);
-		wrefresh(machine->menu);
-		werase(machine->menu);
-		machine->cycle++;
+		while ((machine->space == 1 || count == 0) && machine->processes)
+		{
+			if (machine->processes)
+				ft_procesing_ncurses(machine, count);
+			move_procese(machine);
+			check_processe(machine);
+			usleep(100000);
+			count++;
+		}
+		if (wgetch(machine->main_field) == 32)
+		{
+			if (machine->space == 0)
+				machine->space = 1;
+			else
+				machine->space = 0;
+		}
 	}
-
-	werase(machine->main_field);
-	mvwprintw(machine->main_field, 0, 0, "Winner Player %d", machine->winner);
-	wrefresh(machine->main_field);
-	while (wgetch(machine->main_field) != 32)
-	;
-delwin(machine->main_field);
-delwin(machine->menu);
 }

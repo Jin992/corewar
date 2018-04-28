@@ -5,10 +5,13 @@ HEAD = vm.h\
 
 SRC = main.c\
 		error.c\
-		memory.c\
 		player.c\
 		proces_create.c\
 		processor.c\
+		corewar.c\
+		create.c\
+		start.c\
+		memory.c\
 
 
 OP = Operations/aff_operation.c\

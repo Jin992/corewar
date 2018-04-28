@@ -56,6 +56,7 @@ struct					s_VM
 	int					cycle_to_die;
 	int 				period;
 	int 				max_check;
+	int 				space;
 	int					nbr_live;
 	int 				winner; // Хто останній сказав живий
 	int 				number_of_processes; //поточнка кількість процесів
@@ -77,4 +78,15 @@ void		proces_create(int color, int pc, t_VM *machine);
 void		processor(t_VM *machine);
 void		proces_clone(t_VM *machine, t_process *clone, int pc);
 void		kill_this_proccess(t_process **kill_me);
+
+
+void	ft_init_color(void);
+void	ft_start_ncurses(t_VM *vm);
+void	ft_procesing_ncurses(t_VM *vm, int count);
+void	ft_create_frame(t_VM *vm);
+void	ft_create_window(t_VM *vm);
+void	ft_create_menu(t_VM *vm);
+void	players_data(t_VM *vm, int *y);
+void	ft_print_name(t_VM *vm, int i, int *y);
+void	ft_create_map(t_VM *machine);
 #endif //COREWAR_VM_H
