@@ -15,8 +15,8 @@
 
 #define		MAX_FIELD_X		64
 #define		MAX_FIELD_Y		64
-#define REVERSE_4_BYTES(x) ((((x) & 0xFF) << 24) | ((((x) & 0xFF00) << 8)) | ((((x) & 0xFF0000) >> 8)) | (((x) & 0xFF000000) >> 24))
-#define REVERSE_2_BYTES(x) (((x) << 8) | ((x) >> 8))
+#define 	REVERSE_4_BYTES(x) ((((x) & 0xFF) << 24) | ((((x) & 0xFF00) << 8)) | ((((x) & 0xFF0000) >> 8)) | (((x) & 0xFF000000) >> 24))
+#define 	REVERSE_2_BYTES(x) (((x) << 8) | ((x) >> 8))
 
 typedef struct	s_players t_players;
 typedef struct	s_process t_process;
@@ -41,7 +41,7 @@ struct					s_players
 	int					last_live;
 	int					live_cur_period;
 	int32_t				exec_size;
-	char				magic[8];
+	u_int8_t 				magic[4];
 	char				name[PROG_NAME_LENGTH];
 	char				comment[COMMENT_LENGTH];
 	unsigned char 		player_exec[MEM_SIZE / 6];
@@ -61,6 +61,8 @@ struct					s_VM
 	int 				winner; // Хто останній сказав живий
 	int 				number_of_processes; //поточнка кількість процесів
 	int					max_checks;
+	int 				lite;
+	int 				visual;
 	u_int8_t 			memory[MEM_SIZE]; // память(карта)
 	u_int8_t 			memory_color[MEM_SIZE]; // кому яка клітинка належить(0 нікого)
 	WINDOW				*menu;
@@ -69,17 +71,29 @@ struct					s_VM
 	t_players			player[4];
 };
 
+//processes
+void		processor_wrong__id(t_process *tmp);
+void		processor_cycle(t_process *tmp, t_VM *machine);
+void 		processor_check(t_VM *machine);
+void		processor_create(int color, int pc, t_VM *machine);
+void		processor(t_VM *machine);
+void		processor_clone(t_VM *machine, t_process *clone, int pc);
+void		proccessor_kill_this(t_process **kill_me);
+void		processor_normal(t_VM *machine);
+void		processor_visual(t_VM *machine);
+void		winner(t_VM *machine);
+
+//main
 void	    get_players(char **argv, t_VM *machine);
 void	    print_memory( t_VM *machine, size_t cycle);
 void	    load_players_to_memory(t_VM *machine);
+
+//validate
+int			find_core_file(char *str);
+int			parse_flags(int argc, char **argv, t_VM *local);
 void        usage();
-void        init_ncurses(t_VM *machine);
-void		proces_create(int color, int pc, t_VM *machine);
-void		processor(t_VM *machine);
-void		proces_clone(t_VM *machine, t_process *clone, int pc);
-void		kill_this_proccess(t_process **kill_me);
 
-
+//visual
 void	ft_init_color(void);
 void	ft_start_ncurses(t_VM *vm);
 void	ft_procesing_ncurses(t_VM *vm, int count);

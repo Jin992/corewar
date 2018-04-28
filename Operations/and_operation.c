@@ -15,5 +15,4 @@
 void	and_operation(t_VM *machine, t_process *cur)
 {
 	cur->pc++;
-
 }

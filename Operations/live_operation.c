@@ -25,7 +25,6 @@ void	live_operation(t_VM *machine, t_process *cur)
         i++;
     }
     player = REVERSE_4_BYTES(*(int32_t *)&t_ind[0]) * -1 - 1;
-    mvwprintw(machine->menu, 5, 250, "player number %d", player);
 	if (player < machine->players_qnt && player >= 0)
 	{
 		machine->player[player].last_live = machine->cycle;
@@ -40,8 +39,4 @@ void	live_operation(t_VM *machine, t_process *cur)
 	}
 	else
 		cur->pc++;
-    wrefresh(machine->menu);
-    werase(machine->menu);
-////	ft_printf("live_operation Player: %d\n", player);
-
 }

@@ -6,13 +6,20 @@ HEAD = vm.h\
 SRC = main.c\
 		error.c\
 		player.c\
-		proces_create.c\
-		processor.c\
-		corewar.c\
-		create.c\
-		start.c\
 		memory.c\
+		validate_data.c\
+	
+		
 
+PROC = processor/processor_create.c\
+	processor/processor_clone.c\
+	processor/proccessor_kill_this.c\
+	processor/processor.c\
+	processor/processor_2.c\
+
+VISU = visual/corewar.c\
+	visual/create.c\
+	visual/start.c\
 
 OP = Operations/aff_operation.c\
 	Operations/and_operation.c\
@@ -38,21 +45,25 @@ OBJ = $(SRC:.c=.o)
 
 OPJ = $(OP:.c=.o)
 
+VISUJ = $(VISU:.c=.o)
+
+PROCJ = $(PROC:.c=.o)
+
 FLAGS = 
 
 CC = gcc
 
 all: $(NAME)
 
-$(NAME): $(OBJ) $(OPJ)
+$(NAME): $(OBJ) $(OPJ) $(VISUJ) $(PROCJ)
 	make -C $(LIBFT)
-	$(CC) -g $(FLAGS) $(OBJ) $(OPJ) -L $(LIBFT) -lft -o $(NAME) -lncurses
+	$(CC) -g $(FLAGS) $(OBJ) $(OPJ) $(VISUJ) $(PROCJ) -L $(LIBFT) -lft -o $(NAME) -lncurses
 
 %.o: %.c $(HEAD)
 	$(CC) $(FLAGS) -c $<
 
 clean:
-	rm -f $(OBJ) $(OPJ)
+	rm -f $(OBJ) $(OPJ) $(VISUJ) $(PROCJ)
 	make clean -C $(LIBFT)
 
 fclean: clean

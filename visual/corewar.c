@@ -10,11 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/vm.h"
-#include <ncurses.h>
-#include <string.h>
-#include <stdlib.h>
-#include <stdio.h>
+#include "../includes/vm.h"
 
 void	ft_create_window(t_VM *vm) //
 {

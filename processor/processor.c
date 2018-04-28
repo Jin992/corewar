@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/vm.h"
-#include <stdio.h> 
+#include "../includes/vm.h"
+
 static void (*operations[17])(t_VM *machine, t_process *cur) = { NULL,
  			&live_operation, &ld_operation, &st_operation,
 			&add_operation, &sub_operation, &and_operation,
@@ -23,57 +23,7 @@ static void (*operations[17])(t_VM *machine, t_process *cur) = { NULL,
 static const int op_cycles[17] = { 0, 10, 5, 5, 10, 10, 6, 6, 6,
 	20, 25, 25, 800, 10, 50, 1000,2 };
 
-void	process_cycle(t_process *tmp, t_VM *machine)
-{
-	tmp->timer--;	
-	if (tmp->timer == 0)
-	{
-		tmp->op(machine, tmp);
-		tmp->op = NULL;
-	}
-}
-
-void	wrong_process_id(t_process *tmp)
-{
-	tmp->pc++;
-	if (tmp->pc >= MEM_SIZE)
-		tmp->pc = 0;
-}
-
-void 	check_processe(t_VM *machine)
-{
-	t_process *tmp;
-
-	tmp = machine->processes;
-	machine->period--;
-	if (machine->period <= 0)
-	{
-		while (tmp)
-		{
-			if (tmp->im_alive == 0)
-			{
-				kill_this_proccess(&machine->processes);
-			}
-			if (tmp)
-			{
-				tmp->im_alive = 0;
-				tmp = tmp->next;
-			}
-		}
-		if (machine->nbr_live >= NBR_LIVE || machine->max_check == MAX_CHECKS)
-		{
-			machine->cycle_to_die -= CYCLE_DELTA;
-			machine->nbr_live = 0;
-			machine->max_check = 0;
-		}
-		else
-			machine->max_check++;
-		machine->nbr_live = 0;
-		machine->period = machine->cycle_to_die;
-	}
-}
-
-void	move_procese(t_VM *machine)
+static void	processor_move(t_VM *machine)
 {
 	t_process *tmp;
 
@@ -88,15 +38,26 @@ void	move_procese(t_VM *machine)
 				tmp->timer = op_cycles[machine->memory[tmp->pc]];
 			}
 			else
-				wrong_process_id(tmp);
+				processor_wrong__id(tmp);
 		}
 		else
-			process_cycle(tmp, machine);
+			processor_cycle(tmp, machine);
 		tmp = tmp->next;
 	}
 }
 
-void	processor(t_VM *machine)
+void	processor_normal(t_VM *machine)
+{
+	while (machine->processes)
+	{
+		processor_move(machine);
+		processor_check(machine);
+		machine->cycle++;
+	}
+	winner(machine);
+}
+
+void	processor_visual(t_VM *machine)
 {
 	int count;
 	ft_start_ncurses(machine);
@@ -109,8 +70,8 @@ void	processor(t_VM *machine)
 		{
 			if (machine->processes)
 				ft_procesing_ncurses(machine, count);
-			move_procese(machine);
-			check_processe(machine);
+			processor_move(machine);
+			processor_check(machine);
 			usleep(100000);
 			count++;
 		}

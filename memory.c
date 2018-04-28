@@ -13,7 +13,7 @@ void	load_players_to_memory(t_VM *machine)
 	while (j < machine->players_qnt)
 	{
 		i = j * (MEM_SIZE / machine->players_qnt) - 1;
-		proces_create(j, i + 1, machine);
+		processor_create(j, i + 1, machine);
 		machine->proceses_live++;
 		while (++i < machine->player[j].exec_size + (j * (MEM_SIZE / machine->players_qnt)))
 		{

@@ -3,6 +3,25 @@
 //
 #include "includes/vm.h"
 
+static void	validate_file(t_players *player_st, int cnt)
+{
+	if (((COMMENT_LENGTH + PROG_NAME_LENGTH + player_st->exec_size + 4) + 12) != cnt)
+	{
+		printf("SOMETHING WRONG\n");
+		exit (1);
+	}
+	if (player_st->exec_size < 0)
+	{
+		printf("BAD PLAYER\n");
+		exit (1);
+	}
+	if (REVERSE_4_BYTES(*(int32_t*)&player_st->magic[0]) != COREWAR_EXEC_MAGIC)
+	{
+		printf("COREWAR_EXEC_MAGIC ERROR\n");
+		exit (1);
+	}
+}
+
 static void	init_player(char *player, t_players *player_st)
 {
 	int				fd_in;
@@ -16,7 +35,7 @@ static void	init_player(char *player, t_players *player_st)
 	while (read(fd_in, &buff, 1) > 0)
 	{
 		if (cnt < 4)
-			player_st->magic[cnt] = (int)buff;
+			player_st->magic[cnt] = buff;
 		else if (cnt < PROG_NAME_LENGTH + 4)
 			player_st->name[cnt - 4] = (int)buff;
 		else if (cnt < 140 && cnt > 135)
@@ -28,19 +47,28 @@ static void	init_player(char *player, t_players *player_st)
 		cnt++;
 	}
 	player_st->exec_size = REVERSE_4_BYTES(*(int32_t *)exec_size);
+	validate_file(player_st,cnt);
 	close(fd_in);
 }
 
 void	get_players(char **argv, t_VM *machine)
 {
 	int cnt;
+	int i;
 
+	i = 1;
 	cnt = 0;
-	while (++cnt <= machine->players_qnt)
+	while (argv[i])
 	{
-		machine->player[cnt - 1].last_live = 0;
-		machine->player[cnt - 1].live_cur_period = 0;
-		machine->player[cnt - 1].player_nbr = ((cnt - 1 )+ 1) * -1;
-		init_player(argv[cnt], &machine->player[cnt - 1]);
+		if (find_core_file(argv[i]))
+		{
+			++cnt;
+			machine->players_qnt++;
+			machine->player[cnt - 1].last_live = 0;
+			machine->player[cnt - 1].live_cur_period = 0;
+			machine->player[cnt - 1].player_nbr = ((cnt - 1 )+ 1) * -1;
+			init_player(argv[cnt], &machine->player[cnt - 1]);
+		}
+		i++;
 	}
 }

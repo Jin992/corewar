@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/vm.h"
+#include "../includes/vm.h"
 
 void	ft_init_color(void)
 {

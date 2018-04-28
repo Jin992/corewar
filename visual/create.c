@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/vm.h"
+#include "../includes/vm.h"
 
 int	it_is_proces(t_VM *vm, int i) // ваша функция
 {
