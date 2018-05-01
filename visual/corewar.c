@@ -12,7 +12,7 @@
 
 #include "../includes/vm.h"
 
-void	ft_create_window(t_VM *vm) //
+void	ft_create_window(t_VM *vm)
 {
 	wrefresh(vm->main_field);
 	ft_create_map(vm);
@@ -20,54 +20,57 @@ void	ft_create_window(t_VM *vm) //
 	wrefresh(vm->menu);
 }
 
-void	ft_create_frame(t_VM *vm) // создание рамочки stdscr
+void	ft_create_frame(t_VM *vm)
 {
-	char *mesg = "*";
-	int row, col, i;
+	int i;
  
-	row = 67;
-	col = 253;
 	i = 0;
 	attron(COLOR_PAIR(8));
-	i = row;
+	i = 67;
 	while (i >= 0)
 	{	
-		mvwprintw(stdscr, i, 0, "%s", mesg);
-		mvwprintw(stdscr, i, col, "%s", mesg);
-		mvwprintw(stdscr, i, 196, "%s", mesg);
+		mvwprintw(stdscr, i, 0, "%s", "*");
+		mvwprintw(stdscr, i, 241, "%s", "*");
+		mvwprintw(stdscr, i, 196, "%s", "*");
 		i--;
 	}
-	i = col;
+	i = 240;
 	while (i >= 0)
 	{
-		mvwprintw(stdscr, 0, i, "%s", mesg);
-		mvwprintw(stdscr, row, i, "%s", mesg);
+		mvwprintw(stdscr, 0, i, "%s", "*");
+		mvwprintw(stdscr, 67, i, "%s", "*");
 		i--;
+	}
+	i = 197;
+	while (i < 241)
+	{
+		mvwprintw(stdscr, 27, i, "%s", "*");
+		i++;
 	}
 	attroff(COLOR_PAIR(8));
 	refresh();
 	endwin();
 }
 
-void	ft_procesing_ncurses(t_VM *vm, int count)
+
+void	ft_procesing_ncurses(t_VM *vm)
 {
-	if (count == 0)
+	if (vm->cycle == 0)
 	{
 		ft_create_frame(vm);
 		mvwprintw(vm->menu, 1, 2, "** PAUSED **");
 	}
 	ft_create_window(vm);
-	mvwprintw(vm->menu, 30, 2, "    cycle - ");
-	mvwprintw(vm->menu, 30, 17, "%d", count);
-	if (wgetch(vm->main_field) == 32)
-	{
-		if (vm->space == 0)
-			vm->space = 1;
-		else
-		{
-			vm->space = 0;
-			mvwprintw(vm->menu, 1, 2, "** PAUSED **");
-		}
-	}
+	get_key_2(vm);
+	wrefresh(vm->menu);
+}
+
+void	procesing_step_by_step(t_VM *vm)
+{
+	if (vm->wait > 0)
+		vm->wait--;
+	if (vm->wait <= 0)
+		ft_create_window(vm);
+	get_key(vm);
 	wrefresh(vm->menu);
 }

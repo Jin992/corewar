@@ -1,3 +1,1 @@
-./corewar $1
-echo "\n\n\n"
-./VM $1
+./VM toto.cor toto.cor toto.cor -n 1 toto.cor -v

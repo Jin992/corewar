@@ -1,9 +1,9 @@
 //
 // Created by Evgen ARTESHCHUK on 4/23/18.
 //
-#include "includes/vm.h"
+#include "../includes/vm.h"
 
-void	usage()
+int	usage()
 {
 	ft_printf("Usage: ./corewar [-d N -s N -v N | -b --stealth |"
 					  " -n --stealth] [-a] <champion1.cor> <...>\n");
@@ -30,4 +30,6 @@ void	usage()
 	ft_printf("\t--stealth : Hides the real contents of the memory\n");
 	ft_printf("###################################################"
 					  "#############################\n");
+	exit(1);
+	return (0);
 }

@@ -39,7 +39,42 @@ void	ft_start_ncurses(t_VM *vm)
  	start_color();
  	ft_init_color();
  	vm->main_field = newwin(64, 192, 2, 3);
- 	vm->menu = newwin(65, 56, 1, 197);
+ 	vm->menu = newwin(26, 35, 1, 197);
+ 	vm->help_menu = newwin(20, 43, 28, 197);
  	keypad(vm->main_field, TRUE);
 	nodelay(vm->main_field, TRUE);
+	mousemask(ALL_MOUSE_EVENTS, NULL);
+}
+
+void	print_mem( u_int8_t *memory)
+{
+	int i;
+	int x;
+	int y;
+	int row_label;
+
+	y = 0;
+	i = 0;
+	row_label = -64;
+	while (y++ < MAX_FIELD_Y)
+	{
+		x = 0;
+		ft_printf("0x%.4x : ", row_label += MAX_FIELD_Y);
+		while (x++ < MAX_FIELD_X)
+			if (i < MEM_SIZE)
+				ft_printf("%.2x ", memory[i++]);
+		ft_printf("\n");
+	}
+	exit(1);
+}
+
+void		del_win(t_VM *vm)
+{
+	while ((wgetch(vm->main_field) != 32))
+		;
+	delwin(vm->menu);
+	delwin(vm->help_menu);
+	delwin(vm->main_field);
+	delwin(stdscr);
+	endwin();
 }

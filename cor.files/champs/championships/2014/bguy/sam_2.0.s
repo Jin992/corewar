@@ -19,7 +19,7 @@ entry:
 	fork	%:shield_init
 	st		r1, 6
 	live	%21
-	fork	%:machine_gun_init
+	fork	%:vm_gun_init
 
 wall_prep:
 	ld		%0, r2
@@ -67,9 +67,9 @@ shield:
 	st		r2, 124
 	zjmp	%:shield
 
-machine_gun_init:
+vm_gun_init:
 	st		r1, 6
 
-machine_gun_gen:
+vm_gun_gen:
 	live	%42
-	fork	%:machine_gun_gen
+	fork	%:vm_gun_gen

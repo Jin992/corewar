@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   processor_clone.c                                   :+:      :+:    :+:   */
+/*   processor_clone.c                                   :+:      :+:    :+:  */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ayavorsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -37,22 +37,19 @@ static void		processor_clone_init(t_process *new, t_process *clone, int pc)
 	processor_reg_copy(new, clone);
 }
 
-void			processor_clone(t_VM *machine, t_process *clone, int pc)
+void			processor_clone(t_VM *vm, t_process *clone, int pc)
 {
 	t_process *new;
 	t_process *tmp;
 
 	new = (t_process*)malloc(sizeof(t_process) * 1);
 	processor_clone_init(new, clone, pc);
-    machine->proceses_live++;
-	if (!(machine->processes))
-		machine->processes = new;
+    vm->proceses_live++;
+	if (!(vm->processes))
+		vm->processes = new;
 	else
 	{
-		tmp = machine->processes;
-		while (tmp->next)
-			tmp = tmp->next;
-		tmp->next = new;
-		tmp->next->prev = tmp;
+		new->next = vm->processes;
+		vm->processes = new;
 	}
 }

@@ -12,34 +12,34 @@
 
 #include "../includes/vm.h"
 
-static void 	processor_check_2(t_VM *machine)
+static void		processor_check_2(t_VM *vm)
 {
-	if (machine->nbr_live >= NBR_LIVE || machine->max_check == MAX_CHECKS)
+	if (vm->nbr_live >= NBR_LIVE || vm->max_check == MAX_CHECKS)
 	{
-		machine->cycle_to_die -= CYCLE_DELTA;
-		machine->nbr_live = 0;
-		machine->max_check = 0;
+		vm->cycle_to_die -= CYCLE_DELTA;
+		vm->nbr_live = 0;
+		vm->max_check = 1;
 	}
 	else
-		machine->max_check++;
-	machine->nbr_live = 0;
-	machine->period = machine->cycle_to_die;
+		vm->max_check++;
+	vm->nbr_live = 0;
+	vm->period = vm->cycle_to_die;
 }
 
-void 	processor_check(t_VM *machine)
+void			processor_check(t_VM *vm)
 {
 	t_process *tmp;
 
-	tmp = machine->processes;
-	machine->period--;
-	if (machine->period <= 0)
+	tmp = vm->processes;
+	vm->period--;
+	if (vm->period <= 0)
 	{
 		while (tmp)
 		{
 			if (tmp->im_alive == 0)
 			{
-				machine->proceses_live--;
-				proccessor_kill_this(&machine->processes);
+				vm->proceses_live--;
+				proccessor_kill_this(&vm->processes);
 			}
 			if (tmp)
 			{
@@ -47,33 +47,48 @@ void 	processor_check(t_VM *machine)
 				tmp = tmp->next;
 			}
 		}
+		processor_check_2(vm);
 	}
 }
 
-void	winner(t_VM *machine)
+void			winner(t_VM *vm)
 {
 	int i;
 
 	i = -1;
-	while (++i < machine->players_qnt)
-		ft_printf("Player %d, exec size %d, \"%s\"\n", (i + 1) * -1, machine->player[i].exec_size ,machine->player[i].name);
-	ft_printf("Game end in %d cycle\n", machine->cycle);
-	ft_printf("Winner Player %d : \"%s\"\n", ((machine->winner + 1) * -1), machine->player[machine->winner].name);
+	while (++i < vm->players_qnt)
+		ft_printf("Player %d, exec size %d, \"%s\"\n", (i + 1) * -1,
+			vm->player[i].exec_size, vm->player[i].name);
+	ft_printf("Game end in %d cycle\n", vm->cycle);
+	ft_printf("Winner Player %d : \"%s\"\n",
+		((vm->winner + 1) * -1), vm->player[vm->winner].name);
 }
 
-void	processor_cycle(t_process *tmp, t_VM *machine)
+void			processor_cycle(t_process *tmp, t_VM *vm)
 {
-	tmp->timer--;	
+	tmp->timer--;
 	if (tmp->timer == 0)
 	{
-		tmp->op(machine, tmp);
+		tmp->op(vm, tmp);
 		tmp->op = NULL;
 	}
 }
 
-void	processor_wrong__id(t_process *tmp)
+void			processor_wrong__id(t_process *tmp)
 {
 	tmp->pc++;
 	if (tmp->pc >= MEM_SIZE)
 		tmp->pc = 0;
+}
+
+void		dump_memmory(t_VM *vm)
+{
+
+	if (vm->dump >= 0 && vm->cycle == vm->dump && vm->visual == 1)
+	{
+		del_win(vm);
+		exit (1);
+	}
+	else if (vm->dump >= 0 && vm->cycle == vm->dump)
+		print_mem(vm->memory);
 }

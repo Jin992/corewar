@@ -99,7 +99,7 @@ live4:
 live    %1
 fork    %:live1
 live    %1
-fork    %:machinerie
+fork    %:vmrie
 sub     r4, r4, r4
 live5:
 live    %1
@@ -140,7 +140,7 @@ lancement:
 zjmp    %258
 live    %1
 zjmp    %:end1
-machinerie:
+vmrie:
 fork    %:begin_coromp2
 live    %0
 add		r4, r10, r4

@@ -2,24 +2,18 @@ NAME = VM
 
 HEAD = vm.h\
 
-
-SRC = main.c\
-		error.c\
-		player.c\
-		memory.c\
-		validate_data.c\
-	
-		
+SRC = main.c
 
 PROC = processor/processor_create.c\
 	processor/processor_clone.c\
 	processor/proccessor_kill_this.c\
 	processor/processor.c\
-	processor/processor_2.c\
+	processor/processor_2.c
 
 VISU = visual/corewar.c\
 	visual/create.c\
 	visual/start.c\
+	visual/get_mous.c
 
 OP = Operations/aff_operation.c\
 	Operations/and_operation.c\
@@ -36,9 +30,13 @@ OP = Operations/aff_operation.c\
 	Operations/xor_operation.c\
 	Operations/zjmp_operation.c\
 	Operations/add_operation.c\
-	Operations/live_operation.c\
+	Operations/live_operation.c
 
-		
+DATA = data/error.c\
+		data/player.c\
+		data/memory.c\
+		data/validate_data.c\
+
 LIBFT = lib/
 
 OBJ = $(SRC:.c=.o)
@@ -49,21 +47,23 @@ VISUJ = $(VISU:.c=.o)
 
 PROCJ = $(PROC:.c=.o)
 
-FLAGS = 
+DATAJ = $(DATA:.c=.o)
+
+FLAGS = -Wall -Wextra -Werror
 
 CC = gcc
 
 all: $(NAME)
 
-$(NAME): $(OBJ) $(OPJ) $(VISUJ) $(PROCJ)
+$(NAME): $(OBJ) $(OPJ) $(VISUJ) $(PROCJ) $(DATAJ)
 	make -C $(LIBFT)
-	$(CC) -g $(FLAGS) $(OBJ) $(OPJ) $(VISUJ) $(PROCJ) -L $(LIBFT) -lft -o $(NAME) -lncurses
+	$(CC) -g $(FLAGS) $(OBJ) $(OPJ) $(VISUJ) $(PROCJ) $(DATAJ) -L $(LIBFT) -lft -o $(NAME) -lncurses
 
 %.o: %.c $(HEAD)
 	$(CC) $(FLAGS) -c $<
 
 clean:
-	rm -f $(OBJ) $(OPJ) $(VISUJ) $(PROCJ)
+	rm -f $(OBJ) $(OPJ) $(VISUJ) $(PROCJ) $(DATAJ)
 	make clean -C $(LIBFT)
 
 fclean: clean

@@ -12,7 +12,22 @@
 
 #include "../includes/operations.h"
 
-void	live_operation(t_VM *machine, t_process *cur)
+void    print_live(t_VM *vm, int player) // доробити
+{
+    if (vm->visual == 0)
+    {
+        ft_printf("A process shows that player %d (%s) is alive.\n",
+        player, vm->player[player].name);
+    }
+    else
+    {
+        mvwprintw(vm->menu, 0, 50, "A process shows that player %d (%s) is alive.",
+        player, vm->player[player].name);
+        wrefresh(vm->menu);
+    }
+}
+
+void	live_operation(t_VM *vm, t_process *cur)
 {
 	int32_t player;
     u_int8_t  t_ind[4];
@@ -21,17 +36,18 @@ void	live_operation(t_VM *machine, t_process *cur)
     i = 0;
     while (i < REG_SIZE)
     {
-        t_ind[i] = machine->memory[(cur->pc + 1 + i) % MEM_SIZE];
+        t_ind[i] = vm->memory[(cur->pc + 1 + i) % MEM_SIZE];
         i++;
     }
     player = REVERSE_4_BYTES(*(int32_t *)&t_ind[0]) * -1 - 1;
-	if (player < machine->players_qnt && player >= 0)
+	if (player < vm->players_qnt && player >= 0)
 	{
-		machine->player[player].last_live = machine->cycle;
-		machine->player[player].live_cur_period++;
-        machine->nbr_live++;
+		vm->player[player].last_live = vm->cycle;
+		vm->player[player].live_cur_period++;
+        vm->nbr_live++;
         cur->im_alive = 1;
-		machine->winner = player;
+		vm->winner = player;
+        print_live(vm, player);
         if (cur->pc + 4 < MEM_SIZE )
             cur->pc = (cur->pc + 5) % MEM_SIZE;
         else

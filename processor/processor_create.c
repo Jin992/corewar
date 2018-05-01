@@ -46,21 +46,18 @@ static void		processor_init(int color, int pc, t_process *new)
 	player_index_to_int8(color, new);
 }
 
-void			processor_create(int color, int pc, t_VM *machine)
+void			processor_create(int color, int pc, t_VM *vm)
 {
 	t_process *new;
 	t_process *tmp;
 
 	new = (t_process*)malloc(sizeof(t_process) * 1);
 	processor_init(color, pc, new);
-	if (!(machine->processes))
-		machine->processes = new;
+	if (!(vm->processes))
+		vm->processes = new;
 	else
 	{
-		tmp = machine->processes;
-		new->prev = tmp;
-		while (tmp->next)
-			tmp = tmp->next;
-		tmp->next = new;
+		new->next = vm->processes;
+		vm->processes = new;
 	}
 }

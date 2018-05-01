@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "../includes/operations.h"
-void	zjmp_operation(t_VM *machine, t_process *cur)
+void	zjmp_operation(t_VM *vm, t_process *cur)
 {
 	cur->pc++;
 }

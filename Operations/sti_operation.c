@@ -12,7 +12,14 @@
 
 #include "../includes/operations.h"
 
-void sti_operation(t_VM *machine, t_process *cur)
+void sti_operation(t_VM *vm, t_process *cur)
 {
-	cur->pc++;
+       cur->pc++;
 }
+
+// усе по 2 байти
+
+// sti	T_REG	T_REG | T_DIR | T_IND	T_REG | T_INDR	00001011	0x0B	store index	0	1	25	2
+
+// "Значение T_REG (первый аргумент) записывается в ячейку, по адресу (текущая позиция PC плюс ((второй аргумент плюс третий аргумент) % IDX_MOD))
+// - Если второй аргумент T_IND - то ясное дело, что вместо второго аргумента, в уровнение подставляются те 4 байта, которые мы берём из ячейки (T_IND % IDX_MOD)."								

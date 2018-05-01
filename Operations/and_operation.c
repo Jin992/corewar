@@ -12,7 +12,7 @@
 
 #include "../includes/operations.h"
 
-void	and_operation(t_VM *machine, t_process *cur)
+void	and_operation(t_VM *vm, t_process *cur)
 {
 	cur->pc++;
 }

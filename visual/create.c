@@ -26,7 +26,7 @@ int	it_is_proces(t_VM *vm, int i) // ваша функция
 	return (0);
 }
 
-void	ft_create_map(t_VM *machine) // заполнение окна vm->main_field
+void	ft_create_map(t_VM *vm) // заполнение окна vm->main_field
 {
 	int y;
 	int x;
@@ -35,8 +35,8 @@ void	ft_create_map(t_VM *machine) // заполнение окна vm->main_fiel
 
 	y = 0;
 	i = 0;
-	t_process *tmp = machine->processes;
-	 wrefresh(machine->main_field);
+	t_process *tmp = vm->processes;
+	 wrefresh(vm->main_field);
 	while (y++ < (MAX_FIELD_Y * 3))
 	{
 		x = 0;
@@ -44,22 +44,22 @@ void	ft_create_map(t_VM *machine) // заполнение окна vm->main_fiel
 		{
 			if (i < MEM_SIZE)
 			{
-				if (it_is_proces(machine, i) == 1)
+				if (it_is_proces(vm, i) == 1)
 				{
-					color = 10 * machine->memory_color[i];
+					color = 10 * vm->memory_color[i];
 					if (color == 0)
 						color = 100;
-					wattron(machine->main_field, COLOR_PAIR(color));
-					mvwprintw(machine->main_field, y, x, "%.2x", machine->memory[i]);
-					wattroff(machine->main_field,COLOR_PAIR(color));
-					mvwprintw(machine->main_field, y, x + 2, " ");
+					wattron(vm->main_field, COLOR_PAIR(color));
+					mvwprintw(vm->main_field, y, x, "%.2x", vm->memory[i]);
+					wattroff(vm->main_field,COLOR_PAIR(color));
+					mvwprintw(vm->main_field, y, x + 2, " ");
 					i++;
 				}
 				else
 				{
-					wattron(machine->main_field, COLOR_PAIR(machine->memory_color[i]));
-					mvwprintw(machine->main_field, y, x, "%.2x ", machine->memory[i]);
-					wattroff(machine->main_field,COLOR_PAIR(machine->memory_color[i]));
+					wattron(vm->main_field, COLOR_PAIR(vm->memory_color[i]));
+					mvwprintw(vm->main_field, y, x, "%.2x ", vm->memory[i]);
+					wattroff(vm->main_field,COLOR_PAIR(vm->memory_color[i]));
 					i++;
 				}
 			}
@@ -67,8 +67,6 @@ void	ft_create_map(t_VM *machine) // заполнение окна vm->main_fiel
 		}
 	}
 }
-
-
 
 void	ft_print_name(t_VM *vm, int i, int *y)
 {
@@ -85,12 +83,9 @@ void	players_data(t_VM *vm, int *y)
 	while (i < vm->players_qnt)
 	{
 		*y += 4;
-		mvwprintw(vm->menu, *y, 2, "Player    : ");
-		mvwprintw(vm->menu, *y, 9, "%d", vm->player[i].player_nbr);
-		mvwprintw(vm->menu, *y + 1, 4, "Last live :");
-		mvwprintw(vm->menu, *y + 1, 32, "%d", vm->player[i].last_live);
-		mvwprintw(vm->menu, *y + 2, 4, "Lives in current period :");
-		mvwprintw(vm->menu, *y + 2, 32, "%d", vm->player[i].live_cur_period);
+		mvwprintw(vm->menu, *y, 2, "Player : %15d", vm->player[i].player_nbr);
+		mvwprintw(vm->menu, *y + 1, 4, "Last live : %15d", vm->player[i].last_live);
+		mvwprintw(vm->menu, *y + 2, 4, "Lives in current period : %d", vm->player[i].live_cur_period);
 		ft_print_name(vm, i, y);
 		i++;
 	}
@@ -100,21 +95,19 @@ void	ft_create_menu(t_VM *vm) // заполнение окна vm->menu
 {
 	int		y;
 
-	y = 6;
+	y = 2;
 	werase(vm->menu);
 	wattron(vm->menu, A_BOLD);
 	mvwprintw(vm->menu, 1, 2, "** RUNNING **");
-	mvwprintw(vm->menu, 3, 2, "Cycles/second limit :");
-	mvwprintw(vm->menu, 3, 32, ft_itoa(vm->cycle_limit));
-	mvwprintw(vm->menu, 6, 2, "Cycle : 2");
-	mvwprintw(vm->menu, 8, 2, "Processes : ");
-	mvwprintw(vm->menu, 8, 32, ft_itoa(vm->proceses_live));
+	mvwprintw(vm->menu, 2, 2, "Cycles/second limit : %7d", vm->cycle_limit);
+	mvwprintw(vm->menu, 3, 2, "Cycle : %21d", vm->cycle);
+	mvwprintw(vm->menu, 4, 2, "Processes : %17d", vm->proceses_live);
 	players_data(vm, &y);
-	mvwprintw(vm->menu, y + 4, 2, "CYCLE_TO_DIE :");
-	mvwprintw(vm->menu, y + 4, 32, ft_itoa(vm->cycle_to_die));
-	mvwprintw(vm->menu, y + 6, 2, "CYCLE_DELTA :"); //static
-	mvwprintw(vm->menu, y + 6, 32, ft_itoa(CYCLE_DELTA));
-	mvwprintw(vm->menu, y + 8, 2, "NBR_LIVE :                    21"); //static 
-	mvwprintw(vm->menu, y + 10, 2, "MAX_CHECKS :                  10");
+	mvwprintw(vm->menu, y + 4, 2, "CYCLE_TO_DIE : %d", vm->cycle_to_die);
+	mvwprintw(vm->menu, y + 5, 2, "CYCLE_DELTA : %16d", CYCLE_DELTA);
+	mvwprintw(vm->menu, y + 6, 2, "NBR_LIVE : %19d", NBR_LIVE );
+	mvwprintw(vm->menu, y + 7, 2, "MAX_CHECKS : %17d", MAX_CHECKS);
+	mvwprintw(vm->menu, 30, 2, "    cycle - ");
+	mvwprintw(vm->menu, 30, 17, "%d", vm->cycle);
 }
 

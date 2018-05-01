@@ -1,4 +1,4 @@
-.name "Machine-gun"
+.name "vm-gun"
 .comment "yipikai mother fucker"
 
 entry:	sti r1, %:live, %1
