@@ -22,7 +22,6 @@
 #define IS_REG_S(x)((x & 0XC0) == 0X40)
 #define IS_REG_M(x)((x & 0X30) == 0X10)
 #define IS_REG_E(x)((x & 0X0C) == 0X04)
-#define OVERLAP(x)(x % MEM_SIZE)
 #include "vm.h"
 
 typedef struct s_VM t_VM;
@@ -53,4 +52,5 @@ void    	load_to_reg(t_process *cur,int reg_n, u_int32_t val);
 u_int32_t 	second_operand(t_VM *vm, t_process *cur, int *shift);
 u_int16_t 	first_operand_2(t_VM *vm, t_process *cur, int *shift);
 u_int16_t 	second_operand_2(t_VM *vm, t_process *cur, int *shift);
+int     overla(int x);
 #endif

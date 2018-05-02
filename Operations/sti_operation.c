@@ -12,6 +12,18 @@
 
 #include "../includes/operations.h"
 
+int     overla(int x)
+{
+    return (x % MEM_SIZE);
+}
+
+int     get_reg(int x)
+{
+    if (x >= 1 && x < 17)
+        return (1);
+    return (0);
+}
+
 void sti_operation(t_VM *vm, t_process *cur)
 {
        u_int16_t  f2;
@@ -20,31 +32,32 @@ void sti_operation(t_VM *vm, t_process *cur)
        int i;
 
        i = 0;
-       if (IS_REG_S(vm->memory[OVERLAP(cur->pc + 1)]) && !IS_IND_M(vm->memory[OVERLAP(cur->pc + 1)]))
+        int pos =  vm->memory[(cur->pc + 2)] + i;
+       if (IS_REG_S(vm->memory[overla(cur->pc + 1)]) && !IS_IND_M(vm->memory[overla(cur->pc + 1)]))
        {
               shift = 2;
               f2 = first_operand_2(vm, cur, &shift);
               f3 = second_operand_2(vm, cur, &shift);
-//              printf("f2 = %.2x\n", f2);
-//              printf("f3 = %.2x\n", f3);
+
+           if (get_reg((vm->memory[overla(cur->pc + 2)])))
               while (i < REG_SIZE)
               {
-                     vm->memory[OVERLAP(cur->pc + (f2 + f3) % IDX_MOD + i)] = cur->reg[(vm->memory[OVERLAP(cur->pc + 2)]) - 1][i];
-                     vm->memory_color[OVERLAP(cur->pc + (f2 + f3) % IDX_MOD + i)] = (u_int8_t)((cur->color * -1) + 2);
-                     i++;
-
+                     vm->memory[(cur->pc + f2 + f3 + i) % MEM_SIZE] = cur->reg[pos - 1][i];
+                     vm->memory_color[(cur->pc + (f2 + f3) + i) % MEM_SIZE] = (u_int8_t)((cur->color * -1) + 1);
+//                    printf("i %d pc %d reg %.2x pos %.2x\n", i, (cur->pc + f2 + f3 + i),  cur->reg[(vm->memory[overla(cur->pc + 2)]) - 1][i], pos);
+                    i++;
               }
              move_pc(cur, shift + 1);
        }
-       else if (IS_REG_S(vm->memory[OVERLAP(cur->pc + 1)]) && IS_IND_M(vm->memory[OVERLAP(cur->pc + 1)]))
+       else if (IS_REG_S(vm->memory[overla(cur->pc + 1)]) && IS_IND_M(vm->memory[overla(cur->pc + 1)]))
        {
               shift = 5;
-              f2 = get_2_bytes(vm, vm->memory[OVERLAP(get_2_bytes(vm, OVERLAP(cur->pc + 3)))]);
+              f2 = get_2_bytes(vm, vm->memory[overla(get_2_bytes(vm, overla(cur->pc + 3)))]);
               f3 = second_operand_2(vm, cur, &shift);
               while (i < REG_SIZE)
               {
-                     vm->memory[OVERLAP(cur->pc + (f2 + f3) % IDX_MOD + i)] = cur->reg[vm->memory[OVERLAP(cur->pc + 2)]][i];
-                     vm->memory_color[OVERLAP(cur->pc + (f2 + f3) % IDX_MOD + i)] = (u_int8_t)((cur->color * -1) + 2);
+                     vm->memory[overla(cur->pc + (f2 + f3)+ i)] = cur->reg[vm->memory[pos]][i];
+                     vm->memory_color[overla(cur->pc + (f2 + f3) + i)] = (u_int8_t)((cur->color * -1) + 2);
                      i++;
               }
               move_pc(cur, shift + 1);
@@ -52,10 +65,3 @@ void sti_operation(t_VM *vm, t_process *cur)
        else
               move_pc(cur, 1);
 }
-
-// усе по 2 байти
-
-// sti	T_REG	T_REG | T_DIR | T_IND	T_REG | T_INDR	00001011	0x0B	store index	0	1	25	2
-
-// "Значение T_REG (первый аргумент) записывается в ячейку, по адресу (текущая позиция PC плюс ((второй аргумент плюс третий аргумент) % IDX_MOD))
-// - Если второй аргумент T_IND - то ясное дело, что вместо второго аргумента, в уровнение подставляются те 4 байта, которые мы берём из ячейки (T_IND % IDX_MOD)."

@@ -19,11 +19,11 @@ void	and_operation(t_VM *vm, t_process *cur)
 	int shift;
 
 	shift = 1;
-	if (IS_REG_E(vm->memory[OVERLAP(cur->pc + 1)]))
+	if (IS_REG_E(vm->memory[overla(cur->pc + 1)]))
 	{
 		f1 = first_operand(vm, cur, &shift);
 		f2 = second_operand(vm, cur, &shift);
-		load_to_reg(cur, (int) vm->memory[OVERLAP(cur->pc + shift + 1)] - 1, f1 & f2);
+		load_to_reg(cur, (int) vm->memory[overla(cur->pc + shift + 1)] - 1, f1 & f2);
 		move_pc(cur, shift + 2);
 		if ((f1 & f2) == 0)
 			cur->carry = 1;
