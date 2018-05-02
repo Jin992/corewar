@@ -79,6 +79,9 @@ u_int32_t second_operand(t_VM *vm, t_process *cur, int *shift)
 
 u_int16_t first_operand_2(t_VM *vm, t_process *cur, int *shift)
 {
+    int tmp;
+
+    tmp = *shift + 1;
     if (IS_REG_M(vm->memory[OVERLAP(cur->pc + 1)]))
     {
         *shift += 1;
@@ -88,12 +91,12 @@ u_int16_t first_operand_2(t_VM *vm, t_process *cur, int *shift)
     else if (IS_DIR_M(vm->memory[OVERLAP(cur->pc + 1)]))
     {
         *shift += 2;
-        return (u_int16_t)(get_2_bytes(vm, cur->pc + 3));
+        return (u_int16_t)(get_2_bytes(vm, cur->pc + tmp));
     }
     else if (IS_IND_M(vm->memory[OVERLAP(cur->pc + 1)]))
     {
         *shift += 2;
-        return ((u_int16_t) get_2_bytes(vm, cur->pc + 2));
+        return ((u_int16_t) get_2_bytes(vm, cur->pc + tmp));
     }
     return (0);
 }
@@ -114,7 +117,7 @@ u_int16_t second_operand_2(t_VM *vm, t_process *cur, int *shift)
     {
         *shift += 2;
         printf(">>\n");
-        return ((u_int16_t)(get_2_bytes(vm, cur->pc + tmp + 1)));
+        return ((u_int16_t)(get_2_bytes(vm, cur->pc + tmp)));
     }
     else if (IS_IND_E(vm->memory[OVERLAP(cur->pc + 1)]))
     {

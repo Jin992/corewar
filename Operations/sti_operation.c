@@ -22,11 +22,11 @@ void sti_operation(t_VM *vm, t_process *cur)
        i = 0;
        if (IS_REG_S(vm->memory[OVERLAP(cur->pc + 1)]) && !IS_IND_M(vm->memory[OVERLAP(cur->pc + 1)]))
        {
-              shift = 1;
+              shift = 2;
               f2 = first_operand_2(vm, cur, &shift);
               f3 = second_operand_2(vm, cur, &shift);
-              printf("f2 = %.2x\n", f2);
-              printf("f3 = %.2x\n", f3);
+//              printf("f2 = %.2x\n", f2);
+//              printf("f3 = %.2x\n", f3);
               while (i < REG_SIZE)
               {
                      vm->memory[OVERLAP(cur->pc + (f2 + f3) % IDX_MOD + i)] = cur->reg[(vm->memory[OVERLAP(cur->pc + 2)]) - 1][i];
@@ -34,7 +34,7 @@ void sti_operation(t_VM *vm, t_process *cur)
                      i++;
 
               }
-             move_pc(cur, shift + 2);
+             move_pc(cur, shift + 1);
        }
        else if (IS_REG_S(vm->memory[OVERLAP(cur->pc + 1)]) && IS_IND_M(vm->memory[OVERLAP(cur->pc + 1)]))
        {
@@ -58,4 +58,4 @@ void sti_operation(t_VM *vm, t_process *cur)
 // sti	T_REG	T_REG | T_DIR | T_IND	T_REG | T_INDR	00001011	0x0B	store index	0	1	25	2
 
 // "Значение T_REG (первый аргумент) записывается в ячейку, по адресу (текущая позиция PC плюс ((второй аргумент плюс третий аргумент) % IDX_MOD))
-// - Если второй аргумент T_IND - то ясное дело, что вместо второго аргумента, в уровнение подставляются те 4 байта, которые мы берём из ячейки (T_IND % IDX_MOD)."								
+// - Если второй аргумент T_IND - то ясное дело, что вместо второго аргумента, в уровнение подставляются те 4 байта, которые мы берём из ячейки (T_IND % IDX_MOD)."
