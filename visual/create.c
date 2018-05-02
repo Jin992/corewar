@@ -37,7 +37,7 @@ void	ft_create_map(t_VM *vm) // заполнение окна vm->main_field
 	i = 0;
 	t_process *tmp = vm->processes;
 	 wrefresh(vm->main_field);
-	while (y++ < (MAX_FIELD_Y * 3))
+	while (y++ < (MAX_FIELD_Y * 3) + 1)
 	{
 		x = 0;
 		while (x < (MAX_FIELD_X * 3))

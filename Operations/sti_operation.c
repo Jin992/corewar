@@ -39,7 +39,7 @@ void sti_operation(t_VM *vm, t_process *cur)
        else if (IS_REG_S(vm->memory[OVERLAP(cur->pc + 1)]) && IS_IND_M(vm->memory[OVERLAP(cur->pc + 1)]))
        {
               shift = 5;
-              f2 = get_2_bytes(vm, vm->memory[OVERLAP(get_2_bytes(vm, OVERLAP(cur->pc + 3)))]) % IDX_MOD;
+              f2 = get_2_bytes(vm, vm->memory[OVERLAP(get_2_bytes(vm, OVERLAP(cur->pc + 3)))]);
               f3 = second_operand_2(vm, cur, &shift);
               while (i < REG_SIZE)
               {

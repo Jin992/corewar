@@ -35,7 +35,7 @@ void sub_operation(t_VM *vm, t_process *cur)
 		i = -1;
 		while (++i < REG_SIZE)
 			cur->reg[vm->memory[(cur->pc + 4) % MEM_SIZE]][i] = bytes[i];
-		if (REVERSE_4_BYTES(*(u_int32_t*)&cur->reg[vm->memory[(cur->pc + 4) % MEM_SIZE]]) == 0)
+		if (REVERSE_4_BYTES(*(u_int32_t*)&cur->reg[vm->memory[(cur->pc + 4) % MEM_SIZE]] - 1) == 0)
 			cur->carry = 1;
 		else
 			cur->carry = 0;
