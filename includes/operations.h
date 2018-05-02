@@ -22,31 +22,33 @@
 #define IS_REG_S(x)((x & 0XC0) == 0X40)
 #define IS_REG_M(x)((x & 0X30) == 0X10)
 #define IS_REG_E(x)((x & 0X0C) == 0X04)
-
+#define OVERLAP(x)(x % MEM_SIZE)
 #include "vm.h"
 
 typedef struct s_VM t_VM;
 typedef struct s_process t_process;
 
-void	live_operation(t_VM *vm, t_process *cur);
-void	add_operation(t_VM *vm, t_process *cur);
-void	fork_operation(t_VM *vm, t_process *cur);
-void	aff_operation(t_VM *vm, t_process *cur);
-void	and_operation(t_VM *vm, t_process *cur);
-void 	ld_operation(t_VM *vm, t_process *cur);
-void	ldi_operation(t_VM *vm, t_process *cur);
-void	lfork_operation(t_VM *vm, t_process *cur);
-void 	lld_operation(t_VM *vm, t_process *cur);
-void	lldi_operation(t_VM *vm, t_process *cur);
-void 	or_operation(t_VM *vm, t_process *cur);
-void 	st_operation(t_VM *vm, t_process *cur);
-void 	sti_operation(t_VM *vm, t_process *cur);
-void 	sub_operation(t_VM *vm, t_process *cur);
-void	xor_operation(t_VM *vm, t_process *cur);
-void	zjmp_operation(t_VM *vm, t_process *cur);
-u_int16_t get_2_bytes(t_VM *vm, int pos);
-u_int32_t get_4_bytes(t_VM *vm, int pos);
-void	move_pc(t_process *cur, int shift);
+void		live_operation(t_VM *vm, t_process *cur);
+void		add_operation(t_VM *vm, t_process *cur);
+void		fork_operation(t_VM *vm, t_process *cur);
+void		aff_operation(t_VM *vm, t_process *cur);
+void		and_operation(t_VM *vm, t_process *cur);
+void 		ld_operation(t_VM *vm, t_process *cur);
+void		ldi_operation(t_VM *vm, t_process *cur);
+void		lfork_operation(t_VM *vm, t_process *cur);
+void 		lld_operation(t_VM *vm, t_process *cur);
+void		lldi_operation(t_VM *vm, t_process *cur);
+void 		or_operation(t_VM *vm, t_process *cur);
+void 		st_operation(t_VM *vm, t_process *cur);
+void 		sti_operation(t_VM *vm, t_process *cur);
+void 		sub_operation(t_VM *vm, t_process *cur);
+void		xor_operation(t_VM *vm, t_process *cur);
+void		zjmp_operation(t_VM *vm, t_process *cur);
+u_int16_t	get_2_bytes(t_VM *vm, int pos);
+u_int32_t 	get_4_bytes(t_VM *vm, int pos);
+void		move_pc(t_process *cur, int shift);
 
-
+u_int32_t 	first_operand(t_VM *vm, t_process *cur, int *shift);
+void    	load_to_reg(t_process *cur,int reg_n, u_int32_t val);
+u_int32_t 	second_operand(t_VM *vm, t_process *cur, int *shift);
 #endif
