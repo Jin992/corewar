@@ -113,6 +113,7 @@ void	ft_create_menu(t_VM *vm);
 void	players_data(t_VM *vm, int *y);
 void	ft_print_name(t_VM *vm, int i, int *y);
 void	ft_create_map(t_VM *vm);
+void		get_key(t_VM *vm);
 void		get_key_2(t_VM *vm);
 
 void	procesing_step_by_step(t_VM *vm);

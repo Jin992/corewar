@@ -108,6 +108,7 @@ void			parse_player(t_VM * vm, char **argv, int *i)
 		if ((fd = find_core_file(argv[*i])) > 0)
 			get_players(argv[*i], vm, find_empty_slot(vm), fd);
 }
+
 int			parse_flags(int argc, char **argv, t_VM *local)
 {
 	int i;

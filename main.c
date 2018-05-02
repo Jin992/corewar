@@ -30,11 +30,9 @@ static void	init_vm(t_VM *local, int argc)
 	local->aff = 0;
 	local->cycle = 0;
 	local->dump = -1;
-	local->empty[0] = 0;
-	local->empty[1] = 0;
-	local->empty[2] = 0;
-	local->empty[3] = 0;
+	ft_memset(local->empty, 0, 4);
 	local->wait = 0;
+	local->space = 0;
 }
 
 int main(int argc, char **argv)

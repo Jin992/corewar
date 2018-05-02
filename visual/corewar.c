@@ -55,11 +55,6 @@ void	ft_create_frame(t_VM *vm)
 
 void	ft_procesing_ncurses(t_VM *vm)
 {
-	if (vm->cycle == 0)
-	{
-		ft_create_frame(vm);
-		mvwprintw(vm->menu, 1, 2, "** PAUSED **");
-	}
 	ft_create_window(vm);
 	get_key_2(vm);
 	wrefresh(vm->menu);
@@ -72,5 +67,6 @@ void	procesing_step_by_step(t_VM *vm)
 	if (vm->wait <= 0)
 		ft_create_window(vm);
 	get_key(vm);
+	get_mouse(vm);
 	wrefresh(vm->menu);
 }
