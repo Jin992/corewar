@@ -23,6 +23,10 @@ void ld_operation(t_VM *vm, t_process *cur)
 	{
 		while (++i < 4)
 			cur->reg[vm->memory[(cur->pc+ 6) % MEM_SIZE ]][i] = vm->memory[((cur->pc + 2) + i) % MEM_SIZE];
+		if (REVERSE_4_BYTES(*(u_int32_t *)&cur->reg[vm->memory[(cur->pc + 6) % MEM_SIZE]]) == 0)
+			cur->carry = 1;
+		else
+			cur->carry = 0;
 		cur->pc = (cur->pc + 7) % MEM_SIZE;
 	}
 	else if (IS_IND_S((u_int8_t)vm->memory[(cur->pc + 1) % MEM_SIZE]) && IS_REG_M((u_int8_t)vm->memory[(cur->pc + 1) % MEM_SIZE]))

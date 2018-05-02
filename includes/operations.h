@@ -44,6 +44,9 @@ void 	sti_operation(t_VM *vm, t_process *cur);
 void 	sub_operation(t_VM *vm, t_process *cur);
 void	xor_operation(t_VM *vm, t_process *cur);
 void	zjmp_operation(t_VM *vm, t_process *cur);
+u_int16_t get_2_bytes(t_VM *vm, int pos);
+u_int32_t get_4_bytes(t_VM *vm, int pos);
+void	move_pc(t_process *cur, int shift);
 
 
 #endif

@@ -56,7 +56,7 @@ static void	init_player(int fd_in, t_players *player_st, char *file)
 		cnt++;
 	}
 	player_st->exec_size = REVERSE_4_BYTES(*(int32_t *)exec_size);
-	validate_file(player_st, cnt, file);
+//	validate_file(player_st, cnt, file);
 }
 
 void		get_players(char *str, t_VM *vm, int cnt, int fd)

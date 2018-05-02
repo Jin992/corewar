@@ -12,6 +12,7 @@
 
 #include "../includes/operations.h"
 
+
 void sub_operation(t_VM *vm, t_process *cur)
 {
 	int i;

@@ -30,7 +30,8 @@ OP = Operations/aff_operation.c\
 	Operations/xor_operation.c\
 	Operations/zjmp_operation.c\
 	Operations/add_operation.c\
-	Operations/live_operation.c
+	Operations/live_operation.c\
+	Operations/get_bytes.c
 
 DATA = data/error.c\
 		data/player.c\
