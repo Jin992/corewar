@@ -25,7 +25,7 @@ void or_operation(t_VM *vm, t_process *cur)
 		f2 = second_operand(vm, cur, &shift);
 		load_to_reg(cur, (int) vm->memory[OVERLAP(cur->pc + shift + 1)] - 1, f1 | f2);
 		move_pc(cur, shift + 2);
-		if (REVERSE_4_BYTES(*(u_int32_t*)&cur->reg[vm->memory[OVERLAP(cur->pc + shift + 1) - 1]]) == 0)
+		if ((f1 | f2) == 0)
 			cur->carry = 1;
 		else
 			cur->carry = 0;

@@ -14,6 +14,35 @@
 
 void	lldi_operation(t_VM *vm, t_process *cur)
 {
-	cur->pc++;
+	u_int32_t f1;
+	u_int32_t f2;
+	int shift;
+
+	shift = 1;
+	if (IS_REG_E(vm->memory[OVERLAP(cur->pc + 1)]) && !IS_IND_S(vm->memory[OVERLAP(cur->pc + 1)]))
+	{
+		f1 = first_operand(vm, cur, &shift);
+		f2 = second_operand(vm, cur, &shift);
+		load_to_reg(cur, (int) vm->memory[OVERLAP(cur->pc + shift + 1)] - 1, get_4_bytes(vm, OVERLAP((f1 + f2) + cur->pc)));
+		if ((get_4_bytes(vm, OVERLAP((f1 + f2) + cur->pc))) == 0)
+			cur->carry = 1;
+		else
+			cur->carry = 0;
+		move_pc(cur, shift + 2);
+	}
+	else if (IS_REG_E(vm->memory[OVERLAP(cur->pc + 1)]) && IS_IND_S(vm->memory[OVERLAP(cur->pc + 1)]))
+	{
+		shift = 3;
+		f1 = get_4_bytes(vm, vm->memory[OVERLAP(get_2_bytes(vm, OVERLAP(cur->pc + 2)))]) % IDX_MOD;
+		f2 = second_operand(vm, cur, &shift);
+		load_to_reg(cur, (int) vm->memory[OVERLAP(cur->pc + shift + 1)] - 1, get_4_bytes(vm, OVERLAP((f1 + f2) % IDX_MOD + cur->pc)));
+		if ((get_4_bytes(vm, OVERLAP((f1 + f2) % IDX_MOD + cur->pc))) == 0)
+			cur->carry = 1;
+		else
+			cur->carry = 0;
+		move_pc(cur, shift + 2);
+	}
+	else
+		move_pc(cur, 1);
 }
 
