@@ -52,10 +52,11 @@ void			winner(t_VM *vm)
 void			processor_cycle(t_process *tmp, t_VM *vm)
 {
 	tmp->timer--;
-	if (tmp->timer == 0)
+	if (tmp->timer == 1)
 	{
 		tmp->op(vm, tmp);
 		tmp->op = NULL;
+		tmp->timer = 0;
 	}
 }
 

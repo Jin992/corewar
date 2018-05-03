@@ -28,7 +28,7 @@ static void	init_vm(t_VM *local, int argc)
 	local->visual = 0;
 	local->players_qnt = 0;
 	local->aff = 0;
-	local->cycle = 0;
+	local->cycle = 1;
 	local->dump = -1;
 	ft_memset(local->empty, 0, 4);
 	local->wait = 0;
