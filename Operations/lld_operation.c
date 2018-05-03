@@ -23,7 +23,7 @@ void lld_operation(t_VM *vm, t_process *cur)
 		if (get_reg(vm->memory[(cur->pc + 6) % MEM_SIZE ]))
 			while (++i < 4)
 				cur->reg[vm->memory[(cur->pc+ 6) % MEM_SIZE] - 1][i] = vm->memory[((cur->pc + 2) + i) % MEM_SIZE];
-		cur->pc = (cur->pc + 7) % MEM_SIZE;
+		move_pc(cur, 7);
 	}
 	else if (IS_IND_S((u_int8_t)vm->memory[(cur->pc + 1) % MEM_SIZE]) && IS_REG_M((u_int8_t)vm->memory[(cur->pc + 1) % MEM_SIZE]))
 	{
@@ -37,8 +37,9 @@ void lld_operation(t_VM *vm, t_process *cur)
         	else
           	  cur->carry = 0;
     	}
-		cur->pc = (cur->pc + 5) % MEM_SIZE;
+		move_pc(cur, 5);
 	}
     else
-        cur->pc++;
+       move_pc(cur, 1);
+
 }

@@ -20,22 +20,24 @@ void st_operation(t_VM *vm, t_process *cur)
 	i = -1;
 	if (IS_REG_S(vm->memory[(cur->pc + 1) % MEM_SIZE]) && IS_REG_M(vm->memory[(cur->pc + 1) % MEM_SIZE]))
 	{
-		if (get_reg(vm->memory[(cur->pc + 3) % MEM_SIZE]))
+		if (get_reg(vm->memory[(cur->pc + 3) % MEM_SIZE]) && get_reg(vm->memory[(cur->pc + 2) % MEM_SIZE]))
 			while (++i < 4)
 				cur->reg[vm->memory[(cur->pc + 3) % MEM_SIZE] - 1][i] = cur->reg[vm->memory[(cur->pc + 2) % MEM_SIZE] - 1][i];
-		cur->pc += 4;
+		move_pc(cur, 4);
 	}
 	else if (IS_REG_S(vm->memory[(cur->pc + 1) % MEM_SIZE]) && IS_IND_M(vm->memory[(cur->pc + 1) % MEM_SIZE]))
 	{
 		t_ind = REVERSE_2_BYTES(*(u_int16_t *)&vm->memory[(cur->pc + 3) % MEM_SIZE]);
-		if (get_reg(((cur->pc + t_ind) + i) % MEM_SIZE))
+		if (get_reg(vm->memory[(cur->pc + 2) % MEM_SIZE]))
+		{
 			while (++i < 4)
 			{
 				vm->memory[((cur->pc + t_ind) + i) % MEM_SIZE] = cur->reg[vm->memory[(cur->pc + 2) % MEM_SIZE] - 1][i];
 				vm->memory_color[((cur->pc + t_ind) + i) % MEM_SIZE] = (u_int8_t)((cur->color * -1) + 1);
 			}
-		cur->pc += 5;
+		}
+		move_pc(cur, 5);
 	}
     else
-		cur->pc += 2;
+		move_pc(cur, 2);
 }
