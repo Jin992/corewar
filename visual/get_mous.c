@@ -27,7 +27,7 @@ void	print_register(t_process *cur, t_VM *vm, int nbr)
 	{
 		j = 0;
 		k = 0;
-		mvwprintw(vm->help_menu, 3 + i, 0 + j, "%.2x: ", i);
+		mvwprintw(vm->help_menu, 3 + i, 0 + j, "%d: ", i + 1);
 		while (j < (REG_SIZE * 3))
 		{
 			mvwprintw(vm->help_menu, 3 + i, 0 + j + 4, "%.2x ", cur->reg[i][k]);

@@ -53,4 +53,5 @@ u_int32_t 	second_operand(t_VM *vm, t_process *cur, int *shift);
 u_int16_t 	first_operand_2(t_VM *vm, t_process *cur, int *shift);
 u_int16_t 	second_operand_2(t_VM *vm, t_process *cur, int *shift);
 int     overla(int x);
+int     get_reg(int x);
 #endif
