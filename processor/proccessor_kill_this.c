@@ -34,7 +34,10 @@ void			proccessor_kill_this(t_process **begin_list)
 			free(list);	
 		}
 		else
+		{
+			tmp->im_alive = 0;
 			parent = list;
+		}
 		list = tmp->next;
 	}
 }
