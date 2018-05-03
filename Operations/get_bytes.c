@@ -127,8 +127,11 @@ u_int16_t second_operand_2(t_VM *vm, t_process *cur, int *shift)
 
 void    load_to_reg(t_process *cur,int reg_n, u_int32_t val)
 {
-    cur->reg[reg_n][0] = (val >> 24) & 0xFF;
-    cur->reg[reg_n][1] = (val >> 16) & 0xFF;
-    cur->reg[reg_n][2] = (val >> 8) & 0xFF;
-    cur->reg[reg_n][3] =  val & 0xFF;
+    if (get_reg(reg_n + 1))
+    {
+        cur->reg[reg_n][0] = (val >> 24) & 0xFF;
+        cur->reg[reg_n][1] = (val >> 16) & 0xFF;
+        cur->reg[reg_n][2] = (val >> 8) & 0xFF;
+        cur->reg[reg_n][3] =  val & 0xFF;
+    }
 }
