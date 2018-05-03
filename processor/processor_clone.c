@@ -34,6 +34,7 @@ static void		processor_clone_init(t_process *new, t_process *clone, int pc)
 	new->color = clone->color;
 	new->carry = clone->carry;
 	new->im_alive = clone->im_alive;
+	new->next = NULL;
 	processor_reg_copy(new, clone);
 }
 
@@ -49,7 +50,9 @@ void			processor_clone(t_VM *vm, t_process *clone, int pc)
 		vm->processes = new;
 	else
 	{
-		new->next = vm->processes;
-		vm->processes = new;
+		tmp =  vm->processes;
+		while (tmp->next)
+			tmp = tmp->next;
+		tmp = new;
 	}
 }
