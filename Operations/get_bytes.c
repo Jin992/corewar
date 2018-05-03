@@ -85,8 +85,7 @@ u_int16_t first_operand_2(t_VM *vm, t_process *cur, int *shift)
     if (IS_REG_M(vm->memory[overla(cur->pc + 1)]))
     {
         *shift += 1;
-        return ((u_int16_t) (u_int8_t ) \
-        cur->reg[vm->memory[(cur->pc + 2) % MEM_SIZE]]);
+        return (*(u_int16_t*)&cur->reg[vm->memory[(cur->pc + 3) % MEM_SIZE]]);
     }
     else if (IS_DIR_M(vm->memory[overla(cur->pc + 1)]))
     {

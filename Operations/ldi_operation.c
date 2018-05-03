@@ -20,8 +20,7 @@ u_int16_t first_operand_3(t_VM *vm, t_process *cur, int *shift)
     if (IS_REG_S(vm->memory[overla(cur->pc + 1)]))
     {
         *shift += 1;
-        return ((u_int16_t) (u_int8_t ) \
-        cur->reg[vm->memory[(cur->pc + 2) % MEM_SIZE]]);
+        return (*(u_int16_t*)&cur->reg[vm->memory[(cur->pc + 3) % MEM_SIZE]]);
     }
     else if (IS_DIR_S(vm->memory[overla(cur->pc + 1)]))
     {
@@ -44,8 +43,7 @@ u_int16_t second_operand_3(t_VM *vm, t_process *cur, int *shift)
     if (IS_REG_M(vm->memory[overla(cur->pc + 1)]))
     {
         *shift += 1;
-        return ((u_int16_t) (u_int8_t) \
-        cur->reg[vm->memory[(cur->pc + tmp) % MEM_SIZE]]);
+        return (*(u_int16_t*)&cur->reg[vm->memory[(cur->pc + 3) % MEM_SIZE]]);
     }
     else if (IS_DIR_M(vm->memory[overla(cur->pc + 1)]))
     {
@@ -62,8 +60,8 @@ u_int16_t second_operand_3(t_VM *vm, t_process *cur, int *shift)
 
 void	ldi_operation(t_VM *vm, t_process *cur)
 {
-    u_int32_t f1;
-    u_int32_t f2;
+    u_int16_t f1;
+    u_int16_t f2;
     int shift;
     int i;
 
