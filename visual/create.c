@@ -103,10 +103,10 @@ void	ft_create_menu(t_VM *vm) // заполнение окна vm->menu
 	mvwprintw(vm->menu, 3, 2, "Cycle : %21d", vm->cycle);
 	mvwprintw(vm->menu, 4, 2, "Processes : %17d", vm->proceses_live);
 	players_data(vm, &y);
-	mvwprintw(vm->menu, y + 4, 2, "CYCLE_TO_DIE : %d", vm->cycle_to_die);
+	// mvwprintw(vm->menu, y + 4, 2, "CYCLE_TO_DIE : %d", vm->cycle_to_die);
 	mvwprintw(vm->menu, y + 5, 2, "CYCLE_DELTA : %16d", CYCLE_DELTA);
 	mvwprintw(vm->menu, y + 6, 2, "NBR_LIVE : %19d", NBR_LIVE );
-	mvwprintw(vm->menu, y + 7, 2, "MAX_CHECKS : %17d", MAX_CHECKS);
+	mvwprintw(vm->menu, y + 7, 2, "MAX_CHECKS : %17d", vm->period);
 	mvwprintw(vm->menu, 30, 2, "    cycle - ");
 	mvwprintw(vm->menu, 30, 17, "%d", vm->cycle);
 }

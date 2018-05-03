@@ -12,44 +12,29 @@
 
 #include "../includes/vm.h"
 
-void			proccessor_kill_this_2(t_process **kill_me)
+
+void			proccessor_kill_this(t_process **begin_list)
 {
-	t_process *die;
+	t_process *list;
+	t_process *parent;
+	t_process *tmp;
 
-	if (!((*kill_me)->prev) && (*kill_me)->next)
+	list = *begin_list;
+	parent = 0;
+	tmp = 0;
+	while (list)
 	{
-		die = *kill_me;
-		*kill_me = (*kill_me)->next;
-		(*kill_me)->prev = NULL;
-		free(die);
+		tmp = list;
+		if (tmp->im_alive == 0)
+		{
+			if (parent)
+				parent->next = list->next;
+			else
+				*begin_list = list->next;
+			free(list);	
+		}
+		else
+			parent = list;
+		list = tmp->next;
 	}
-	else
-	{
-		die = *kill_me;
-		*kill_me = (*kill_me)->next;
-		(*kill_me)->prev = die->prev;
-		free(die);
-	}
-}
-
-void			proccessor_kill_this(t_process **kill_me)
-{
-	t_process *die;
-
-	if (!(kill_me))
-		return ;
-	if (!((*kill_me)->prev) && !((*kill_me)->next))
-	{
-		free(*kill_me);
-		*kill_me = NULL;
-	}
-	else if (!((*kill_me)->prev) && (*kill_me)->next)
-	{
-		die = *kill_me;
-		*kill_me = (*kill_me)->next;
-		(*kill_me)->prev = NULL;
-		free(die);
-	}
-	else
-		proccessor_kill_this_2(kill_me);
 }

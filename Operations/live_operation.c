@@ -41,18 +41,14 @@ void	live_operation(t_VM *vm, t_process *cur)
     }
     player = REVERSE_4_BYTES(*(int32_t *)&t_ind[0]) * -1 - 1;
     cur->im_alive = 1;
-	if (player < vm->players_qnt && player >= 0)
-	{
-		vm->player[player].last_live = vm->cycle;
+    vm->memory_color[cur->pc] = 3;
+    if (player < vm->players_qnt && player >= 0)
+    {
+	   vm->player[player].last_live = vm->cycle;
 		vm->player[player].live_cur_period++;
         vm->nbr_live++;
 		vm->winner = player;
         print_live(vm, player);
-        if (cur->pc + 4 < MEM_SIZE )
-            cur->pc = (cur->pc + 5) % MEM_SIZE;
-        else
-            cur->pc = (cur->pc + 4) % MEM_SIZE;
-	}
-	else
-		cur->pc++;
+    }
+    move_pc(cur, 5);
 }

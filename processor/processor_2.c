@@ -28,25 +28,10 @@ static void		processor_check_2(t_VM *vm)
 
 void			processor_check(t_VM *vm)
 {
-	t_process *tmp;
-
-	tmp = vm->processes;
 	vm->period--;
 	if (vm->period <= 0)
 	{
-		while (tmp)
-		{
-			if (tmp->im_alive == 0)
-			{
-				vm->proceses_live--;
-				proccessor_kill_this(&vm->processes);
-			}
-			if (tmp)
-			{
-				tmp->im_alive = 0;
-				tmp = tmp->next;
-			}
-		}
+		proccessor_kill_this(&(vm->processes));
 		processor_check_2(vm);
 	}
 }

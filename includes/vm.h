@@ -82,7 +82,7 @@ void 		processor_check(t_VM *vm);
 void		processor_create(int color, int pc, t_VM *vm);
 void		processor(t_VM *vm);
 void		processor_clone(t_VM *vm, t_process *clone, int pc);
-void		proccessor_kill_this(t_process **kill_me);
+void			proccessor_kill_this(t_process **kill_me);
 void		processor_normal(t_VM *vm);
 void		processor_visual(t_VM *vm);
 void		dump_memmory(t_VM *vm);

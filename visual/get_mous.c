@@ -23,6 +23,7 @@ void	print_register(t_process *cur, t_VM *vm, int nbr)
 	mvwprintw(vm->help_menu,  2, 0, "\t Process index %d", nbr);
 	mvwprintw(vm->help_menu, 3 + i, 16, "Process carry status: %3d", cur->carry);
 	mvwprintw(vm->help_menu, 4 + i, 16, "Process curent PC: %6d", cur->pc);
+	mvwprintw(vm->help_menu, 5 + i, 16, "Process live status: %6d", cur->im_alive);
 	while (i < REG_NUMBER)
 	{
 		j = 0;
