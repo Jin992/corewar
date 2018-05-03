@@ -77,7 +77,7 @@ u_int32_t second_operand(t_VM *vm, t_process *cur, int *shift)
     return (0);
 }
 
-u_int16_t first_operand_2(t_VM *vm, t_process *cur, int *shift)
+u_int32_t first_operand_2(t_VM *vm, t_process *cur, int *shift)
 {
     int tmp;
 
@@ -85,7 +85,7 @@ u_int16_t first_operand_2(t_VM *vm, t_process *cur, int *shift)
     if (IS_REG_M(vm->memory[overla(cur->pc + 1)]))
     {
         *shift += 1;
-        return (*(u_int16_t*)&cur->reg[vm->memory[(cur->pc + 3) % MEM_SIZE]]);
+        return (REVERSE_4_BYTES(*(u_int32_t*)&cur->reg[vm->memory[(cur->pc + 3) % MEM_SIZE] - 1]));
     }
     else if (IS_DIR_M(vm->memory[overla(cur->pc + 1)]))
     {
@@ -100,7 +100,7 @@ u_int16_t first_operand_2(t_VM *vm, t_process *cur, int *shift)
     return (0);
 }
 
-u_int16_t second_operand_2(t_VM *vm, t_process *cur, int *shift)
+u_int32_t second_operand_2(t_VM *vm, t_process *cur, int *shift)
 {
     int tmp;
 
@@ -108,8 +108,7 @@ u_int16_t second_operand_2(t_VM *vm, t_process *cur, int *shift)
     if (IS_REG_E(vm->memory[overla(cur->pc + 1)]))
     {
         *shift += 1;
-        return ((u_int16_t) (u_int8_t) \
-        cur->reg[vm->memory[(cur->pc + tmp) % MEM_SIZE]]);
+        return (REVERSE_4_BYTES(*(u_int32_t*)&cur->reg[vm->memory[(cur->pc + tmp) % MEM_SIZE] - 1]));
     }
     else if (IS_DIR_E(vm->memory[overla(cur->pc + 1)]))
     {

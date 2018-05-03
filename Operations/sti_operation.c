@@ -38,12 +38,14 @@ void sti_operation(t_VM *vm, t_process *cur)
 			shift = 2;
 			f2 = first_operand_2(vm, cur, &shift);
 			f3 = second_operand_2(vm, cur, &shift);
+			// printf(" %.2x %.2x %.2x %.2x\n",cur->reg[vm->memory[(cur->pc + 3) % MEM_SIZE] - 1][0], cur->reg[vm->memory[(cur->pc + 3) % MEM_SIZE] - 1][1],
+			// 	cur->reg[vm->memory[(cur->pc + 3) % MEM_SIZE] - 1][2], cur->reg[vm->memory[(cur->pc + 3) % MEM_SIZE] - 1][3]);
+			// printf(" %d\n", f2);
 			if (get_reg((vm->memory[overla(cur->pc + 2)])))
 				while (i < REG_SIZE)
 				{
-					vm->memory[(cur->pc + (f2 + f3) % IDX_MOD + i) % MEM_SIZE] = cur->reg[pos - 1][i];
-					vm->memory_color[(cur->pc + (f2 + f3) + i) % MEM_SIZE] = (u_int8_t)((cur->color * -1) + 1);
-//                    printf("i %d pc %d reg %.2x pos %.2x\n", i, (cur->pc + f2 + f3 + i),  cur->reg[(vm->memory[overla(cur->pc + 2)]) - 1][i], pos);
+					vm->memory[(cur->pc + (f2 + f3) + i) % MEM_SIZE] = cur->reg[pos - 1][i];
+					vm->memory_color[(cur->pc + (f2 + f3) + i) % MEM_SIZE] = (u_int8_t)((cur->color * -1) + 2);
 					i++;
 				}
 			move_pc(cur, shift + 1);
