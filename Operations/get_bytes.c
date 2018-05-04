@@ -89,7 +89,7 @@ u_int32_t first_operand_2(t_VM *vm, t_process *cur, int *shift)
     else if (IS_DIR_M(vm->memory[overla(cur->pc + 1)]))
     {
         *shift += 2;
-         return (u_int16_t)(get_2_bytes(vm, cur->pc + tmp));
+        return (u_int16_t)(get_2_bytes(vm, cur->pc + tmp));
         //return (*(u_int16_t*)&vm->memory[cur->pc + 2]);
     }
     else if (IS_IND_M(vm->memory[overla(cur->pc + 1)]))
