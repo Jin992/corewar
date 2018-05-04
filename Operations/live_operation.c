@@ -21,7 +21,7 @@ void    print_live(t_VM *vm, int player, t_process *cur)
     }
     else
     {
-        vm->memory_color[cur->pc] = cur->color * 10;
+        // vm->memory_color[cur->pc] = cur->color * 10;
         wrefresh(vm->main_field);
     }
 }
