@@ -19,11 +19,6 @@ void    print_live(t_VM *vm, int player, t_process *cur)
         ft_printf("A process shows that player %d (%s) is alive.\n",
         player, vm->player[player].name);
     }
-    else
-    {
-        // vm->memory_color[cur->pc] = cur->color * 10;
-        wrefresh(vm->main_field);
-    }
 }
 
 void	live_operation(t_VM *vm, t_process *cur)

@@ -12,33 +12,33 @@
 
 #include "../includes/vm.h"
 
-void	print_register(t_process *cur, t_VM *vm, int nbr)
+void	print_register(t_VM *vm)
 {
 	int i;
 	int j;
 	int k;
 
-	i = 0;
-	wattron(vm->help_menu, COLOR_PAIR((cur->color)));
-	mvwprintw(vm->help_menu,  2, 0, "\t Process index %d", nbr);
-	mvwprintw(vm->help_menu, 3 + i, 16, "Process carry status: %3d", cur->carry);
-	mvwprintw(vm->help_menu, 4 + i, 16, "Process curent PC: %6d", cur->pc);
-	mvwprintw(vm->help_menu, 5 + i, 16, "Process live status: %6d", cur->im_alive);
-	while (i < REG_NUMBER)
+	i = -1;
+	if (vm->print_reg == NULL)
+		return ;
+	wattron(vm->help_menu, COLOR_PAIR((vm->print_reg->color)));
+	mvwprintw(vm->help_menu, 2 + i, 16, "Process carry status: %3d", vm->print_reg->carry);
+	mvwprintw(vm->help_menu, 3 + i, 16, "Process curent PC: %6d", vm->print_reg->pc);
+	mvwprintw(vm->help_menu, 4 + i, 16, "Process live status: %6d", vm->print_reg->im_alive);
+	while (++i < REG_NUMBER)
 	{
 		j = 0;
 		k = 0;
 		mvwprintw(vm->help_menu, 3 + i, 0 + j, "%d: ", i + 1);
 		while (j < (REG_SIZE * 3))
 		{
-			mvwprintw(vm->help_menu, 3 + i, 0 + j + 4, "%.2x ", cur->reg[i][k]);
+			mvwprintw(vm->help_menu, 3 + i, 0 + j + 4, "%.2x ", vm->print_reg->reg[i][k]);
 			k++;
 			j += 3;
 		}
-		i++;
 	}
-	wattroff(vm->help_menu, COLOR_PAIR((cur->color)));
-
+	wattroff(vm->help_menu, COLOR_PAIR((vm->print_reg->color)));
+	wrefresh(vm->help_menu);
 }
 
 void	get_mouse(t_VM *vm)
@@ -54,18 +54,17 @@ void	get_mouse(t_VM *vm)
 		tmp = vm->processes;
 		while (tmp)
 		{
-			
-			// mvwprintw(vm->help_menu,  2 + i, 0, "\t mouse = %d pc = %d", ((((mouse.y - 2) * 64) + (mouse.x / 3))) - 1, tmp->pc);
 			if (tmp->pc == (((mouse.y - 2) * 64) + (mouse.x / 3)) -1)
 			{
-				print_register(tmp, vm, i);
+				vm->print_reg = tmp;
+				mouse.y = 10000;
+				mouse.x = 10000;
 				break ;
 			}
 			i++;
 			tmp = tmp->next;
 		}
 	}
-	wrefresh(vm->help_menu);
 }
 
 
@@ -95,7 +94,9 @@ void		get_key(t_VM *vm)
 		else if (c == 99)
 			vm->wait = 500;
 		get_mouse(vm);
+		print_register(vm);
 	}
+	print_register(vm);
 }
 
 void		get_key_2(t_VM *vm)
@@ -112,4 +113,5 @@ void		get_key_2(t_VM *vm)
 	}
 	if (vm->space == 0)
 		get_mouse(vm);
+	print_register(vm);
 }
