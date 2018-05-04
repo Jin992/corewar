@@ -32,5 +32,5 @@ void	aff_operation(t_VM *vm, t_process *cur)
         else
             mvwprintw(vm->menu, 50, 0, "AFF : %C", (REVERSE_4_BYTES(*(int32_t *)&cur->reg[index][0])) % 256);
     }
-    cur->pc =  ((cur->pc + 4) % MEM_SIZE);
+    move_pc(cur, 2);
 }

@@ -43,7 +43,7 @@ static void		processor_init(int color, int pc, t_process *new)
 	new->carry = 0;
 	new->op = NULL;
 	new->im_alive = 0;
-	player_index_to_int8(color, new);
+	player_index_to_int8(color - 1, new);
 }
 
 void			processor_create(int color, int pc, t_VM *vm)
