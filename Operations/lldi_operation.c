@@ -33,9 +33,9 @@ void	lldi_operation(t_VM *vm, t_process *cur)
 	else if (IS_REG_E(vm->memory[overla(cur->pc + 1)]) && IS_IND_S(vm->memory[overla(cur->pc + 1)]))
 	{
 		shift = 3;
-		f1 = get_4_bytes(vm, vm->memory[overla(get_2_bytes(vm, overla(cur->pc + 2)))]) % IDX_MOD;
+		f1 = get_4_bytes(vm, vm->memory[overla(get_2_bytes(vm, overla(cur->pc + 2)))]);
 		f2 = second_operand(vm, cur, &shift);
-		load_to_reg(cur, (int) vm->memory[overla(cur->pc + shift + 1)] - 1, get_4_bytes(vm, overla((f1 + f2) % IDX_MOD + cur->pc)));
+		load_to_reg(cur, (int) vm->memory[overla(cur->pc + shift + 1)] - 1, get_4_bytes(vm, overla((f1 + f2) + cur->pc)));
 		if ((get_4_bytes(vm, overla((f1 + f2) % IDX_MOD + cur->pc))) == 0)
 			cur->carry = 1;
 		else
