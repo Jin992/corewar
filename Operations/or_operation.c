@@ -26,7 +26,7 @@ void	or_operation(t_VM *vm, t_process *cur)
 		if (if_good_reg_start(vm, cur) && if_good_reg_midl(vm, cur, shift))
 		{
 			load_to_reg(cur, (int) vm->memory[overla(cur->pc + shift + 1)] - 1, (f1 | f2));
-			if ((f1 & f2) == 0)
+			if ((f1 | f2) == 0)
 				cur->carry = 1;
 			else
 				cur->carry = 0;

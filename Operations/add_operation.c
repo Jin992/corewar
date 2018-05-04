@@ -21,9 +21,9 @@ void		add_operation(t_VM *vm, t_process *cur)
 	ft_bzero(bytes, 4);
 	if (IS_REG_S(vm->memory[cur->pc + 1]) && IS_REG_M(vm->memory[cur->pc + 1]) && IS_REG_E(vm->memory[cur->pc + 1]))
 	{
-        if (get_reg(vm->memory[(cur->pc + 4) % MEM_SIZE]) && get_reg(vm->memory[(cur->pc + 3) % MEM_SIZE]) && get_reg(vm->memory[(cur->pc + 4) % MEM_SIZE]))
+        if (get_reg(vm->memory[(cur->pc + 2) % MEM_SIZE]) && get_reg(vm->memory[(cur->pc + 3) % MEM_SIZE]) && get_reg(vm->memory[(cur->pc + 4) % MEM_SIZE]))
         {
-			res = REVERSE_4_BYTES(*(u_int32_t*)&cur->reg[vm->memory[(cur->pc + 2) % MEM_SIZE] - 1]) + REVERSE_4_BYTES(*(u_int32_t*)&cur->reg[vm->memory[(cur->pc + 3) % MEM_SIZE] - 1]);
+			res = (REVERSE_4_BYTES(*(u_int32_t*)&cur->reg[vm->memory[(cur->pc + 2) % MEM_SIZE] - 1]) + REVERSE_4_BYTES(*(u_int32_t*)&cur->reg[vm->memory[(cur->pc + 3) % MEM_SIZE] - 1]));
 			bytes[0] = (res >> 24) & 0xFF;
 			bytes[1] = (res >> 16) & 0xFF;
 			bytes[2] = (res >> 8) & 0xFF;
@@ -31,7 +31,7 @@ void		add_operation(t_VM *vm, t_process *cur)
 			i = -1;
 			while (++i < REG_SIZE)
 				cur->reg[vm->memory[(cur->pc + 4) % MEM_SIZE] - 1][i] = bytes[i];
-			if (REVERSE_4_BYTES(*(u_int32_t*)&cur->reg[vm->memory[(cur->pc + 4) % MEM_SIZE]]) == 0)
+			if (REVERSE_4_BYTES(*(u_int32_t*)&cur->reg[vm->memory[(cur->pc + 4) % MEM_SIZE] - 1]) == 0)
 				cur->carry = 1;
 			else
 				cur->carry = 0;

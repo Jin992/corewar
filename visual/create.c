@@ -109,7 +109,7 @@ void	ft_create_menu(t_VM *vm)
 	mvwprintw(vm->menu, 1, 2, "** RUNNING **");
 	// mvwprintw(vm->menu, 2, 2, "Cycles/second limit : %7d", vm->cycle_limit); // | | | | | | | | | | | | | |
 	mvwprintw(vm->menu, 2, 2, "Cycle  : %21d", vm->cycle);
-	mvwprintw(vm->menu, 3, 2, "Processes  : %17d", vm->proceses_live);
+	// mvwprintw(vm->menu, 3, 2, "Processes  : %17d", vm->proceses_live);
 	players_data(vm, &y);
 	mvwprintw(vm->menu, y + 4, 2, "Cycle to die  : %7d :%5d", vm->period, vm->cycle_to_die);
 	mvwprintw(vm->menu, y + 5, 2, "Live in period  : %5d :%5d", vm->nbr_live, NBR_LIVE);
