@@ -52,7 +52,6 @@ void	ft_create_frame(t_VM *vm)
 	endwin();
 }
 
-
 void	ft_procesing_ncurses(t_VM *vm)
 {
 	ft_create_window(vm);

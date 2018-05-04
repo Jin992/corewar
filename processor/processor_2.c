@@ -76,5 +76,5 @@ void		dump_memmory(t_VM *vm)
 		exit (1);
 	}
 	else if (vm->dump >= 0 && vm->cycle == vm->dump)
-		print_mem(vm->memory);
+		print_mem(vm->memory_color);
 }

@@ -38,12 +38,12 @@ void	load_players_to_memory(t_VM *vm)
 		if (last_not_empty(vm, j))
 		{
 			i = j * (MEM_SIZE / vm->players_qnt) - 1;
-			processor_create(j, i + 1, vm);
+			processor_create(j + 1, i + 1, vm);
 			vm->proceses_live++;
 			while (++i < vm->player[j].exec_size + (j * (MEM_SIZE / vm->players_qnt)))
 			{
 				vm->memory[i] = (u_int8_t) vm->player[j].player_exec[i - (j * (MEM_SIZE / vm->players_qnt))];
-				vm->memory_color[i] = (u_int8_t)(j + 1);
+				vm->memory_color[i] = j + 1;
 			}
 		}
 		else
