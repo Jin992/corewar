@@ -73,7 +73,7 @@ void	ldi_operation(t_VM *vm, t_process *cur)
         f2 = second_operand_3(vm, cur, &shift);
         while (i < REG_SIZE)
         {
-            cur->reg[vm->memory[overla(cur->pc + shift + 1)] - 1][i] = vm->memory[overla(((f1 + f2) + cur->pc) + i)];
+            cur->reg[vm->memory[overla(cur->pc + shift + 1)] - 1][i] = vm->memory[overla(((f1 + f2) + cur->pc + 1) + i)];
             i++;
         }
         move_pc(cur, shift + 2);
@@ -81,11 +81,11 @@ void	ldi_operation(t_VM *vm, t_process *cur)
     else if (IS_REG_E(vm->memory[overla(cur->pc + 1)]) && IS_IND_S(vm->memory[overla(cur->pc + 1)]))
         {
             shift = 3;
-            f1 = get_4_bytes(vm, vm->memory[overla(get_2_bytes(vm, overla(cur->pc + 2)))]) ;
+            f1 = get_2_bytes(vm, vm->memory[overla(get_2_bytes(vm, overla(cur->pc + 2)))]) ;
             f2 = second_operand_3(vm, cur, &shift);
             load_to_reg(cur, (int) vm->memory[overla(cur->pc + shift + 1)] - 1, overla((f1 + f2) + cur->pc));
             move_pc(cur, shift + 2);
         }
     else
-        move_pc(cur, 1);
+        move_pc(cur, 6);
 }

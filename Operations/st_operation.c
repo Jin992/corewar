@@ -41,5 +41,5 @@ void st_operation(t_VM *vm, t_process *cur)
 		move_pc(cur, 5);
 	}
     else
-		move_pc(cur, 2);
+		move_pc(cur, 6);
 }
