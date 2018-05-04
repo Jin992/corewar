@@ -56,7 +56,7 @@ void	get_mouse(t_VM *vm)
 		{
 			
 			// mvwprintw(vm->help_menu,  2 + i, 0, "\t mouse = %d pc = %d", ((((mouse.y - 2) * 64) + (mouse.x / 3))) - 1, tmp->pc);
-			if (tmp->pc == ((mouse.y - 2) * 64) + (mouse.x / 3) -1)
+			if (tmp->pc == (((mouse.y - 2) * 64) + (mouse.x / 3)) -1)
 			{
 				print_register(tmp, vm, i);
 				break ;
