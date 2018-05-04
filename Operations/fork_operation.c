@@ -16,8 +16,7 @@ void	fork_operation(t_VM *vm, t_process *cur) // processor_clone(t_VM *vm, t_pro
 {
     int position;
 
-    position = (cur->pc + (REVERSE_2_BYTES(*(u_int16_t*)&vm->memory[(cur->pc + 1) % MEM_SIZE ]) % IDX_MOD)) % MEM_SIZE;
-    printf("%d\n", cur->pc + (REVERSE_2_BYTES(*(u_int16_t*)&vm->memory[cur->pc % MEM_SIZE + 1] % IDX_MOD)));
+    position = (cur->pc + (REVERSE_2_BYTES(*(u_int16_t*)&vm->memory[(cur->pc + 1) % MEM_SIZE ]) % MEM_SIZE)) % MEM_SIZE;
     processor_clone(vm, cur, position);
     cur->pc += 3;
 }
