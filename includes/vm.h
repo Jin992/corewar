@@ -72,6 +72,7 @@ struct					s_VM
 	WINDOW				*help_menu;
 	WINDOW 				*lite;
 	t_process			*processes;
+	t_process			*print_reg;
 	t_players			player[4];
 };
 
