@@ -18,13 +18,15 @@ void	print_register(t_process *cur, t_VM *vm, int nbr)
 	int j;
 	int k;
 
-	i = 0;
-	wattron(vm->help_menu, COLOR_PAIR((cur->color + 1)));
+	i = -1;
+	if (vm->print_reg == -1)
+		return ;
+	wattron(vm->help_menu, COLOR_PAIR((cur->color)));
 	mvwprintw(vm->help_menu,  2, 0, "\t Process index %d", nbr);
 	mvwprintw(vm->help_menu, 3 + i, 16, "Process carry status: %3d", cur->carry);
 	mvwprintw(vm->help_menu, 4 + i, 16, "Process curent PC: %6d", cur->pc);
 	mvwprintw(vm->help_menu, 5 + i, 16, "Process live status: %6d", cur->im_alive);
-	while (i < REG_NUMBER)
+	while (++i < REG_NUMBER)
 	{
 		j = 0;
 		k = 0;
@@ -35,10 +37,8 @@ void	print_register(t_process *cur, t_VM *vm, int nbr)
 			k++;
 			j += 3;
 		}
-		i++;
 	}
-	wattroff(vm->help_menu, COLOR_PAIR((cur->color + 1)));
-
+	wattroff(vm->help_menu, COLOR_PAIR((cur->color)));
 }
 
 void	get_mouse(t_VM *vm)
@@ -49,11 +49,15 @@ void	get_mouse(t_VM *vm)
 	i = 0;
 	if ((getmouse(&mouse)) == OK)
 	{
+		
 		t_process *tmp;
 		tmp = vm->processes;
+		// werase(vm->help_menu);
 		while (tmp)
 		{
-			if (tmp->pc == ((mouse.y - 3) * 64) + (mouse.x / 3) - 1)
+			
+			// mvwprintw(vm->help_menu,  2 + i, 0, "\t mouse = %d pc = %d", ((((mouse.y - 2) * 64) + (mouse.x / 3))) - 1, tmp->pc);
+			if (tmp->pc == ((mouse.y - 2) * 64) + (mouse.x / 3) -1)
 			{
 				print_register(tmp, vm, i);
 				break ;

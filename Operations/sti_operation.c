@@ -32,7 +32,7 @@ void sti_operation(t_VM *vm, t_process *cur)
 		int i;
 
 		i = 0;
-		int pos =  vm->memory[(cur->pc + 2)];
+		int pos = vm->memory[(cur->pc + 2)];
 		if (IS_REG_S(vm->memory[overla(cur->pc + 1)]) && !IS_IND_M(vm->memory[overla(cur->pc + 1)]))
 		{
 			shift = 2;
