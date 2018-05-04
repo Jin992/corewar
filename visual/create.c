@@ -84,9 +84,9 @@ void	players_data(t_VM *vm, int *y)
 	while (i < vm->players_qnt)
 	{
 		*y += 4;
-		mvwprintw(vm->menu, *y, 2, "Player : %15d", vm->player[i].player_nbr);
-		mvwprintw(vm->menu, *y + 1, 4, "Last live : %15d", vm->player[i].last_live);
-		mvwprintw(vm->menu, *y + 2, 4, "Lives in current period : %d", vm->player[i].live_cur_period);
+		mvwprintw(vm->menu, *y, 2, "Player : %17d", vm->player[i].player_nbr);
+		mvwprintw(vm->menu, *y + 1, 4, "Last live : %16d", vm->player[i].last_live);
+		mvwprintw(vm->menu, *y + 2, 4, "Lives in current period : %2d", vm->player[i].live_cur_period);
 		ft_print_name(vm, i, y);
 		i++;
 	}
@@ -96,19 +96,15 @@ void	ft_create_menu(t_VM *vm)
 {
 	int		y;
 
-	y = 2;
+	y = 1;
 	werase(vm->menu);
 	wattron(vm->menu, A_BOLD);
 	mvwprintw(vm->menu, 1, 2, "** RUNNING **");
-	mvwprintw(vm->menu, 2, 2, "Cycles/second limit : %7d", vm->cycle_limit);
-	mvwprintw(vm->menu, 3, 2, "Cycle : %21d", vm->cycle);
-	mvwprintw(vm->menu, 4, 2, "Processes : %17d", vm->proceses_live);
+	// mvwprintw(vm->menu, 2, 2, "Cycles/second limit : %7d", vm->cycle_limit); // | | | | | | | | | | | | | |
+	mvwprintw(vm->menu, 2, 2, "Cycle  : %21d", vm->cycle);
+	mvwprintw(vm->menu, 3, 2, "Processes  : %17d", vm->proceses_live);
 	players_data(vm, &y);
-	mvwprintw(vm->menu, y + 4, 2, "CYCLE_TO_DIE : %d", vm->cycle_to_die);
-	mvwprintw(vm->menu, y + 5, 2, "CYCLE_DELTA : %16d", CYCLE_DELTA);
-	mvwprintw(vm->menu, y + 6, 2, "NBR_LIVE : %19d", NBR_LIVE );
-	mvwprintw(vm->menu, y + 7, 2, "MAX_CHECKS : %17d", vm->period);
-	mvwprintw(vm->menu, 30, 2, "    cycle - ");
-	mvwprintw(vm->menu, 30, 17, "%d", vm->cycle);
+	mvwprintw(vm->menu, y + 4, 2, "Cycle to die  : %7d :%5d", vm->period, vm->cycle_to_die);
+	mvwprintw(vm->menu, y + 5, 2, "Live in period  : %5d :%5d", vm->nbr_live, NBR_LIVE);
 }
 

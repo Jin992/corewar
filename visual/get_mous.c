@@ -22,23 +22,28 @@ void	print_register(t_VM *vm)
 	if (vm->print_reg == NULL)
 		return ;
 	wattron(vm->help_menu, COLOR_PAIR((vm->print_reg->color)));
-	mvwprintw(vm->help_menu, 2 + i, 16, "Process carry status: %3d", vm->print_reg->carry);
-	mvwprintw(vm->help_menu, 3 + i, 16, "Process curent PC: %6d", vm->print_reg->pc);
-	mvwprintw(vm->help_menu, 4 + i, 16, "Process live status: %6d", vm->print_reg->im_alive);
+	mvwprintw(vm->help_menu, 1, 16, "Process carry status: %3d", vm->print_reg->carry);
+	mvwprintw(vm->help_menu, 2, 16, "Process curent PC: %6d", vm->print_reg->pc);
+	mvwprintw(vm->help_menu, 3, 16, "Process live status: %4d", vm->print_reg->im_alive);
 	while (++i < REG_NUMBER)
 	{
 		j = 0;
 		k = 0;
-		mvwprintw(vm->help_menu, 3 + i, 0 + j, "%d: ", i + 1);
+		mvwprintw(vm->help_menu, 1 + i, 0 + j, "%d: ", i + 1);
 		while (j < (REG_SIZE * 3))
 		{
-			mvwprintw(vm->help_menu, 3 + i, 0 + j + 4, "%.2x ", vm->print_reg->reg[i][k]);
+			mvwprintw(vm->help_menu, 1 + i, 0 + j + 4, "%.2x ", vm->print_reg->reg[i][k]);
 			k++;
 			j += 3;
 		}
 	}
 	wattroff(vm->help_menu, COLOR_PAIR((vm->print_reg->color)));
 	wrefresh(vm->help_menu);
+}
+
+void	if_this_op(t_VM *vm, int cord)
+{
+	
 }
 
 void	get_mouse(t_VM *vm)
@@ -64,6 +69,7 @@ void	get_mouse(t_VM *vm)
 			i++;
 			tmp = tmp->next;
 		}
+		if_this_op(vm, (((mouse.y - 2) * 64) + (mouse.x / 3)) -1);
 	}
 }
 

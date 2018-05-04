@@ -14,10 +14,10 @@
 
 void	ft_create_window(t_VM *vm)
 {
-	wrefresh(vm->main_field);
 	ft_create_map(vm);
 	ft_create_menu(vm);
 	wrefresh(vm->menu);
+	wrefresh(vm->main_field);
 }
 
 void	ft_create_frame(t_VM *vm)
@@ -45,6 +45,7 @@ void	ft_create_frame(t_VM *vm)
 	while (i < 241)
 	{
 		mvwprintw(stdscr, 27, i, "%s", "*");
+		mvwprintw(stdscr, 46, i, "%s", "*");
 		i++;
 	}
 	attroff(COLOR_PAIR(8));

@@ -33,6 +33,7 @@ static void	init_vm(t_VM *local, int argc)
 	ft_memset(local->empty, 0, 4);
 	local->wait = 0;
 	local->space = 0;
+	local->winner = 0;
 	local->print_reg = NULL;
 }
 
