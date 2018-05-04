@@ -40,13 +40,14 @@ void	ft_start_ncurses(t_VM *vm)
  	ft_init_color();
  	vm->main_field = newwin(64, 192, 2, 3);
  	vm->menu = newwin(26, 35, 1, 197);
- 	vm->help_menu = newwin(20, 43, 28, 197);
+ 	vm->help_menu = newwin(17, 43, 28, 197);
+ 	vm->lite = newwin(20, 43, 47, 197);
  	keypad(vm->main_field, TRUE);
 	nodelay(vm->main_field, TRUE);
 	mousemask(ALL_MOUSE_EVENTS, NULL);
 }
 
-void	print_mem( u_int8_t *memory)
+void	print_mem(u_int8_t *memory)
 {
 	int i;
 	int x;

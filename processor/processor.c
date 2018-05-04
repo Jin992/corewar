@@ -62,6 +62,7 @@ void		processor_visual(t_VM *vm)
 {
 	ft_start_ncurses(vm);
 	ft_create_frame(vm);
+	ft_create_window(vm);
 	mvwprintw(vm->menu, 1, 2, "** PAUSED **");
 	while (vm->processes)
 	{
