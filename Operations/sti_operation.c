@@ -57,7 +57,7 @@ void sti_operation(t_VM *vm, t_process *cur)
 			f3 = second_operand_2(vm, cur, &shift);
 			while (i < REG_SIZE)
 			{
-				vm->memory[overla(cur->pc + (f2 + f3)+ i)] = cur->reg[vm->memory[pos]][i];
+				vm->memory[overla(cur->pc + (f2 + f3)+ i)] = cur->reg[vm->memory[pos] + 1][i];
 				vm->memory_color[overla(cur->pc + (f2 + f3) + i)] = (u_int8_t)((cur->color * -1) + 2);
 				i++;
 			}
