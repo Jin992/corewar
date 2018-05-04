@@ -12,18 +12,17 @@
 
 #include "../includes/operations.h"
 
-void    print_live(t_VM *vm, int player) // доробити
+void    print_live(t_VM *vm, int player, t_process *cur)
 {
-    if (vm->visual == 0)
+    if (vm->visual == 0 && vm->aff == 1)
     {
         ft_printf("A process shows that player %d (%s) is alive.\n",
         player, vm->player[player].name);
     }
     else
     {
-        mvwprintw(vm->menu, 0, 50, "A process shows that player %d (%s) is alive.",
-        player, vm->player[player].name);
-        wrefresh(vm->menu);
+        vm->memory_color[cur->pc] = cur->color * 10;
+        wrefresh(vm->main_field);
     }
 }
 
@@ -41,14 +40,13 @@ void	live_operation(t_VM *vm, t_process *cur)
     }
     player = REVERSE_4_BYTES(*(int32_t *)&t_ind[0]) * -1 - 1;
     cur->im_alive = 1;
-    vm->memory_color[cur->pc] = 3;
     if (player < vm->players_qnt && player >= 0)
     {
 	   vm->player[player].last_live = vm->cycle;
 		vm->player[player].live_cur_period++;
         vm->nbr_live++;
 		vm->winner = player;
-        print_live(vm, player);
+        print_live(vm, player, cur);
     }
     move_pc(cur, 5);
 }

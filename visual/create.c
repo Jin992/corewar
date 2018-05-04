@@ -12,7 +12,7 @@
 
 #include "../includes/vm.h"
 
-int	it_is_proces(t_VM *vm, int i) // ваша функция
+int	it_is_proces(t_VM *vm, int i)
 {
 	t_process *tmp;
 	
@@ -26,18 +26,18 @@ int	it_is_proces(t_VM *vm, int i) // ваша функция
 	return (0);
 }
 
-void	ft_create_map(t_VM *vm) // заполнение окна vm->main_field
+void	ft_create_map(t_VM *vm)
 {
 	int y;
 	int x;
 	int i;
 	int color;
 
-	y = 0;
+	y = -1;
 	i = 0;
 	t_process *tmp = vm->processes;
 	 wrefresh(vm->main_field);
-	while (y++ < (MAX_FIELD_Y * 3) + 1)
+	while (++y < (MAX_FIELD_Y * 3))
 	{
 		x = 0;
 		while (x < (MAX_FIELD_X * 3))
@@ -58,8 +58,9 @@ void	ft_create_map(t_VM *vm) // заполнение окна vm->main_field
 				else
 				{
 					wattron(vm->main_field, COLOR_PAIR(vm->memory_color[i]));
-					mvwprintw(vm->main_field, y, x, "%.2x ", vm->memory[i]);
-					wattroff(vm->main_field,COLOR_PAIR(vm->memory_color[i]));
+					mvwprintw(vm->main_field, y, x, "%.2x", vm->memory[i]);
+					wattroff(vm->main_field, COLOR_PAIR(vm->memory_color[i]));
+					mvwprintw(vm->main_field, y, x + 2, " ");
 					i++;
 				}
 			}
@@ -91,7 +92,7 @@ void	players_data(t_VM *vm, int *y)
 	}
 }
 
-void	ft_create_menu(t_VM *vm) // заполнение окна vm->menu
+void	ft_create_menu(t_VM *vm)
 {
 	int		y;
 
@@ -103,7 +104,7 @@ void	ft_create_menu(t_VM *vm) // заполнение окна vm->menu
 	mvwprintw(vm->menu, 3, 2, "Cycle : %21d", vm->cycle);
 	mvwprintw(vm->menu, 4, 2, "Processes : %17d", vm->proceses_live);
 	players_data(vm, &y);
-	// mvwprintw(vm->menu, y + 4, 2, "CYCLE_TO_DIE : %d", vm->cycle_to_die);
+	mvwprintw(vm->menu, y + 4, 2, "CYCLE_TO_DIE : %d", vm->cycle_to_die);
 	mvwprintw(vm->menu, y + 5, 2, "CYCLE_DELTA : %16d", CYCLE_DELTA);
 	mvwprintw(vm->menu, y + 6, 2, "NBR_LIVE : %19d", NBR_LIVE );
 	mvwprintw(vm->menu, y + 7, 2, "MAX_CHECKS : %17d", vm->period);

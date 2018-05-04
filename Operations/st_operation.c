@@ -35,7 +35,7 @@ void st_operation(t_VM *vm, t_process *cur)
 			while (++i < 4)
 			{
 				vm->memory[((cur->pc + t_ind) + i) % MEM_SIZE] = cur->reg[pos][i];
-				vm->memory_color[((cur->pc + t_ind) + i) % MEM_SIZE] = (u_int8_t)((cur->color * -1) + 1);
+				vm->memory_color[((cur->pc + t_ind) + i) % MEM_SIZE] = cur->color;
 			}
 		}
 		move_pc(cur, 5);
