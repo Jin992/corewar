@@ -69,10 +69,17 @@ void	ft_create_map(t_VM *vm)
 	}
 }
 
+// void	print_winner(t_VM *vm)
+// {
+// 	wattron(vm->litle, vm->winner);
+// 	mvwprintw(vm->litle, *y, 17, "Winner : %.10s", vm->player[winner].name);
+// 	wattroff(vm->litle, vm->winner);
+// }
+
 void	ft_print_name(t_VM *vm, int i, int *y)
 {
 	wattron(vm->menu, COLOR_PAIR(i + 1));
-	mvwprintw(vm->menu, *y, 17, vm->player[i].name);
+	mvwprintw(vm->menu, *y, 17, "%.10s", vm->player[i].name);
 	wattroff(vm->menu, COLOR_PAIR(i + 1));
 }
 
