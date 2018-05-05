@@ -13,7 +13,8 @@ PROC = processor/processor_create.c\
 VISU = visual/corewar.c\
 	visual/create.c\
 	visual/start.c\
-	visual/get_mous.c
+	visual/get_mous.c\
+	visual/if_this_op.c
 
 OP = Operations/aff_operation.c\
 	Operations/and_operation.c\

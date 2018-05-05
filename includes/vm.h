@@ -103,6 +103,7 @@ int        	usage();
 
 void		get_key(t_VM *vm);
 //visual
+void	if_this_op(t_VM *vm, int cord);
 void	get_mouse(t_VM *vm);
 void	print_mem( u_int8_t *memory);
 void	ft_init_color(void);

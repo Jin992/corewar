@@ -41,11 +41,6 @@ void	print_register(t_VM *vm)
 	wrefresh(vm->help_menu);
 }
 
-void	if_this_op(t_VM *vm, int cord)
-{
-	
-}
-
 void	get_mouse(t_VM *vm)
 {
 	int i;
