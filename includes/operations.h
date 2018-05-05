@@ -57,4 +57,5 @@ int     get_reg(int x);
 
 int		if_good_reg_midl(t_VM *vm, t_process *cur, int shift);
 int 	if_good_reg_start(t_VM *vm, t_process *cur);
+int 		get_idx_mod(short t_ind);
 #endif

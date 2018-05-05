@@ -50,9 +50,8 @@ void			processor_clone(t_VM *vm, t_process *clone, int pc)
 		vm->processes = new;
 	else
 	{
-		tmp =  vm->processes;
-		while (tmp->next)
-			tmp = tmp->next;
-		tmp->next = new;
+		if (clone->next)
+			new->next = clone->next;
+		clone->next = new;
 	}
 }

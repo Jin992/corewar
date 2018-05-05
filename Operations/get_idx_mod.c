@@ -1,22 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fork_operation.c                                   :+:      :+:    :+:   */
+/*   get_idx_mod.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ayavorsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/24 15:34:09 by ayavorsk          #+#    #+#             */
-/*   Updated: 2018/04/26 12:40:14 by jdoeorsk         ###   ########.fr       */
+/*   Created: 2018/05/05 17:02:29 by ayavorsk          #+#    #+#             */
+/*   Updated: 2018/05/05 17:02:30 by ayavorsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/operations.h"
 
-void	fork_operation(t_VM *vm, t_process *cur)
+int 		get_idx_mod(short t_ind)
 {
-	short position;
-
-	position = (REVERSE_2_BYTES(*(u_int16_t*)&vm->memory[(cur->pc + 1)]));
-	processor_clone(vm, cur, (get_idx_mod(position) + cur->pc) % MEM_SIZE);
-	cur->pc += 3;
+	t_ind = t_ind % IDX_MOD;
+	if (t_ind < 0)
+		return (MEM_SIZE + t_ind);
+	return (t_ind);
 }
