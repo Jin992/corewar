@@ -64,7 +64,8 @@ void	get_mouse(t_VM *vm)
 			i++;
 			tmp = tmp->next;
 		}
-		if_this_op(vm, (((mouse.y - 2) * 64) + (mouse.x / 3)) -1);
+		if (mouse.y != 10000)
+			if_this_op(vm, vm->memory[(((mouse.y - 2) * 64) + (mouse.x / 3)) -1]);
 	}
 }
 

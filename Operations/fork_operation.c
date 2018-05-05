@@ -12,11 +12,11 @@
 
 #include "../includes/operations.h"
 
-void	fork_operation(t_VM *vm, t_process *cur) // processor_clone(t_VM *vm, t_process *clone)
+void	fork_operation(t_VM *vm, t_process *cur)
 {
     int position;
 
-    position = ((cur->pc + (REVERSE_2_BYTES(*(u_int16_t*)&vm->memory[(cur->pc + 1)]))) % MEM_SIZE);
+    position = cur->pc + (REVERSE_2_BYTES(*(u_int16_t*)&vm->memory[(cur->pc + 1)]) % IDX_MOD);
     processor_clone(vm, cur, position);
     cur->pc += 3;
 }
