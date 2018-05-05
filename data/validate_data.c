@@ -59,6 +59,19 @@ int			parse_dump(t_VM * vm, char **argv, int i)
 	return (usage());
 }
 
+int			parse_e_flag(t_VM * vm, char **argv, int i)
+{
+	if (argv[i])
+	{
+		if (!(is_int(argv[i])))
+			return (0);
+		vm->e_flag = ft_atoi(argv[i]);
+		vm->visual = 3;
+		return (1);
+	}
+	return (usage());
+}
+
 int 		find_empty_slot(t_VM * vm)
 {
 	int i;
@@ -122,6 +135,11 @@ int			parse_flags(int argc, char **argv, t_VM *local)
 			local->visual = 2;
 		else if (ft_strequ(argv[i], "-a"))
 			local->aff = 1;
+		else if (ft_strequ(argv[i], "-e"))
+		{
+			if (!(parse_e_flag(local, argv, i + 1)))
+				return (0);
+		}
 		else if (ft_strequ(argv[i], "-d") || ft_strequ(argv[i], "-dump"))
 		{
 			if (!(parse_dump(local, argv, i + 1)))

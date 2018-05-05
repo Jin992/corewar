@@ -41,12 +41,10 @@ void			winner(t_VM *vm)
 	int i;
 
 	i = -1;
-	while (++i < vm->players_qnt)
-		ft_printf("Player %d, exec size %d, \"%s\"\n", (i + 1) * -1,
-			vm->player[i].exec_size, vm->player[i].name);
-	ft_printf("Game end in %d cycle\n", vm->cycle);
-	ft_printf("Winner Player %d : \"%s\"\n",
-		((vm->winner + 1) * -1), vm->player[vm->winner].name);
+	print_info_players(vm);
+	ft_printf("Contestant %d, \"%s\", has won !\n",
+		vm->winner + 1 , vm->player[vm->winner].name);
+	// Contestant 2, "Booster !", has won !
 }
 
 void			processor_cycle(t_process *tmp, t_VM *vm)
@@ -76,5 +74,8 @@ void		dump_memmory(t_VM *vm)
 		exit (1);
 	}
 	else if (vm->dump >= 0 && vm->cycle == vm->dump)
-		print_mem(vm->memory_color);
+	{
+		print_mem(vm);
+		exit(1);
+	}
 }

@@ -26,9 +26,9 @@ static void	validate_file(t_players *player_st, int cnt, char *file)
 		ft_printf("Error: File %s : COREWAR_EXEC_MAGIC ERROR\n", file);
 		exit(1);
 	}
-	if (player_st->exec_size > 682)
+	if (player_st->exec_size > CHAMP_MAX_SIZE)
 	{
-		ft_printf("Error: File %s : has too large (%d bytes > 682 bytes)\n", file, player_st->exec_size);
+		ft_printf("Error: File %s : has too large (%d bytes > %d bytes)\n", file, player_st->exec_size, CHAMP_MAX_SIZE);
 		exit(1);
 	}
 }
@@ -50,13 +50,13 @@ static void	init_player(int fd_in, t_players *player_st, char *file)
 		else if (cnt < 140 && cnt > 135)
 			exec_size[cnt - 136] = buff;
 		else if (cnt > 139 && cnt < 140 + COMMENT_LENGTH)
-			player_st->comment[cnt - 139] = buff;
+			player_st->comment[cnt - 140] = buff;
 		else if (cnt > 143 + COMMENT_LENGTH)
 			player_st->player_exec[cnt - (144 + COMMENT_LENGTH)] = buff;
 		cnt++;
 	}
 	player_st->exec_size = REVERSE_4_BYTES(*(int32_t *)exec_size);
-//	validate_file(player_st, cnt, file);
+	validate_file(player_st, cnt, file);
 }
 
 void		get_players(char *str, t_VM *vm, int cnt, int fd)

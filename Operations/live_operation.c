@@ -17,8 +17,16 @@ void    print_live(t_VM *vm, int player, t_process *cur)
     if (vm->visual == 0 && vm->aff == 1)
     {
         ft_printf("A process shows that player %d (%s) is alive.\n",
-        player, vm->player[player].name);
+        player + 1, vm->player[player].name);
     }
+    else if (vm->aff == 1)
+    {
+        wattron(vm->menu,  COLOR_PAIR(player + 1));
+        mvwprintw(vm->menu, 23, 0, "A process shows that player %d (%10s) is alive.\n",
+        player + 1, vm->player[player].name);
+        wattroff(vm->menu, COLOR_PAIR(player + 1));
+    }
+
 }
 
 void	live_operation(t_VM *vm, t_process *cur)

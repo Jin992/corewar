@@ -46,6 +46,7 @@ void	ft_create_frame(t_VM *vm)
 	{
 		mvwprintw(stdscr, 27, i, "%s", "*");
 		mvwprintw(stdscr, 46, i, "%s", "*");
+		mvwprintw(stdscr, 50, i, "%s", "*");
 		i++;
 	}
 	attroff(COLOR_PAIR(8));
@@ -57,7 +58,9 @@ void	ft_procesing_ncurses(t_VM *vm)
 {
 	ft_create_window(vm);
 	get_key_2(vm);
+	print_winner(vm);
 	wrefresh(vm->menu);
+	usleep(vm->speed);
 }
 
 void	procesing_step_by_step(t_VM *vm)
@@ -68,5 +71,6 @@ void	procesing_step_by_step(t_VM *vm)
 		ft_create_window(vm);
 	get_key(vm);
 	get_mouse(vm);
+	print_winner(vm);
 	wrefresh(vm->menu);
 }

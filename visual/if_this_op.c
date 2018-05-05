@@ -15,45 +15,46 @@
 void	if_this_op2(t_VM *vm, int cord)
 {	
 	if (cord == 9)
-		mvwprintw(vm->lite, 6, 2, "zjmp");
+		mvwprintw(vm->help_menu_2, 1, 2, "zjmp");
 	if (cord == 10)
-		mvwprintw(vm->lite, 6, 2, "ldi");
+		mvwprintw(vm->help_menu_2, 1, 2, "ldi");
 	if (cord == 11)
-		mvwprintw(vm->lite, 6, 2, "sti");
+		mvwprintw(vm->help_menu_2, 1, 2, "sti");
 	if (cord == 12)
-		mvwprintw(vm->lite, 6, 2, "fork");
+		mvwprintw(vm->help_menu_2, 1, 2, "fork");
 	if (cord == 13)
-		mvwprintw(vm->lite, 6, 2, "lld");
+		mvwprintw(vm->help_menu_2, 1, 2, "lld");
 	if (cord == 14)
-		mvwprintw(vm->lite, 6, 2, "lldi");
+		mvwprintw(vm->help_menu_2, 1, 2, "lldi");
 	if (cord == 15)
-		mvwprintw(vm->lite, 6, 2, "lfork");
+		mvwprintw(vm->help_menu_2, 1, 2, "lfork");
 	if (cord == 16)
-		mvwprintw(vm->lite, 6, 2, "aff");
+		mvwprintw(vm->help_menu_2, 1, 2, "aff");
 }
 
 void	if_this_op(t_VM *vm, int cord)
 {
+	wattron(vm->help_menu_2, A_BOLD);
 	if (cord > 0 && cord < 9)
 	{
 		if (cord == 1)
-			mvwprintw(vm->lite, 6, 2, "live");
+			mvwprintw(vm->help_menu_2, 1, 2, "live");
 		if (cord == 2)
-			mvwprintw(vm->lite, 6, 2, "ld");
+			mvwprintw(vm->help_menu_2, 1, 2, "ld");
 		if (cord == 3)
-			mvwprintw(vm->lite, 6, 2, "st");
+			mvwprintw(vm->help_menu_2, 1, 2, "st");
 		if (cord == 4)
-			mvwprintw(vm->lite, 6, 2, "add");
+			mvwprintw(vm->help_menu_2, 1, 2, "add");
 		if (cord == 5)
-			mvwprintw(vm->lite, 6, 2, "sub");
+			mvwprintw(vm->help_menu_2, 1, 2, "sub");
 		if (cord == 6)
-			mvwprintw(vm->lite, 6, 2, "and");
+			mvwprintw(vm->help_menu_2, 1, 2, "and");
 		if (cord == 7)
-			mvwprintw(vm->lite, 6, 2, "or");
+			mvwprintw(vm->help_menu_2, 1, 2, "or");
 		if (cord == 8)
-			mvwprintw(vm->lite, 6, 2, "xor");
+			mvwprintw(vm->help_menu_2, 1, 2, "xor");
 	}
 	else if (cord > 0 && cord < 17)
 		if_this_op2(vm, cord);
-	wrefresh(vm->lite);
+	wrefresh(vm->help_menu_2);
 }

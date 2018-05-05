@@ -12,6 +12,13 @@
 
 #include "../includes/vm.h"
 
+static void (*g_visual_vm[4])(t_VM *vm) = {
+	&processor_normal,
+	&processor_visual,
+	&processor_step_by_step,
+	&processor_e_mod
+};
+
 void	print_register(t_VM *vm)
 {
 	int i;
@@ -69,6 +76,11 @@ void	get_mouse(t_VM *vm)
 	}
 }
 
+// void	repeat_all(t_VM *local)
+// {
+// 	del_win(local);
+// 	main(local->argc, local->argv);
+// }
 
 void		get_key(t_VM *vm)
 {
@@ -103,7 +115,10 @@ void		get_key(t_VM *vm)
 
 void		get_key_2(t_VM *vm)
 {
-	if (wgetch(vm->main_field) == 32)
+	char c;
+
+	c = wgetch(vm->main_field);
+	if (c == 32)
 	{
 		if (vm->space == 0)
 			vm->space = 1;
@@ -113,6 +128,10 @@ void		get_key_2(t_VM *vm)
 			mvwprintw(vm->menu, 1, 2, "** PAUSED **");
 		}
 	}
+	else if (c == 114)
+		vm->speed = (vm->speed + SPEED_DELTA > SLOWEST_SPEED) ? SLOWEST_SPEED : vm->speed + SPEED_DELTA;
+	else if (c == 116)
+		vm->speed = (vm->speed - SPEED_DELTA >= 0) ? vm->speed - SPEED_DELTA : 0;
 	if (vm->space == 0)
 		get_mouse(vm);
 	print_register(vm);

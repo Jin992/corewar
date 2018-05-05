@@ -58,6 +58,23 @@ void		processor_normal(t_VM *vm)
 	winner(vm);
 }
 
+void		processor_e_mod(t_VM *vm)
+{
+	while (vm->processes)
+	{
+		if (vm->e_flag == vm->cycle)
+		{
+			vm->e_flag += vm->e_flag;
+			print_mem(vm);
+			sleep(1);
+		}
+		processor_move(vm);
+		processor_check(vm);
+		vm->cycle++;
+	}
+	winner(vm);
+}
+
 void		processor_visual(t_VM *vm)
 {
 	ft_start_ncurses(vm);

@@ -12,6 +12,26 @@
 
 #include "../includes/vm.h"
 
+void			proccessor_kill_all(t_process **begin_list)
+{
+	t_process *list;
+	t_process *parent;
+	t_process *tmp;
+
+	list = *begin_list;
+	parent = 0;
+	tmp = 0;
+	while (list)
+	{
+		tmp = list;
+		if (parent)
+			parent->next = list->next;
+		else
+			*begin_list = list->next;
+		free(list);	
+		list = tmp->next;
+	}
+}
 
 void			proccessor_kill_this(t_process **begin_list)
 {

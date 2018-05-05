@@ -69,12 +69,13 @@ void	ft_create_map(t_VM *vm)
 	}
 }
 
-// void	print_winner(t_VM *vm)
-// {
-// 	wattron(vm->litle, vm->winner);
-// 	mvwprintw(vm->litle, *y, 17, "Winner : %.10s", vm->player[winner].name);
-// 	wattroff(vm->litle, vm->winner);
-// }
+void	print_winner(t_VM *vm)
+{
+	werase(vm->lite);
+	wattron(vm->lite,  COLOR_PAIR(vm->winner + 1));
+	mvwprintw(vm->lite, 1, 2, "Winner : %.20s", vm->player[vm->winner].name);
+	wattroff(vm->lite, COLOR_PAIR(vm->winner + 1));
+}
 
 void	ft_print_name(t_VM *vm, int i, int *y)
 {
@@ -106,10 +107,9 @@ void	ft_create_menu(t_VM *vm)
 	y = 1;
 	werase(vm->menu);
 	wattron(vm->menu, A_BOLD);
-	mvwprintw(vm->menu, 1, 2, "** RUNNING **");
-	// mvwprintw(vm->menu, 2, 2, "Cycles/second limit : %7d", vm->cycle_limit); // | | | | | | | | | | | | | |
+	mvwprintw(vm->menu, 1, 2, "** RUNNING **   Speed : %.*s", (SLOWEST_SPEED - vm->speed) / SPEED_DELTA, "|||||||||");
 	mvwprintw(vm->menu, 2, 2, "Cycle  : %21d", vm->cycle);
-	// mvwprintw(vm->menu, 3, 2, "Processes  : %17d", vm->proceses_live);
+	mvwprintw(vm->menu, 3, 2, "Processes  : %17d", vm->proceses_live);
 	players_data(vm, &y);
 	mvwprintw(vm->menu, y + 4, 2, "Cycle to die  : %7d :%5d", vm->period, vm->cycle_to_die);
 	mvwprintw(vm->menu, y + 5, 2, "Live in period  : %5d :%5d", vm->nbr_live, NBR_LIVE);

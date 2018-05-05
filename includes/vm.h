@@ -17,10 +17,14 @@
 #define		MAX_FIELD_Y		64
 #define 	REVERSE_4_BYTES(x) ((((x) & 0xFF) << 24) | ((((x) & 0xFF00) << 8)) | ((((x) & 0xFF0000) >> 8)) | (((x) & 0xFF000000) >> 24))
 #define 	REVERSE_2_BYTES(x) (((x) << 8) | ((x) >> 8))
-
+# define SPEED_DELTA 20000
+# define 	NORMAL_SPEED 50000
+# define 	SLOWEST_SPEED 200000
+# define 	MAX_SLOTS 10
 typedef struct	s_players t_players;
 typedef struct	s_process t_process;
 typedef struct	s_VM 		t_VM;
+
 
 struct					s_process
 {
@@ -49,7 +53,12 @@ struct					s_players
 
 struct					s_VM
 {
+	int 				aff;
+	int 				visual;
+	int 				e_flag;
+	int 				dump;
 	int					cycle;
+	int 				wait;
 	int 				proceses_live;
 	int					cycle_limit;
 	int					players_qnt;
@@ -60,16 +69,16 @@ struct					s_VM
 	int					nbr_live;
 	int 				winner; 
 	int					max_checks;
-	int 				visual;
-	int 				aff;
 	int 				empty[4];
-	int 				dump;
-	int 				wait;
+	int 				speed;
+	// int 				argc;
+	// char 				**argv;
 	u_int8_t 			memory[MEM_SIZE];
 	u_int8_t 			memory_color[MEM_SIZE];
 	WINDOW				*menu;
 	WINDOW				*main_field;
 	WINDOW				*help_menu;
+	WINDOW				*help_menu_2;
 	WINDOW 				*lite;
 	t_process			*processes;
 	t_process			*print_reg;
@@ -83,13 +92,15 @@ void 		processor_check(t_VM *vm);
 void		processor_create(int color, int pc, t_VM *vm);
 void		processor(t_VM *vm);
 void		processor_clone(t_VM *vm, t_process *clone, int pc);
-void			proccessor_kill_this(t_process **kill_me);
+void		proccessor_kill_this(t_process **kill_me);
 void		processor_normal(t_VM *vm);
 void		processor_visual(t_VM *vm);
+void		processor_e_mod(t_VM *vm);
 void		dump_memmory(t_VM *vm);
 void		del_win(t_VM *vm);
 void		winner(t_VM *vm);
-
+void		proccessor_kill_all(t_process **begin_list);
+void		print_info_players(t_VM *vm);
 //main
 void		get_players(char *str, t_VM *vm, int cnt, int fd);
 void	    print_memory( t_VM *vm, size_t cycle);
@@ -103,21 +114,22 @@ int        	usage();
 
 void		get_key(t_VM *vm);
 //visual
-void	if_this_op(t_VM *vm, int cord);
-void	get_mouse(t_VM *vm);
-void	print_mem( u_int8_t *memory);
-void	ft_init_color(void);
-void	ft_start_ncurses(t_VM *vm);
-void	ft_procesing_ncurses(t_VM *vm);
-void	ft_create_frame(t_VM *vm);
-void	ft_create_window(t_VM *vm);
-void	ft_create_menu(t_VM *vm);
-void	players_data(t_VM *vm, int *y);
-void	ft_print_name(t_VM *vm, int i, int *y);
-void	ft_create_map(t_VM *vm);
+void		if_this_op(t_VM *vm, int cord);
+void		get_mouse(t_VM *vm);
+void		print_mem(t_VM *vm);
+void		ft_init_color(void);
+void		ft_start_ncurses(t_VM *vm);
+void		ft_procesing_ncurses(t_VM *vm);
+void		ft_create_frame(t_VM *vm);
+void		ft_create_window(t_VM *vm);
+void		ft_create_menu(t_VM *vm);
+void		players_data(t_VM *vm, int *y);
+void		ft_print_name(t_VM *vm, int i, int *y);
+void		ft_create_map(t_VM *vm);
 void		get_key(t_VM *vm);
 void		get_key_2(t_VM *vm);
-
+void		print_winner(t_VM *vm);
+int 		main(int argc, char **argv);
 void	procesing_step_by_step(t_VM *vm);
 void	processor_step_by_step(t_VM *vm);
 #endif //COREWAR_VM_H

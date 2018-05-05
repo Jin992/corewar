@@ -12,13 +12,14 @@
 
 #include "includes/vm.h"
 
-static void (*g_visual_vm[3])(t_VM *vm) = {
+static void (*g_visual_vm[4])(t_VM *vm) = {
 	&processor_normal,
 	&processor_visual,
-	&processor_step_by_step
+	&processor_step_by_step,
+	&processor_e_mod
 };
 
-static void	init_vm(t_VM *local, int argc)
+static void	init_vm(t_VM *local, int argc, char **argv)
 {
 	local->processes = NULL;
 	local->proceses_live = 0;
@@ -30,23 +31,31 @@ static void	init_vm(t_VM *local, int argc)
 	local->aff = 0;
 	local->cycle = 1;
 	local->dump = -1;
-	ft_memset(local->empty, 0, 4);
 	local->wait = 0;
 	local->space = 0;
 	local->winner = 0;
 	local->print_reg = NULL;
+	local->speed = NORMAL_SPEED;
+	// local->argc = argc;
+	// local->argv = argv;
+	ft_memset(local->empty, 0, 4);
 }
 
 int main(int argc, char **argv)
 {
 	t_VM	local;
 
-	init_vm(&local, argc);
+	init_vm(&local, argc, argv);
 	if (!(parse_flags(argc, argv, &local)))
 		return (0);
 	ft_memset(local.memory, 0, MEM_SIZE);
 	ft_memset(local.memory_color, 0, MEM_SIZE);
 	load_players_to_memory(&local);
+	if (local.dump == 0)
+	{
+		local.dump = 1;
+		dump_memmory(&local);
+	}
 	if (local.players_qnt == 0)
 		return (usage());
 	g_visual_vm[local.visual](&local);

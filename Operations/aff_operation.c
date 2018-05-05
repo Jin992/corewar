@@ -27,10 +27,10 @@ void	aff_operation(t_VM *vm, t_process *cur)
     index = (REVERSE_4_BYTES(*(int32_t *)&t_ind[0]));
     if (vm->aff == 1 && (index >= 1 && index <= 16))
     {
-        // if (vm->visual == 0)
-            // ft_printf("AFF : %C\n", (REVERSE_4_BYTES(*(int32_t *)&cur->reg[index][0])) % 256);
-        // else
-            // mvwprintw(vm->menu, 50, 0, "AFF : %C", (REVERSE_4_BYTES(*(int32_t *)&cur->reg[index][0])) % 256);
+        if (vm->visual == 0)
+            ft_printf("AFF : %C\n", (REVERSE_4_BYTES(*(int32_t *)&cur->reg[index][0])) % 256);
+        else
+            mvwprintw(vm->menu, 23, 0, "AFF : %C", (REVERSE_4_BYTES(*(int32_t *)&cur->reg[index][0])) % 256);
     }
     move_pc(cur, 2);
 }
