@@ -29,15 +29,13 @@ static void	init_vm(t_VM *local, int argc, char **argv)
 	local->visual = 0;
 	local->players_qnt = 0;
 	local->aff = 0;
-	local->cycle = 1;
+	local->cycle = 0;
 	local->dump = -1;
 	local->wait = 0;
 	local->space = 0;
 	local->winner = 0;
 	local->print_reg = NULL;
 	local->speed = NORMAL_SPEED;
-	// local->argc = argc;
-	// local->argv = argv;
 	ft_memset(local->empty, 0, 4);
 }
 

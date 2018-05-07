@@ -26,7 +26,6 @@ void    print_live(t_VM *vm, int player, t_process *cur)
         player + 1, vm->player[player].name);
         wattroff(vm->menu, COLOR_PAIR(player + 1));
     }
-
 }
 
 void	live_operation(t_VM *vm, t_process *cur)

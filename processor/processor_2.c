@@ -29,7 +29,7 @@ static void		processor_check_2(t_VM *vm)
 void			processor_check(t_VM *vm)
 {
 	vm->period--;
-	if (vm->period <= 0)
+	if (vm->period == 1)
 	{
 		proccessor_kill_this(&(vm->processes));
 		processor_check_2(vm);
@@ -44,24 +44,22 @@ void			winner(t_VM *vm)
 	print_info_players(vm);
 	ft_printf("Contestant %d, \"%s\", has won !\n",
 		vm->winner + 1 , vm->player[vm->winner].name);
-	// Contestant 2, "Booster !", has won !
 }
 
 void			processor_cycle(t_process *tmp, t_VM *vm)
 {
-	tmp->timer--;
-	if (tmp->timer == 1)
+	if (--tmp->timer == 0)
 	{
-		tmp->op(vm, tmp);
+		if (tmp->op)
+			tmp->op(vm, tmp);
 		tmp->op = NULL;
-		tmp->timer = 0;
 	}
 }
 
 void			processor_wrong__id(t_process *tmp)
 {
 	tmp->pc++;
-	if (tmp->pc >= MEM_SIZE)
+	if (tmp->pc > MEM_SIZE)
 		tmp->pc = 0;
 }
 

@@ -61,3 +61,9 @@ void			processor_create(int color, int pc, t_VM *vm)
 		vm->processes = new;
 	}
 }
+	// tmp =  vm->processes;
+	// 	while (tmp->next)
+	// 		tmp = tmp->next;
+	// 	tmp->next = new;
+
+

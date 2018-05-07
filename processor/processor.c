@@ -40,8 +40,7 @@ static void	processor_move(t_VM *vm)
 			else
 				processor_wrong__id(tmp);
 		}
-		else
-			processor_cycle(tmp, vm);
+		processor_cycle(tmp, vm);
 		tmp = tmp->next;
 	}
 }
@@ -94,6 +93,7 @@ void		processor_visual(t_VM *vm)
 		}
 		get_key_2(vm);
 	}
+
 	del_win(vm);
 }
 

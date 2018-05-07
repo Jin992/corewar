@@ -60,6 +60,7 @@ void	ft_procesing_ncurses(t_VM *vm)
 	get_key_2(vm);
 	print_winner(vm);
 	wrefresh(vm->menu);
+		print_winner(vm);
 	usleep(vm->speed);
 }
 

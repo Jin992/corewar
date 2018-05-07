@@ -16,7 +16,7 @@ void st_operation(t_VM *vm, t_process *cur)
 {
 	int i;
 	int pos;
-	u_int16_t t_ind;
+	short t_ind;
 
 	i = -1;
 	pos = vm->memory[(cur->pc + 2) % MEM_SIZE] - 1;
@@ -32,10 +32,11 @@ void st_operation(t_VM *vm, t_process *cur)
 		t_ind = REVERSE_2_BYTES(*(u_int16_t *)&vm->memory[(cur->pc + 3)]);
 		if (get_reg(vm->memory[(cur->pc + 2) % MEM_SIZE]))
 		{
+			
 			while (++i < 4)
 			{
-				vm->memory[((cur->pc + t_ind) + i) % MEM_SIZE] = cur->reg[pos][i];
-				vm->memory_color[((cur->pc + t_ind) + i) % MEM_SIZE] = cur->color;
+				vm->memory[((cur->pc + get_idx_mod(t_ind + i)) ) % MEM_SIZE] = cur->reg[pos][i];
+				vm->memory_color[((cur->pc + get_idx_mod(t_ind)) + i) % MEM_SIZE] = cur->color;
 			}
 		}
 		move_pc(cur, 5);

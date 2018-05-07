@@ -75,6 +75,7 @@ void	print_winner(t_VM *vm)
 	wattron(vm->lite,  COLOR_PAIR(vm->winner + 1));
 	mvwprintw(vm->lite, 1, 2, "Winner : %.20s", vm->player[vm->winner].name);
 	wattroff(vm->lite, COLOR_PAIR(vm->winner + 1));
+	wrefresh(vm->lite);
 }
 
 void	ft_print_name(t_VM *vm, int i, int *y)

@@ -21,7 +21,7 @@ void ld_operation(t_VM *vm, t_process *cur)
 	i = -1;
 	if (IS_DIR_S(vm->memory[(cur->pc + 1) % MEM_SIZE ]) && IS_REG_M(vm->memory[(cur->pc + 1) % MEM_SIZE]))
 	{
-		if (get_reg(vm->memory[(cur->pc + 6) % MEM_SIZE ]))
+		if (get_reg(vm->memory[(cur->pc + 6) % MEM_SIZE]))
 		{
 			while (++i < 4)
 				cur->reg[vm->memory[(cur->pc + 6) % MEM_SIZE ] - 1][i] = vm->memory[((cur->pc + 2) + i) % MEM_SIZE];
