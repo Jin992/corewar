@@ -36,8 +36,6 @@ void		add_operation(t_VM *vm, t_process *cur)
 			else
 				cur->carry = 0;
 		}
-		move_pc(cur, 5);
 	}
-	else
-		move_pc(cur, 5);
+	move_pc(cur, vm, 0, 3);
 }

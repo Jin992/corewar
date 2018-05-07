@@ -30,7 +30,6 @@ void ld_operation(t_VM *vm, t_process *cur)
 			else
 				cur->carry = 0;
 		}
-		move_pc(cur, 7);
 	}
 	else if (IS_IND_S((u_int8_t)vm->memory[(cur->pc + 1) % MEM_SIZE]) && IS_REG_M((u_int8_t)vm->memory[(cur->pc + 1) % MEM_SIZE]))
 	{
@@ -44,8 +43,6 @@ void ld_operation(t_VM *vm, t_process *cur)
         	else
         	    cur->carry = 0;
     	}
-		move_pc(cur, 5);
 	}
-    else
-    	move_pc(cur, 6);
+    move_pc(cur, vm, 0, 2);
 }

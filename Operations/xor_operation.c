@@ -31,8 +31,6 @@ void	xor_operation(t_VM *vm, t_process *cur)
 			else
 				cur->carry = 0;
 		}
-		move_pc(cur, shift + 2);
 	}
-	else
-		move_pc(cur, 8);
+	move_pc(cur, vm, 0, 3);
 }

@@ -45,7 +45,7 @@ void		xor_operation(t_VM *vm, t_process *cur);
 void		zjmp_operation(t_VM *vm, t_process *cur);
 u_int16_t	get_2_bytes(t_VM *vm, int pos);
 u_int32_t 	get_4_bytes(t_VM *vm, int pos);
-void		move_pc(t_process *cur, int shift);
+void 		move_pc(t_process *cur, t_VM *vm, int label, int params);
 
 u_int32_t 	first_operand(t_VM *vm, t_process *cur, int *shift);
 void    	load_to_reg(t_process *cur,int reg_n, u_int32_t val);

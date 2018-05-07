@@ -29,7 +29,7 @@ static void		processor_check_2(t_VM *vm)
 void			processor_check(t_VM *vm)
 {
 	vm->period--;
-	if (vm->period == 1)
+	if (vm->period <= 1)
 	{
 		proccessor_kill_this(&(vm->processes));
 		processor_check_2(vm);

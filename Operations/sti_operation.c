@@ -45,7 +45,6 @@ void sti_operation(t_VM *vm, t_process *cur)
 					vm->memory_color[(cur->pc + (f2 + f3)) % MEM_SIZE + i] = cur->color;
 					i++;
 				}
-			move_pc(cur, shift + 1);
 		}
 		else if (IS_REG_S(vm->memory[overla(cur->pc + 1)]) && IS_IND_M(vm->memory[overla(cur->pc + 1)]))
 		{
@@ -59,8 +58,6 @@ void sti_operation(t_VM *vm, t_process *cur)
 					vm->memory_color[overla(cur->pc + (f2 + f3) + i)] = cur->color;
 					i++;
 				}
-				move_pc(cur, shift + 1);
 		}
-		else
-			move_pc(cur, 8);
+		move_pc(cur, vm, 2, 3);
 }

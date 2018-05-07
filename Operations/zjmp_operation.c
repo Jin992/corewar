@@ -17,5 +17,5 @@ void	zjmp_operation(t_VM *vm, t_process *cur)
 	if (cur->carry == 1)
 		cur->pc = (cur->pc + get_idx_mod(get_2_bytes(vm, cur->pc + 1))) % MEM_SIZE;
 	else if(cur->carry == 0)
-		move_pc(cur, 3);
+		cur->pc = (cur->pc + 3) % MEM_SIZE;
 }

@@ -50,5 +50,5 @@ void	live_operation(t_VM *vm, t_process *cur)
 		vm->winner = player;
         print_live(vm, player, cur);
     }
-    move_pc(cur, 5);
+    cur->pc = (cur->pc + 5) % MEM_SIZE;
 }

@@ -18,5 +18,5 @@ void	lfork_operation(t_VM *vm, t_process *cur)
 
     position = (cur->pc + REVERSE_2_BYTES(*(u_int16_t*)&vm->memory[cur->pc % MEM_SIZE + 1])) % MEM_SIZE;
     processor_clone(vm, cur, position);
-    cur->pc += 3;
+    cur->pc = (cur->pc + 3) % MEM_SIZE;
 }

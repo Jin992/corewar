@@ -27,9 +27,55 @@ u_int32_t get_4_bytes(t_VM *vm, int pos)
     return  (REVERSE_4_BYTES(res));
 }
 
-void	move_pc(t_process *cur, int shift)
+int     check_start(u_int8_t digit, int label)
 {
-    cur->pc = (cur->pc + shift) % MEM_SIZE;
+    if (IS_REG_S(digit))
+        return (1);
+    if (IS_DIR_S(digit))
+        return (4 - label);
+    if (IS_IND_S(digit))
+        return (2);
+    return (0);
+}
+int     check_middle(u_int8_t digit, int label)
+{
+    if (IS_REG_M(digit))
+        return (1);
+    if (IS_DIR_M(digit))
+        return (4 - label);
+    if (IS_IND_M(digit))
+        return (2);
+    return (0);
+}
+int     check_end(u_int8_t digit, int label)
+{
+    if (IS_REG_E(digit))
+        return (1);
+    if (IS_DIR_E(digit))
+        return (4 - label);
+    if (IS_IND_E(digit))
+        return (2);
+    return (0);
+}
+
+void    move_pc(t_process *cur, t_VM *vm, int label, int params)
+{
+    int shift[3];
+
+    ft_bzero(shift, 3);
+
+    shift[0] = check_start(vm->memory[(cur->pc + 1) % MEM_SIZE], label);
+    shift[1] = check_middle(vm->memory[(cur->pc + 1) % MEM_SIZE], label);
+    shift[2] = check_end(vm->memory[(cur->pc + 1) % MEM_SIZE], label);
+    // if (shift[0] == 0 || shift[1] == 0 || shift[2] == 0)
+    // {
+    //     cur->pc = (cur->pc + 2) % MEM_SIZE;
+    //     return ;
+    // }
+    if (params == 2)
+        cur->pc = (cur->pc + 2 + shift[0] + shift[1]) % MEM_SIZE;
+    else
+        cur->pc = (cur->pc + 2 + shift[0] + shift[1] + shift[2]) % MEM_SIZE;
 }
 
 u_int32_t first_operand(t_VM *vm, t_process *cur, int *shift)
