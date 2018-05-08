@@ -26,7 +26,7 @@ void lld_operation(t_VM *vm, t_process *cur)
 	}
 	else if (IS_IND_S((u_int8_t)vm->memory[(cur->pc + 1) % MEM_SIZE]) && IS_REG_M((u_int8_t)vm->memory[(cur->pc + 1) % MEM_SIZE]))
 	{
-		t_ind = get_idx_mod(REVERSE_2_BYTES(*(u_int16_t *)&vm->memory[cur->pc % MEM_SIZE + 2]));
+		t_ind = REVERSE_2_BYTES(*(u_int16_t *)&vm->memory[cur->pc % MEM_SIZE + 2]);
 		if (get_reg(vm->memory[(cur->pc + 4) % MEM_SIZE ]))
 		{
 			while (++i < REG_SIZE)

@@ -35,7 +35,7 @@ int  check_register(t_VM *vm, t_process *cur)
 		if ((if_good_reg_end(vm, cur, 4)) == 0)
 			return (0);
 	}
-	else if ((if_good_reg_end(vm, cur, 6)) == 0)
+	else if ((if_good_reg_end(vm, cur, 5)) == 0)
 		return (0);
 	return (1);
 }
@@ -72,8 +72,8 @@ void sti_operation(t_VM *vm, t_process *cur)
 			if (check_register(vm, cur))
 				while (i < REG_SIZE)
 				{
-					vm->memory[overla(cur->pc + get_idx_mod(f2 + f3) + i)] = cur->reg[pos - 1][i];
-					vm->memory_color[overla(cur->pc + get_idx_mod(f2 + f3) + i)] = cur->color;
+					vm->memory[overla(cur->pc + (f2 + f3) + i)] = cur->reg[pos - 1][i];
+					vm->memory_color[overla(cur->pc + (f2 + f3) + i)] = cur->color;
 					i++;
 				}
 		}

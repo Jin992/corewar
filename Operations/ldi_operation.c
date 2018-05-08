@@ -73,7 +73,7 @@ void	ldi_operation(t_VM *vm, t_process *cur)
         f2 = second_operand_3(vm, cur, &shift);
         while (i < REG_SIZE)
         {
-            cur->reg[vm->memory[overla(cur->pc + shift + 1)] - 1][i] = vm->memory[overla(((f1 + f2) + cur->pc) + i)];
+            cur->reg[vm->memory[overla(cur->pc + shift + 1)] - 1][i] = vm->memory[overla((get_idx_mod(f1 + f2) + cur->pc) + i)];
             i++;
         }
     }
