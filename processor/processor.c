@@ -45,6 +45,21 @@ static void	processor_move(t_VM *vm)
 	}
 }
 
+void		print_all_process(t_VM *vm)
+{
+	int i = 0;
+	int d = 0;
+	while (vm->processes)
+	{
+		if (vm->processes->im_alive == 0)
+			d++;
+		printf("%d | alive %d\n",i,  vm->processes->im_alive);
+		vm->processes = vm->processes->next;
+		i++;
+	}
+	printf("%d\n", i - d);
+	exit (1);
+}
 void		processor_normal(t_VM *vm)
 {
 	while (vm->processes)

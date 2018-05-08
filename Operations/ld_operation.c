@@ -16,7 +16,7 @@
 void ld_operation(t_VM *vm, t_process *cur)
 {
 	int 		i;
-	u_int16_t	t_ind;
+	short	t_ind;
 
 	i = -1;
 	if (IS_DIR_S(vm->memory[(cur->pc + 1) % MEM_SIZE ]) && IS_REG_M(vm->memory[(cur->pc + 1) % MEM_SIZE]))

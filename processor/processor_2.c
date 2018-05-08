@@ -38,7 +38,7 @@ static void		live_in_period_plaers(t_VM *vm)
 void			processor_check(t_VM *vm)
 {
 	vm->period--;
-	if (vm->period <= 1)
+	if (vm->period <= 0)
 	{
 		proccessor_kill_this(&(vm->processes), vm);
 		processor_check_2(vm);
@@ -68,10 +68,9 @@ void			processor_cycle(t_process *tmp, t_VM *vm)
 
 void			processor_wrong__id(t_process *tmp)
 {
-	
+	tmp->pc++;
 	if (tmp->pc > MEM_SIZE)
 		tmp->pc = 0;
-	tmp->pc++;
 }
 
 void		dump_memmory(t_VM *vm)

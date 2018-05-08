@@ -45,7 +45,7 @@ void	live_operation(t_VM *vm, t_process *cur)
     vm->nbr_live++;
     if (player < vm->players_qnt && player >= 0)
     {
-        vm->player[player].last_live = vm->cycle;
+        vm->player[player].last_live = vm->cycle + 1;
 		vm->player[player].live_cur_period++;
 		vm->winner = player;
         print_live(vm, player, cur);
