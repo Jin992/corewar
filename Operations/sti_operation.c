@@ -35,7 +35,7 @@ int  check_register(t_VM *vm, t_process *cur)
 		if ((if_good_reg_end(vm, cur, 4)) == 0)
 			return (0);
 	}
-	else if ((if_good_reg_end(vm, cur, 5)) == 0)
+	else if ((if_good_reg_end(vm, cur, 6)) == 0)
 		return (0);
 	return (1);
 }
@@ -50,7 +50,7 @@ void sti_operation(t_VM *vm, t_process *cur)
 
 		i = 0;
 		pc = vm->memory[overla(cur->pc + 1)];
-		int pos = vm->memory[(cur->pc + 2)];
+		int pos = vm->memory[(cur->pc + 2) % MEM_SIZE];
 		if (IS_REG_S(vm->memory[overla(cur->pc + 1)]) && !IS_IND_M(vm->memory[overla(cur->pc + 1)]))
 		{
 			shift = 2;

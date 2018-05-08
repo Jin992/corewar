@@ -33,7 +33,7 @@ void			proccessor_kill_all(t_process **begin_list)
 	}
 }
 
-void			proccessor_kill_this(t_process **begin_list)
+void			proccessor_kill_this(t_process **begin_list, t_VM *vm)
 {
 	t_process *list;
 	t_process *parent;
@@ -51,6 +51,7 @@ void			proccessor_kill_this(t_process **begin_list)
 				parent->next = list->next;
 			else
 				*begin_list = list->next;
+			vm->proceses_live--;
 			free(list);	
 		}
 		else

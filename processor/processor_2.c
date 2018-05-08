@@ -14,7 +14,7 @@
 
 static void		processor_check_2(t_VM *vm)
 {
-	if (vm->nbr_live >= NBR_LIVE || vm->max_check == MAX_CHECKS)
+	if (vm->nbr_live > NBR_LIVE || vm->max_check == MAX_CHECKS)
 	{
 		vm->cycle_to_die -= CYCLE_DELTA;
 		vm->nbr_live = 0;
@@ -26,13 +26,23 @@ static void		processor_check_2(t_VM *vm)
 	vm->period = vm->cycle_to_die;
 }
 
+static void		live_in_period_plaers(t_VM *vm)
+{
+	int i;
+
+	i = -1;
+	while (++i < vm->players_qnt)
+		vm->player[i].live_cur_period = 0;
+}
+
 void			processor_check(t_VM *vm)
 {
 	vm->period--;
 	if (vm->period <= 1)
 	{
-		proccessor_kill_this(&(vm->processes));
+		proccessor_kill_this(&(vm->processes), vm);
 		processor_check_2(vm);
+		live_in_period_plaers(vm);
 	}
 }
 
@@ -58,9 +68,10 @@ void			processor_cycle(t_process *tmp, t_VM *vm)
 
 void			processor_wrong__id(t_process *tmp)
 {
-	tmp->pc++;
+	
 	if (tmp->pc > MEM_SIZE)
 		tmp->pc = 0;
+	tmp->pc++;
 }
 
 void		dump_memmory(t_VM *vm)
