@@ -72,6 +72,8 @@ void    move_pc(t_process *cur, t_VM *vm, int label, int params)
     //     cur->pc = (cur->pc + 2) % MEM_SIZE;
     //     return ;
     // }
+    if (params == 1)
+        cur->pc = (cur->pc + 2 + shift[0]) % MEM_SIZE;
     if (params == 2)
         cur->pc = (cur->pc + 2 + shift[0] + shift[1]) % MEM_SIZE;
     else
