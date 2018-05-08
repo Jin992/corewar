@@ -36,6 +36,17 @@ int		if_good_reg_midl(t_VM *vm, t_process *cur, int shift)
 	return (1);
 }
 
+int		if_good_reg_end(t_VM *vm, t_process *cur, int shift)
+{
+	if (IS_REG_E(vm->memory[overla(cur->pc + 1)]))
+	{
+		if (get_reg(vm->memory[(cur->pc + shift) % MEM_SIZE]))
+			return (1);
+		else
+			return (0);
+	}
+	return (1);
+}
 void	and_operation(t_VM *vm, t_process *cur)
 {
 	u_int32_t f1;

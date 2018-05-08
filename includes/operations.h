@@ -57,5 +57,7 @@ int     get_reg(int x);
 
 int		if_good_reg_midl(t_VM *vm, t_process *cur, int shift);
 int 	if_good_reg_start(t_VM *vm, t_process *cur);
+int		if_good_reg_end(t_VM *vm, t_process *cur, int shift);
 int 		get_idx_mod(short t_ind);
+void    move_pc_st(t_process *cur, t_VM *vm, int label, int params, int value);
 #endif
