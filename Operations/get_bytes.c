@@ -63,18 +63,28 @@ void    move_pc(t_process *cur, t_VM *vm, int label, int params)
     int shift[3];
 
     ft_bzero(shift, 3);
-
     shift[0] = check_start(vm->memory[(cur->pc + 1) % MEM_SIZE], label);
     shift[1] = check_middle(vm->memory[(cur->pc + 1) % MEM_SIZE], label);
     shift[2] = check_end(vm->memory[(cur->pc + 1) % MEM_SIZE], label);
-    // if (shift[0] == 0 || shift[1] == 0 || shift[2] == 0)
-    // {
-    //     cur->pc = (cur->pc + 2) % MEM_SIZE;
-    //     return ;
-    // }
     if (params == 1)
         cur->pc = (cur->pc + 2 + shift[0]) % MEM_SIZE;
-    if (params == 2)
+    else if (params == 2)
+        cur->pc = (cur->pc + 2 + shift[0] + shift[1]) % MEM_SIZE;
+    else
+        cur->pc = (cur->pc + 2 + shift[0] + shift[1] + shift[2]) % MEM_SIZE;
+}
+
+void    move_pc_st(t_process *cur, t_VM *vm, int label, int params, int value)
+{
+    int shift[3];
+
+    ft_bzero(shift, 3);
+    shift[0] = check_start(value, label);
+    shift[1] = check_middle(value, label);
+    shift[2] = check_end(value, label);
+    if (params == 1)
+        cur->pc = (cur->pc + 2 + shift[0]) % MEM_SIZE;
+    else if (params == 2)
         cur->pc = (cur->pc + 2 + shift[0] + shift[1]) % MEM_SIZE;
     else
         cur->pc = (cur->pc + 2 + shift[0] + shift[1] + shift[2]) % MEM_SIZE;
