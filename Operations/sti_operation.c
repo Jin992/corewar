@@ -50,7 +50,7 @@ void sti_operation(t_VM *vm, t_process *cur)
 		{
 			shift = 3;
 			f2 = get_2_bytes(vm, vm->memory[overla(get_2_bytes(vm, overla(cur->pc + 3)))]);
-			f3 = second_operand_2(vm, cur, &shift);
+			f3 = get_idx_mod(second_operand_2(vm, cur, &shift));
 			if (get_reg((vm->memory[overla(cur->pc + 2)])))
 				while (i < REG_SIZE)
 				{
