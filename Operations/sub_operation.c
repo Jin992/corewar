@@ -21,7 +21,7 @@ void sub_operation(t_VM *vm, t_process *cur)
 	ft_bzero(bytes, 4);
 	if (IS_REG_S(vm->memory[cur->pc + 1]) && IS_REG_M(vm->memory[cur->pc + 1]) && IS_REG_E(vm->memory[cur->pc + 1]))
 	{
-        if (get_reg(vm->memory[(cur->pc + 4) % MEM_SIZE]) && get_reg(vm->memory[(cur->pc + 3) % MEM_SIZE]) && get_reg(vm->memory[(cur->pc + 4) % MEM_SIZE]))
+        if (get_reg(vm->memory[(cur->pc + 2) % MEM_SIZE]) && get_reg(vm->memory[(cur->pc + 3) % MEM_SIZE]) && get_reg(vm->memory[(cur->pc + 4) % MEM_SIZE]))
         {
 			res = REVERSE_4_BYTES(*(u_int32_t*)&cur->reg[vm->memory[(cur->pc + 2) % MEM_SIZE] - 1]) - REVERSE_4_BYTES(*(u_int32_t*)&cur->reg[vm->memory[(cur->pc + 3) % MEM_SIZE] - 1]);
 			bytes[0] = (res >> 24) & 0xFF;

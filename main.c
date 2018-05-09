@@ -33,7 +33,7 @@ static void	init_vm(t_VM *local, int argc, char **argv)
 	local->dump = -1;
 	local->wait = 0;
 	local->space = 0;
-	local->winner = 0;
+	
 	local->print_reg = NULL;
 	local->speed = NORMAL_SPEED;
 	ft_memset(local->empty, 0, 4);
@@ -49,6 +49,7 @@ int main(int argc, char **argv)
 	ft_memset(local.memory, 0, MEM_SIZE);
 	ft_memset(local.memory_color, 0, MEM_SIZE);
 	load_players_to_memory(&local);
+	local.winner = local.players_qnt - 1;
 	if (local.dump == 0)
 	{
 		local.dump = 1;

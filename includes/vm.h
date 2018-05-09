@@ -29,6 +29,7 @@ typedef struct	s_VM 		t_VM;
 struct					s_process
 {
 	int					pc;
+	int    				op_nbr;
 	int 				timer;
 	void				(*op)(t_VM *vm, t_process *cur);
 	int 				color;

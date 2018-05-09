@@ -69,7 +69,7 @@ void			processor_cycle(t_process *tmp, t_VM *vm)
 void			processor_wrong__id(t_process *tmp)
 {
 	tmp->pc++;
-	if (tmp->pc > MEM_SIZE)
+	if (tmp->pc == MEM_SIZE)
 		tmp->pc = 0;
 }
 

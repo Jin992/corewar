@@ -51,7 +51,7 @@ void			processor_create(int color, int pc, t_VM *vm)
 	t_process *new;
 	t_process *tmp;
 
-	new = (t_process*)malloc(sizeof(t_process) * 1);
+	new = (t_process*)ft_memalloc(sizeof(t_process) * 1);
 	processor_init(color, pc, new);
 	if (!(vm->processes))
 		vm->processes = new;
@@ -61,9 +61,6 @@ void			processor_create(int color, int pc, t_VM *vm)
 		vm->processes = new;
 	}
 }
-	// tmp =  vm->processes;
-	// 	while (tmp->next)
-	// 		tmp = tmp->next;
-	// 	tmp->next = new;
+
 
 

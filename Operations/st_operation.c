@@ -17,8 +17,9 @@ void st_operation(t_VM *vm, t_process *cur)
 	int i;
 	int pos;
 	short t_ind;
-
+	int pc;
 	i = -1;
+	pc = vm->memory[overla(cur->pc + 1)];
 	pos = vm->memory[(cur->pc + 2) % MEM_SIZE] - 1;
 	if (IS_REG_S(vm->memory[(cur->pc + 1) % MEM_SIZE]) && IS_REG_M(vm->memory[(cur->pc + 1) % MEM_SIZE]))
 	{
@@ -38,5 +39,5 @@ void st_operation(t_VM *vm, t_process *cur)
 			}
 		}
 	}
-	move_pc(cur, vm, 0, 2);
+	move_pc_st(cur, vm, 0, 2, pc);
 }

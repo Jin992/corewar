@@ -58,7 +58,7 @@ void	and_operation(t_VM *vm, t_process *cur)
 	{
 		f1 = first_operand(vm, cur, &shift);
 		f2 = second_operand(vm, cur, &shift);
-		if (if_good_reg_start(vm, cur) && if_good_reg_midl(vm, cur, shift))
+		if (if_good_reg_start(vm, cur) && if_good_reg_midl(vm, cur, shift) && if_good_reg_end(vm, cur, shift + 1))
 		{
 			load_to_reg(cur, (int) vm->memory[overla(cur->pc + shift + 1)] - 1, f1 & f2);
 			if ((f1 & f2) == 0)

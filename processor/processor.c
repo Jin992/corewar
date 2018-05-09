@@ -35,6 +35,7 @@ static void	processor_move(t_VM *vm)
 			if (vm->memory[tmp->pc] >= 1 && vm->memory[tmp->pc] <= 16)
 			{
 				tmp->op = g_operations[vm->memory[tmp->pc]];
+				tmp->op_nbr = vm->memory[tmp->pc];
 				tmp->timer = g_op_cycles[vm->memory[tmp->pc]];
 			}
 			else
@@ -68,6 +69,7 @@ void		processor_normal(t_VM *vm)
 		processor_move(vm);
 		processor_check(vm);
 		vm->cycle++;
+		// dprintf(2, "%d\n", vm->cycle);
 	}
 	winner(vm);
 }

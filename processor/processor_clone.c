@@ -44,7 +44,7 @@ void			processor_clone(t_VM *vm, t_process *clone, int pc)
 	t_process *new;
 	t_process *tmp;
 
-	new = (t_process*)malloc(sizeof(t_process) * 1);
+	new = (t_process*)ft_memalloc(sizeof(t_process) * 1);
 	processor_clone_init(new, clone, pc);
     vm->proceses_live++;
 	if (!(vm->processes))

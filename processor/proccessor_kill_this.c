@@ -19,8 +19,9 @@ void			proccessor_kill_this(t_process **begin_list, t_VM *vm)
 	t_process *tmp;
 
 	list = *begin_list;
-	parent = 0;
-	tmp = 0;
+	parent = NULL;
+	tmp = NULL;
+
 	while (list)
 	{
 		tmp = list;
